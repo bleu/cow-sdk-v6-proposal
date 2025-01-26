@@ -1,0 +1,10 @@
+{
+  "extends": "@cowprotocol/typescript-config/base.json",
+  "include": ["./src"],
+  "compilerOptions": {
+    "paths": {
+      "@cow-common/*": ["./src/*"]
+    }
+  },
+  "exclude": ["dist", "build", "node_modules"]
+}

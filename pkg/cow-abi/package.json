@@ -1,0 +1,14 @@
+{
+  "name": "@cowprotocol/abi",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "ComposableCoW.json",
+    "CoWShed.json",
+    "CoWShedFactory.json",
+    "EthFlow.json",
+    "ExtensibleFallbackHandler.json",
+    "GPv2Settlement.json",
+    "TWAP.json"
+  ]
+}
