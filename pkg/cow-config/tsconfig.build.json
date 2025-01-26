@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "typeRoots": ["../../node_modules/@types", "node_modules/@types"],
+    "paths": {
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"]
+    }
+  },
+  "references": [{ "path": "../cow-common/tsconfig.build.json" }]
+}

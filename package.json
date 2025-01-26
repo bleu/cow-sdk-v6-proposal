@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:ci": "turbo run test:ci --",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
+    "eslint": "^8.57.0",
+    "nyc": "^15.1.0",
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.4"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "name": "@cowprotocol/sdk-monorepo",
+  "dependencies": {
+    "tslib": "^2.8.1"
+  }
+}

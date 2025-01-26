@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "types": ["jest", "node"],
+    "typeRoots": ["../../node_modules/@types", "node_modules/@types"]
+  },
+  "references": []
+}

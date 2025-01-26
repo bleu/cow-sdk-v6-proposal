@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "types": ["jest", "node"],
+    "typeRoots": ["../../node_modules/@types", "node_modules/@types"],
+    "paths": {
+      "@cowprotocol/trading/*": ["../../pkg/cow-trading/src/*"],
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
+      "@cowprotocol/cow-config": ["../../pkg/cow-config/src"],
+      "@cowprotocol/cow-config/*": ["../../pkg/cow-config/src/*"],
+      "@cowprotocol/sdk-ethers-v5": ["../../pkg/cow-sdk-ethers-v5/src"],
+      "@cowprotocol/sdk-ethers-v5/*": ["../../pkg/cow-sdk-ethers-v5/src/*"],
+      "@cowprotocol/order-book": ["../../pkg/cow-order-book/src"],
+      "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
+      "@cowprotocol/order-signing": ["../../pkg/cow-order-signing/src"],
+      "@cowprotocol/order-signing/*": ["../../pkg/cow-order-signing/src/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
+  "references": [
+    { "path": "../cow-common/tsconfig.build.json" },
+    { "path": "../cow-composable/tsconfig.build.json" },
+    { "path": "../cow-order-book/tsconfig.build.json" },
+    { "path": "../cow-order-signing/tsconfig.build.json" },
+    { "path": "../cow-sdk-ethers-v5/tsconfig.build.json" }
+  ]
+}

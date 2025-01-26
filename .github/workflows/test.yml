@@ -1,0 +1,150 @@
+name: Unit tests & Coverage
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  NODE_VERSION: lts/hydrogen
+  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: Run tests and generate coverage reports
+        if: github.event_name == 'pull_request'
+        run: |
+          # Run tests for all packages with tests
+          for pkg in cow-composable cow-order-book cow-trading cow-subgraph cow-shed cow-order-signing; do
+            echo "Running tests for $pkg"
+            cd pkg/$pkg
+            mkdir -p coverage
+            pnpm run test:ci
+            cd ../..
+          done
+
+      - name: Generate coverage report for cow-composable
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-composable
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-composable"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-order-book
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-order-book
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-order-book"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-trading
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-trading
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-trading"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-subgraph
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-subgraph
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-subgraph"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-shed
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-shed
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-shed"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-order-signing
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-order-signing
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-order-signing"
+          annotations: coverage
+          output: comment, report-markdown
