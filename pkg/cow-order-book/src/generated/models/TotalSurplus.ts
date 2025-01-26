@@ -7,9 +7,8 @@
  *
  */
 export type TotalSurplus = {
-    /**
-     * The total surplus.
-     */
-    totalSurplus?: string;
-};
-
+  /**
+   * The total surplus.
+   */
+  totalSurplus?: string
+}

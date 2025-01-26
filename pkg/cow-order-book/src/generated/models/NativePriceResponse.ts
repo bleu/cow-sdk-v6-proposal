@@ -7,9 +7,8 @@
  *
  */
 export type NativePriceResponse = {
-    /**
-     * Estimated price of the token.
-     */
-    price?: number;
-};
-
+  /**
+   * Estimated price of the token.
+   */
+  price?: number
+}

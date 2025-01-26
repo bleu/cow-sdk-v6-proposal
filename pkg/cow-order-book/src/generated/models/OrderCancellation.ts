@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { EcdsaSignature } from './EcdsaSignature';
-import type { EcdsaSigningScheme } from './EcdsaSigningScheme';
+import type { EcdsaSignature } from './EcdsaSignature'
+import type { EcdsaSigningScheme } from './EcdsaSigningScheme'
 
 /**
  * [EIP-712](https://eips.ethereum.org/EIPS/eip-712) signature of struct
@@ -11,10 +11,9 @@ import type { EcdsaSigningScheme } from './EcdsaSigningScheme';
  *
  */
 export type OrderCancellation = {
-    /**
-     * OrderCancellation signed by owner
-     */
-    signature: EcdsaSignature;
-    signingScheme: EcdsaSigningScheme;
-};
-
+  /**
+   * OrderCancellation signed by owner
+   */
+  signature: EcdsaSignature
+  signingScheme: EcdsaSigningScheme
+}

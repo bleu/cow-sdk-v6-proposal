@@ -1,6 +1,6 @@
-import { ETH_ADDRESS } from "@cowprotocol/common/consts";
-import { Order } from "./generated";
-import { EnrichedOrder } from "./types";
+import { ETH_ADDRESS } from '@cowprotocol/common/consts'
+import { Order } from './generated'
+import { EnrichedOrder } from './types'
 
 /**
  * Apply programmatic transformations to an order.
@@ -10,7 +10,7 @@ import { EnrichedOrder } from "./types";
  * @returns An order with the total fee added.
  */
 export function transformOrder(order: Order): EnrichedOrder {
-  return transformEthFlowOrder(addTotalFeeToOrder(order));
+  return transformEthFlowOrder(addTotalFeeToOrder(order))
 }
 
 /**
@@ -27,17 +27,17 @@ export function transformOrder(order: Order): EnrichedOrder {
  * @returns The order with the total fee added.
  */
 function addTotalFeeToOrder(dto: Order): EnrichedOrder {
-  const { executedFeeAmount, executedFee } = dto;
+  const { executedFeeAmount, executedFee } = dto
 
-  const _executedFeeAmount = BigInt(executedFeeAmount || "0");
-  const _executedFee = BigInt(executedFee || "0");
+  const _executedFeeAmount = BigInt(executedFeeAmount || '0')
+  const _executedFee = BigInt(executedFee || '0')
 
-  const totalFee = String(_executedFeeAmount + _executedFee);
+  const totalFee = String(_executedFeeAmount + _executedFee)
 
   return {
     ...dto,
     totalFee,
-  };
+  }
 }
 
 /**
@@ -50,15 +50,15 @@ function addTotalFeeToOrder(dto: Order): EnrichedOrder {
  * - validTo set to `ethflowData.userValidTo`
  */
 function transformEthFlowOrder(order: EnrichedOrder): EnrichedOrder {
-  const { ethflowData } = order;
+  const { ethflowData } = order
 
   if (!ethflowData) {
-    return order;
+    return order
   }
 
-  const { userValidTo: validTo } = ethflowData;
-  const owner = order.onchainUser || order.owner;
-  const sellToken = ETH_ADDRESS;
+  const { userValidTo: validTo } = ethflowData
+  const owner = order.onchainUser || order.owner
+  const sellToken = ETH_ADDRESS
 
-  return { ...order, validTo, owner, sellToken };
+  return { ...order, validTo, owner, sellToken }
 }

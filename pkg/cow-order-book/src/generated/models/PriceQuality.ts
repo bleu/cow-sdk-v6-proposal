@@ -14,7 +14,7 @@
  * price estimates.
  */
 export enum PriceQuality {
-    FAST = 'fast',
-    OPTIMAL = 'optimal',
-    VERIFIED = 'verified',
+  FAST = 'fast',
+  OPTIMAL = 'optimal',
+  VERIFIED = 'verified',
 }

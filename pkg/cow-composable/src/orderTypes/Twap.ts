@@ -1,6 +1,6 @@
-import { BigNumber, constants, utils } from "ethers";
+import { BigNumber, constants, utils } from 'ethers'
 
-import { ConditionalOrder } from "../../ConditionalOrder";
+import { ConditionalOrder } from '../../ConditionalOrder'
 import {
   ConditionalOrderArguments,
   ConditionalOrderParams,
@@ -10,34 +10,28 @@ import {
   PollParams,
   PollResultCode,
   PollResultErrors,
-} from "../../types";
-import {
-  encodeParams,
-  formatEpoch,
-  getBlockInfo,
-  isValidAbi,
-} from "../../utils";
-import { GPv2Order } from "../../common/generated/ComposableCoW";
+} from '../../types'
+import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../../utils'
+import { GPv2Order } from '../../common/generated/ComposableCoW'
 
 // The type of Conditional Order
-const TWAP_ORDER_TYPE = "twap";
+const TWAP_ORDER_TYPE = 'twap'
 // The address of the TWAP handler contract
-export const TWAP_ADDRESS = "0x6cF1e9cA41f7611dEf408122793c358a3d11E5a5";
+export const TWAP_ADDRESS = '0x6cF1e9cA41f7611dEf408122793c358a3d11E5a5'
 /**
  * The address of the `CurrentBlockTimestampFactory` contract
  *
  * **NOTE**: This is used in the event that TWAP's have a `t0` of `0`.
  */
-export const CURRENT_BLOCK_TIMESTAMP_FACTORY_ADDRESS =
-  "0x52eD56Da04309Aca4c3FECC595298d80C2f16BAc";
+export const CURRENT_BLOCK_TIMESTAMP_FACTORY_ADDRESS = '0x52eD56Da04309Aca4c3FECC595298d80C2f16BAc'
 
-export const MAX_UINT32 = BigNumber.from(2).pow(32).sub(1); // 2^32 - 1
-export const MAX_FREQUENCY = BigNumber.from(365 * 24 * 60 * 60); // 1 year
+export const MAX_UINT32 = BigNumber.from(2).pow(32).sub(1) // 2^32 - 1
+export const MAX_FREQUENCY = BigNumber.from(365 * 24 * 60 * 60) // 1 year
 
 // Define the ABI tuple for the TWAPData struct
 const TWAP_STRUCT_ABI = [
-  "tuple(address sellToken, address buyToken, address receiver, uint256 partSellAmount, uint256 minPartLimit, uint256 t0, uint256 n, uint256 t, uint256 span, bytes32 appData)",
-];
+  'tuple(address sellToken, address buyToken, address receiver, uint256 partSellAmount, uint256 minPartLimit, uint256 t0, uint256 n, uint256 t, uint256 span, bytes32 appData)',
+]
 
 /**
  * Base parameters for a TWAP order. Shared by:
@@ -48,17 +42,17 @@ export type TwapDataBase = {
   /**
    * which token to sell
    */
-  readonly sellToken: string;
+  readonly sellToken: string
 
   /**
    * which token to buy
    */
-  readonly buyToken: string;
+  readonly buyToken: string
 
   /**
    * who to send the tokens to
    */
-  readonly receiver: string;
+  readonly receiver: string
 
   /**
    * Meta-data associated with the order. Normally would be the keccak256 hash of the document generated in http://github.com/cowprotocol/app-data
@@ -66,8 +60,8 @@ export type TwapDataBase = {
    * This hash should have been uploaded to the API https://api.cow.fi/docs/#/default/put_api_v1_app_data__app_data_hash_ and potentially to other data availability protocols like IPFS.
    *
    */
-  readonly appData: string;
-};
+  readonly appData: string
+}
 
 /**
  * Parameters for a TWAP order, as expected by the contract's `staticInput`.
@@ -76,32 +70,32 @@ export interface TwapStruct extends TwapDataBase {
   /**
    * amount of sellToken to sell in each part
    */
-  readonly partSellAmount: BigNumber;
+  readonly partSellAmount: BigNumber
 
   /**
    * minimum amount of buyToken that must be bought in each part
    */
-  readonly minPartLimit: BigNumber;
+  readonly minPartLimit: BigNumber
 
   /**
    * start time of the TWAP
    */
-  readonly t0: BigNumber;
+  readonly t0: BigNumber
 
   /**
    * number of parts
    */
-  readonly n: BigNumber;
+  readonly n: BigNumber
 
   /**
    * duration of the TWAP interval
    */
-  readonly t: BigNumber;
+  readonly t: BigNumber
 
   /**
    * whether the TWAP is valid for the entire interval or not
    */
-  readonly span: BigNumber;
+  readonly span: BigNumber
 }
 
 /**
@@ -113,65 +107,65 @@ export interface TwapData extends TwapDataBase {
   /**
    * total amount of sellToken to sell across the entire TWAP
    */
-  readonly sellAmount: BigNumber;
+  readonly sellAmount: BigNumber
 
   /**
    * minimum amount of buyToken that must be bought across the entire TWAP
    */
-  readonly buyAmount: BigNumber;
+  readonly buyAmount: BigNumber
 
   /**
    * start time of the TWAP
    */
-  readonly startTime?: StartTime;
+  readonly startTime?: StartTime
 
   /**
    * number of parts
    */
-  readonly numberOfParts: BigNumber;
+  readonly numberOfParts: BigNumber
 
   /**
    * duration of the TWAP interval
    */
-  readonly timeBetweenParts: BigNumber;
+  readonly timeBetweenParts: BigNumber
 
   /**
    * whether the TWAP is valid for the entire interval or not
    */
-  readonly durationOfPart?: DurationOfPart;
+  readonly durationOfPart?: DurationOfPart
 }
 
 export type DurationOfPart =
   | { durationType: DurationType.AUTO }
-  | { durationType: DurationType.LIMIT_DURATION; duration: BigNumber };
+  | { durationType: DurationType.LIMIT_DURATION; duration: BigNumber }
 
 export enum DurationType {
-  AUTO = "AUTO",
-  LIMIT_DURATION = "LIMIT_DURATION",
+  AUTO = 'AUTO',
+  LIMIT_DURATION = 'LIMIT_DURATION',
 }
 
 export type StartTime =
   | { startType: StartTimeValue.AT_MINING_TIME }
-  | { startType: StartTimeValue.AT_EPOCH; epoch: BigNumber };
+  | { startType: StartTimeValue.AT_EPOCH; epoch: BigNumber }
 
 export enum StartTimeValue {
-  AT_MINING_TIME = "AT_MINING_TIME",
-  AT_EPOCH = "AT_EPOCH",
+  AT_MINING_TIME = 'AT_MINING_TIME',
+  AT_EPOCH = 'AT_EPOCH',
 }
 
 const DEFAULT_START_TIME: StartTime = {
   startType: StartTimeValue.AT_MINING_TIME,
-};
+}
 const DEFAULT_DURATION_OF_PART: DurationOfPart = {
   durationType: DurationType.AUTO,
-};
+}
 
 /**
  * `ComposableCoW` implementation of a TWAP order.
  * @author mfw78 <mfw78@rndlabs.xyz>
  */
 export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
-  isSingleOrder = true;
+  isSingleOrder = true
 
   /**
    * @see {@link ConditionalOrder.constructor}
@@ -180,16 +174,13 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @throws If the handler is not the TWAP address.
    */
   constructor(params: ConditionalOrderArguments<TwapData>) {
-    const { handler, salt, data: staticInput, hasOffChainInput } = params;
+    const { handler, salt, data: staticInput, hasOffChainInput } = params
 
     // First, verify that the handler is the TWAP address
-    if (handler !== TWAP_ADDRESS)
-      throw new Error(
-        `InvalidHandler: Expected: ${TWAP_ADDRESS}, provided: ${handler}`
-      );
+    if (handler !== TWAP_ADDRESS) throw new Error(`InvalidHandler: Expected: ${TWAP_ADDRESS}, provided: ${handler}`)
 
     // Third, construct the base class using transformed parameters
-    super({ handler: TWAP_ADDRESS, salt, data: staticInput, hasOffChainInput });
+    super({ handler: TWAP_ADDRESS, salt, data: staticInput, hasOffChainInput })
   }
 
   /**
@@ -198,7 +189,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns An instance of the TWAP order.
    */
   static fromData(data: TwapData, salt?: string): Twap {
-    return new Twap({ handler: TWAP_ADDRESS, data, salt });
+    return new Twap({ handler: TWAP_ADDRESS, data, salt })
   }
 
   /**
@@ -207,7 +198,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns An instance of the TWAP order.
    */
   static fromParams(params: ConditionalOrderParams): Twap {
-    return Twap.deserialize(encodeParams(params));
+    return Twap.deserialize(encodeParams(params))
   }
 
   /**
@@ -217,12 +208,12 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    */
   get context(): ContextFactory | undefined {
     if (this.staticInput.t0.gt(0)) {
-      return super.context;
+      return super.context
     } else {
       return {
         address: CURRENT_BLOCK_TIMESTAMP_FACTORY_ADDRESS,
         factoryArgs: undefined,
-      };
+      }
     }
   }
 
@@ -230,7 +221,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @inheritdoc {@link ConditionalOrder.orderType}
    */
   get orderType(): string {
-    return TWAP_ORDER_TYPE;
+    return TWAP_ORDER_TYPE
   }
 
   /**
@@ -251,79 +242,56 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
         numberOfParts,
         timeBetweenParts,
         durationOfPart = DEFAULT_DURATION_OF_PART,
-      } = this.data;
+      } = this.data
 
       // Verify that the order params are logically valid
-      if (!(sellToken != buyToken)) return "InvalidSameToken";
-      if (
-        !(
-          sellToken != constants.AddressZero &&
-          buyToken != constants.AddressZero
-        )
-      )
-        return "InvalidToken";
-      if (!sellAmount.gt(constants.Zero)) return "InvalidSellAmount";
-      if (!buyAmount.gt(constants.Zero)) return "InvalidMinBuyAmount";
+      if (!(sellToken != buyToken)) return 'InvalidSameToken'
+      if (!(sellToken != constants.AddressZero && buyToken != constants.AddressZero)) return 'InvalidToken'
+      if (!sellAmount.gt(constants.Zero)) return 'InvalidSellAmount'
+      if (!buyAmount.gt(constants.Zero)) return 'InvalidMinBuyAmount'
       if (startTime.startType === StartTimeValue.AT_EPOCH) {
-        const t0 = startTime.epoch;
-        if (!(t0.gte(constants.Zero) && t0.lt(MAX_UINT32)))
-          return "InvalidStartTime";
+        const t0 = startTime.epoch
+        if (!(t0.gte(constants.Zero) && t0.lt(MAX_UINT32))) return 'InvalidStartTime'
       }
-      if (!(numberOfParts.gt(constants.One) && numberOfParts.lte(MAX_UINT32)))
-        return "InvalidNumParts";
-      if (
-        !(
-          timeBetweenParts.gt(constants.Zero) &&
-          timeBetweenParts.lte(MAX_FREQUENCY)
-        )
-      )
-        return "InvalidFrequency";
+      if (!(numberOfParts.gt(constants.One) && numberOfParts.lte(MAX_UINT32))) return 'InvalidNumParts'
+      if (!(timeBetweenParts.gt(constants.Zero) && timeBetweenParts.lte(MAX_FREQUENCY))) return 'InvalidFrequency'
       if (durationOfPart.durationType === DurationType.LIMIT_DURATION) {
-        if (!durationOfPart.duration.lte(timeBetweenParts))
-          return "InvalidSpan";
+        if (!durationOfPart.duration.lte(timeBetweenParts)) return 'InvalidSpan'
       }
 
       // Verify that the staticInput derived from the data is ABI-encodable
-      if (!isValidAbi(TWAP_STRUCT_ABI, [this.staticInput]))
-        return "InvalidData";
+      if (!isValidAbi(TWAP_STRUCT_ABI, [this.staticInput])) return 'InvalidData'
 
       // No errors
-      return undefined;
-    })();
+      return undefined
+    })()
 
-    return error ? { isValid: false, reason: error } : { isValid: true };
+    return error ? { isValid: false, reason: error } : { isValid: true }
   }
 
   protected async startTimestamp(params: OwnerContext): Promise<number> {
-    const { startTime } = this.data;
+    const { startTime } = this.data
 
     if (startTime?.startType === StartTimeValue.AT_EPOCH) {
-      return startTime.epoch.toNumber();
+      return startTime.epoch.toNumber()
     }
 
-    const cabinet = await this.cabinet(params);
-    const rawCabinetEpoch = utils.defaultAbiCoder.decode(
-      ["uint256"],
-      cabinet
-    )[0] as BigNumber;
+    const cabinet = await this.cabinet(params)
+    const rawCabinetEpoch = utils.defaultAbiCoder.decode(['uint256'], cabinet)[0] as BigNumber
 
     // Guard against out-of-range cabinet epoch
     if (rawCabinetEpoch.gt(MAX_UINT32)) {
-      throw new Error(
-        `Cabinet epoch out of range: ${rawCabinetEpoch.toString()}`
-      );
+      throw new Error(`Cabinet epoch out of range: ${rawCabinetEpoch.toString()}`)
     }
 
     // Convert the cabinet epoch (bignumber) to a number.
-    const cabinetEpoch = rawCabinetEpoch.toNumber();
+    const cabinetEpoch = rawCabinetEpoch.toNumber()
 
     if (cabinetEpoch === 0) {
-      throw new Error(
-        "Cabinet is not set. Required for TWAP orders that start at mining time."
-      );
+      throw new Error('Cabinet is not set. Required for TWAP orders that start at mining time.')
     }
 
-    return cabinetEpoch;
+    return cabinetEpoch
   }
 
   /**
@@ -336,23 +304,13 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns The timestamp at which the TWAP will end.
    */
   protected endTimestamp(startTimestamp: number): number {
-    const { numberOfParts, timeBetweenParts, durationOfPart } = this.data;
+    const { numberOfParts, timeBetweenParts, durationOfPart } = this.data
 
-    if (
-      durationOfPart &&
-      durationOfPart.durationType === DurationType.LIMIT_DURATION
-    ) {
-      return (
-        startTimestamp +
-        numberOfParts
-          .sub(1)
-          .mul(timeBetweenParts)
-          .add(durationOfPart.duration)
-          .toNumber()
-      );
+    if (durationOfPart && durationOfPart.durationType === DurationType.LIMIT_DURATION) {
+      return startTimestamp + numberOfParts.sub(1).mul(timeBetweenParts).add(durationOfPart.duration).toNumber()
     }
 
-    return startTimestamp + numberOfParts.mul(timeBetweenParts).toNumber();
+    return startTimestamp + numberOfParts.mul(timeBetweenParts).toNumber()
   }
 
   /**
@@ -363,14 +321,12 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @param provider An RPC provider for the chain.
    * @returns true if the owner authorized the order, false otherwise.
    */
-  protected async pollValidate(
-    params: PollParams
-  ): Promise<PollResultErrors | undefined> {
-    const { blockInfo = await getBlockInfo(params.provider) } = params;
-    const { blockTimestamp } = blockInfo;
+  protected async pollValidate(params: PollParams): Promise<PollResultErrors | undefined> {
+    const { blockInfo = await getBlockInfo(params.provider) } = params
+    const { blockTimestamp } = blockInfo
 
     try {
-      const startTimestamp = await this.startTimestamp(params);
+      const startTimestamp = await this.startTimestamp(params)
 
       if (startTimestamp > blockTimestamp) {
         // The start time hasn't started
@@ -378,39 +334,39 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
           result: PollResultCode.TRY_AT_EPOCH,
           epoch: startTimestamp,
           reason: `TWAP hasn't started yet. Starts at ${startTimestamp} (${formatEpoch(startTimestamp)})`,
-        };
+        }
       }
 
-      const expirationTimestamp = this.endTimestamp(startTimestamp);
+      const expirationTimestamp = this.endTimestamp(startTimestamp)
       if (blockTimestamp >= expirationTimestamp) {
         // The order has expired
         return {
           result: PollResultCode.DONT_TRY_AGAIN,
           reason: `TWAP has expired. Expired at ${expirationTimestamp} (${formatEpoch(expirationTimestamp)})`,
-        };
+        }
       }
 
-      return undefined;
+      return undefined
     } catch (err: any) {
-      if (err?.message?.includes("Cabinet is not set")) {
+      if (err?.message?.includes('Cabinet is not set')) {
         // in this case we have a firm reason to not monitor this order as the cabinet is not set
         return {
           result: PollResultCode.DONT_TRY_AGAIN,
           reason: `${err?.message}. User likely removed the order.`,
-        };
-      } else if (err?.message?.includes("Cabinet epoch out of range")) {
+        }
+      } else if (err?.message?.includes('Cabinet epoch out of range')) {
         // in this case we have a firm reason to not monitor this order as the cabinet is not set correctly
         return {
           result: PollResultCode.DONT_TRY_AGAIN,
           reason: `${err?.message}`,
-        };
+        }
       }
 
       return {
         result: PollResultCode.UNEXPECTED_ERROR,
         reason: `Unexpected error: ${err.message}`,
         error: err,
-      };
+      }
     }
   }
 
@@ -428,36 +384,31 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
     _order: GPv2Order.DataStruct,
     params: PollParams
   ): Promise<PollResultErrors | undefined> {
-    const { blockInfo = await getBlockInfo(params.provider) } = params;
-    const { blockTimestamp } = blockInfo;
+    const { blockInfo = await getBlockInfo(params.provider) } = params
+    const { blockTimestamp } = blockInfo
 
-    const timeBetweenParts = this.data.timeBetweenParts.toNumber();
-    const { numberOfParts } = this.data;
-    const startTimestamp = await this.startTimestamp(params);
+    const timeBetweenParts = this.data.timeBetweenParts.toNumber()
+    const { numberOfParts } = this.data
+    const startTimestamp = await this.startTimestamp(params)
 
     if (blockTimestamp < startTimestamp) {
       return {
         result: PollResultCode.UNEXPECTED_ERROR,
         reason: `TWAP part hash't started. First TWAP part start at ${startTimestamp} (${formatEpoch(startTimestamp)})`,
         error: undefined,
-      };
+      }
     }
-    const expireTime = numberOfParts
-      .mul(timeBetweenParts)
-      .add(startTimestamp)
-      .toNumber();
+    const expireTime = numberOfParts.mul(timeBetweenParts).add(startTimestamp).toNumber()
     if (blockTimestamp >= expireTime) {
       return {
         result: PollResultCode.UNEXPECTED_ERROR,
         reason: `TWAP is expired. Expired at ${expireTime} (${formatEpoch(expireTime)})`,
         error: undefined,
-      };
+      }
     }
 
     // Get current part number
-    const currentPartNumber = Math.floor(
-      (blockTimestamp - startTimestamp) / timeBetweenParts
-    );
+    const currentPartNumber = Math.floor((blockTimestamp - startTimestamp) / timeBetweenParts)
 
     // If current part is the last one
     if (currentPartNumber === numberOfParts.toNumber() - 1) {
@@ -466,12 +417,11 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
         reason: `Current active TWAP part (${
           currentPartNumber + 1
         }/${numberOfParts}) is already in the Order Book. This was the last TWAP part, no more orders need to be placed`,
-      };
+      }
     }
 
     // Next part start time
-    const nextPartStartTime =
-      startTimestamp + (currentPartNumber + 1) * timeBetweenParts;
+    const nextPartStartTime = startTimestamp + (currentPartNumber + 1) * timeBetweenParts
 
     /**
      * Given we know, that TWAP part that is due in the current block is already in the Orderbook,
@@ -485,7 +435,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
       }/${numberOfParts}) is already in the Order Book. TWAP part ${
         currentPartNumber + 2
       } doesn't start until ${nextPartStartTime} (${formatEpoch(nextPartStartTime)})`,
-    };
+    }
   }
 
   /**
@@ -493,7 +443,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns {string} The ABI-encoded TWAP order.
    */
   serialize(): string {
-    return encodeParams(this.leaf);
+    return encodeParams(this.leaf)
   }
 
   /**
@@ -501,7 +451,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns {string} The ABI-encoded TWAP order.
    */
   encodeStaticInput(): string {
-    return super.encodeStaticInputHelper(TWAP_STRUCT_ABI, this.staticInput);
+    return super.encodeStaticInputHelper(TWAP_STRUCT_ABI, this.staticInput)
   }
 
   /**
@@ -520,7 +470,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
           salt,
           data: transformStructToData(struct),
         })
-    );
+    )
   }
 
   /**
@@ -539,16 +489,12 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
       durationOfPart = DEFAULT_DURATION_OF_PART,
       receiver,
       appData,
-    } = this.data;
+    } = this.data
 
     const startTimeFormatted =
-      startTime.startType === StartTimeValue.AT_MINING_TIME
-        ? "AT_MINING_TIME"
-        : startTime.epoch.toNumber();
+      startTime.startType === StartTimeValue.AT_MINING_TIME ? 'AT_MINING_TIME' : startTime.epoch.toNumber()
     const durationOfPartFormatted =
-      durationOfPart.durationType === DurationType.AUTO
-        ? "AUTO"
-        : durationOfPart.duration.toNumber();
+      durationOfPart.durationType === DurationType.AUTO ? 'AUTO' : durationOfPart.duration.toNumber()
 
     const details = {
       sellAmount: sellAmount.toString(),
@@ -561,9 +507,9 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
       durationOfPart: durationOfPartFormatted,
       receiver,
       appData,
-    };
+    }
 
-    return `${this.orderType} (${this.id}): ${JSON.stringify(details)}`;
+    return `${this.orderType} (${this.id}): ${JSON.stringify(details)}`
   }
 
   /**
@@ -573,7 +519,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns {TwapStruct} A formatted struct as expected by the smart contract.
    */
   transformDataToStruct(data: TwapData): TwapStruct {
-    return transformDataToStruct(data);
+    return transformDataToStruct(data)
   }
 
   /**
@@ -583,7 +529,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    * @returns {TwapStruct} A formatted struct as expected by the smart contract.
    */
   transformStructToData(struct: TwapStruct): TwapData {
-    return transformStructToData(struct);
+    return transformStructToData(struct)
   }
 }
 
@@ -602,7 +548,7 @@ export function transformDataToStruct(data: TwapData): TwapStruct {
     timeBetweenParts,
     durationOfPart = DEFAULT_DURATION_OF_PART,
     ...rest
-  } = data;
+  } = data
 
   const { partSellAmount, minPartLimit } =
     numberOfParts && !numberOfParts.isZero()
@@ -613,16 +559,10 @@ export function transformDataToStruct(data: TwapData): TwapStruct {
       : {
           partSellAmount: constants.Zero,
           minPartLimit: constants.Zero,
-        };
+        }
 
-  const span =
-    durationOfPart.durationType === DurationType.AUTO
-      ? constants.Zero
-      : durationOfPart.duration;
-  const t0 =
-    startTime.startType === StartTimeValue.AT_MINING_TIME
-      ? constants.Zero
-      : startTime.epoch;
+  const span = durationOfPart.durationType === DurationType.AUTO ? constants.Zero : durationOfPart.duration
+  const t0 = startTime.startType === StartTimeValue.AT_MINING_TIME ? constants.Zero : startTime.epoch
 
   return {
     partSellAmount,
@@ -632,7 +572,7 @@ export function transformDataToStruct(data: TwapData): TwapStruct {
     t: timeBetweenParts,
     span,
     ...rest,
-  };
+  }
 }
 
 /**
@@ -653,15 +593,15 @@ export function transformStructToData(struct: TwapStruct): TwapData {
     buyToken,
     receiver,
     appData,
-  } = struct;
+  } = struct
 
   const durationOfPart: DurationOfPart = span.isZero()
     ? { durationType: DurationType.AUTO }
-    : { durationType: DurationType.LIMIT_DURATION, duration: span };
+    : { durationType: DurationType.LIMIT_DURATION, duration: span }
 
   const startTime: StartTime = span.isZero()
     ? { startType: StartTimeValue.AT_MINING_TIME }
-    : { startType: StartTimeValue.AT_EPOCH, epoch: startEpoch };
+    : { startType: StartTimeValue.AT_EPOCH, epoch: startEpoch }
 
   return {
     sellAmount: partSellAmount.mul(numberOfParts),
@@ -674,5 +614,5 @@ export function transformStructToData(struct: TwapStruct): TwapData {
     buyToken,
     receiver,
     appData,
-  };
+  }
 }

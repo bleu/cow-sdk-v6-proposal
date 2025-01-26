@@ -3,9 +3,20 @@
   "include": ["./src"],
   "compilerOptions": {
     "paths": {
+      "@cowprotocol/composable": ["./src/index.ts"],
       "@cowprotocol/composable/*": ["./src/*"],
       "@cowprotocol/common": ["../cow-common/src/index.ts"],
-      "@cowprotocol/common/*": ["../cow-common/src/*"]
+      "@cowprotocol/common/*": ["../cow-common/src/*"],
+      "@cowprotocol/order-book": ["../cow-order-book/src/index.ts"],
+      "@cowprotocol/subgraph": ["../cow-subgraph/src/index.ts"],
+      "@cowprotocol/order-signing": ["../cow-order-signing/src/index.ts"],
+      "@cowprotocol/cow-shed": ["../cow-shed/src/index.ts"],
+      "@cowprotocol/trading": ["../cow-trading/src/index.ts"],
+      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
+      "@cowprotocol/subgraph/*": ["../cow-subgraph/src/*"],
+      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"],
+      "@cowprotocol/cow-shed/*": ["../cow-shed/src/*"],
+      "@cowprotocol/trading/*": ["../cow-trading/src/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]

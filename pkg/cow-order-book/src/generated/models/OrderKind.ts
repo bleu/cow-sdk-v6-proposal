@@ -6,6 +6,6 @@
  * Is this order a buy or sell?
  */
 export enum OrderKind {
-    BUY = 'buy',
-    SELL = 'sell',
+  BUY = 'buy',
+  SELL = 'sell',
 }

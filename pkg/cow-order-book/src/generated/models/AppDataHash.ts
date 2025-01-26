@@ -7,4 +7,4 @@
  * It's expected to be the hash of the stringified JSON object representing the `appData`.
  *
  */
-export type AppDataHash = string;
+export type AppDataHash = string

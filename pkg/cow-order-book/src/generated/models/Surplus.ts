@@ -6,7 +6,6 @@
  * The protocol fee is taken as a percent of the surplus.
  */
 export type Surplus = {
-    factor: number;
-    maxVolumeFactor: number;
-};
-
+  factor: number
+  maxVolumeFactor: number
+}

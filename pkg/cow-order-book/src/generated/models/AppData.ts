@@ -8,4 +8,4 @@
  * [here](https://github.com/cowprotocol/app-data).
  *
  */
-export type AppData = string;
+export type AppData = string

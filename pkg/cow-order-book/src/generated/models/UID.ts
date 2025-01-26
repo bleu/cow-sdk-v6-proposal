@@ -9,4 +9,4 @@
  * Bytes 0..32 are the order digest, bytes 30..52 the owner address and
  * bytes 52..56 the expiry (`validTo`) as a `uint32` unix epoch timestamp.
  */
-export type UID = string;
+export type UID = string

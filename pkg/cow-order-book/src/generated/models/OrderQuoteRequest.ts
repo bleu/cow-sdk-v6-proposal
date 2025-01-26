@@ -2,34 +2,35 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Address } from './Address';
-import type { AppData } from './AppData';
-import type { AppDataHash } from './AppDataHash';
-import type { BuyTokenDestination } from './BuyTokenDestination';
-import type { OrderQuoteSide } from './OrderQuoteSide';
-import type { OrderQuoteValidity } from './OrderQuoteValidity';
-import type { PriceQuality } from './PriceQuality';
-import type { SellTokenSource } from './SellTokenSource';
-import type { SigningScheme } from './SigningScheme';
+import type { Address } from './Address'
+import type { AppData } from './AppData'
+import type { AppDataHash } from './AppDataHash'
+import type { BuyTokenDestination } from './BuyTokenDestination'
+import type { OrderQuoteSide } from './OrderQuoteSide'
+import type { OrderQuoteValidity } from './OrderQuoteValidity'
+import type { PriceQuality } from './PriceQuality'
+import type { SellTokenSource } from './SellTokenSource'
+import type { SigningScheme } from './SigningScheme'
 
 /**
  * Request fee and price quote.
  */
-export type OrderQuoteRequest = (OrderQuoteSide & OrderQuoteValidity & {
+export type OrderQuoteRequest = OrderQuoteSide &
+  OrderQuoteValidity & {
     /**
      * ERC-20 token to be sold
      */
-    sellToken: Address;
+    sellToken: Address
     /**
      * ERC-20 token to be bought
      */
-    buyToken: Address;
+    buyToken: Address
     /**
      * An optional address to receive the proceeds of the trade instead of the
      * `owner` (i.e. the order signer).
      *
      */
-    receiver?: Address | null;
+    receiver?: Address | null
     /**
      * AppData which will be assigned to the order.
      *
@@ -40,7 +41,7 @@ export type OrderQuoteRequest = (OrderQuoteSide & OrderQuoteValidity & {
      * When the first format is used, it's possible to provide the
      * derived appDataHash field.
      */
-    appData?: (AppData | AppDataHash);
+    appData?: AppData | AppDataHash
     /**
      * The hash of the stringified JSON appData doc.
      *
@@ -49,16 +50,15 @@ export type OrderQuoteRequest = (OrderQuoteSide & OrderQuoteValidity & {
      *
      * In case they differ, the call will fail.
      */
-    appDataHash?: AppDataHash;
-    sellTokenBalance?: SellTokenSource;
-    buyTokenBalance?: BuyTokenDestination;
-    from: Address;
-    priceQuality?: PriceQuality;
-    signingScheme?: SigningScheme;
+    appDataHash?: AppDataHash
+    sellTokenBalance?: SellTokenSource
+    buyTokenBalance?: BuyTokenDestination
+    from: Address
+    priceQuality?: PriceQuality
+    signingScheme?: SigningScheme
     /**
      * Flag to signal whether the order is intended for on-chain order placement. Only valid for non ECDSA-signed orders."
      *
      */
-    onchainOrder?: any;
-});
-
+    onchainOrder?: any
+  }

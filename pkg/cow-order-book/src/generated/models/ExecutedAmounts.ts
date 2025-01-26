@@ -2,10 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { BigUint } from './BigUint';
+import type { BigUint } from './BigUint'
 
 export type ExecutedAmounts = {
-    sell: BigUint;
-    buy: BigUint;
-};
-
+  sell: BigUint
+  buy: BigUint
+}

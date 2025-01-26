@@ -3,5 +3,5 @@
 /* eslint-disable */
 
 export enum OrderQuoteSideKindBuy {
-    BUY = 'buy',
+  BUY = 'buy',
 }

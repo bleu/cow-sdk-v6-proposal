@@ -6,6 +6,5 @@
  * The protocol fee is taken as a percent of the order volume.
  */
 export type Volume = {
-    factor: number;
-};
-
+  factor: number
+}
