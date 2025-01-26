@@ -3,7 +3,9 @@
   "include": ["./src"],
   "compilerOptions": {
     "paths": {
-      "@cow-common/*": ["./src/*"]
+      "@cowprotocol/order-signing/*": ["./src/*"],
+      "@cowprotocol/common": ["../cow-common/src/index.ts"],
+      "@cowprotocol/common/*": ["../cow-common/src/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]

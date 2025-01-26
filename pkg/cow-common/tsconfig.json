@@ -3,7 +3,7 @@
   "include": ["./src"],
   "compilerOptions": {
     "paths": {
-      "@cow-common/*": ["./src/*"]
+      "@cowprotocol/common/*": ["./src/*"]
     }
   },
   "exclude": ["dist", "build", "node_modules"]

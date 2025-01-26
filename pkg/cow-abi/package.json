@@ -10,5 +10,8 @@
     "ExtensibleFallbackHandler.json",
     "GPv2Settlement.json",
     "TWAP.json"
-  ]
+  ],
+  "scripts": {
+    "test": "jest --config ../../jest.config.js"
+  }
 }
