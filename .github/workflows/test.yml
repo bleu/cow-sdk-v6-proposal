@@ -15,30 +15,26 @@ jobs:
           access_token: ${{ github.token }}
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
 
-      - name: Yarn cache
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Yarn install
-        run: |
-          mkdir .yarncache
-          yarn install --cache-folder ./.yarncache --frozen-lockfile
-          rm -rf .yarncache
-          yarn cache clean
       - name: Run tests with coverage
-        run: yarn run test:coverage
+        run: pnpm run test:coverage
         if: env.COVERALLS_REPO_TOKEN != ''
       - name: Run tests without coverage
-        run: yarn run test
+        run: pnpm run test
         if: env.COVERALLS_REPO_TOKEN == ''
 
       - name: Comment in failing tests
