@@ -4,7 +4,6 @@
     { "path": "packages/typescript-config" },
     { "path": "pkg/cow-abi" },
     { "path": "pkg/cow-common" },
-    { "path": "pkg/cow-contracts" },
     { "path": "pkg/cow-config" },
     { "path": "pkg/cow-order-book" },
     { "path": "pkg/cow-order-signing" },

@@ -9,7 +9,7 @@
 
 "@cowprotocol/cow-sdk@^4.0.3":
   version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@cowprotocol/cow-sdk/-/cow-sdk-4.0.3.tgz#bd4da3e1821c33e6f5a29e04786aaa16c346bb02"
+  resolved "https://registry.yarnpkg.com/@cowprotocol/cow-sdk/-/sdk-4.0.3.tgz#bd4da3e1821c33e6f5a29e04786aaa16c346bb02"
   integrity sha512-bEGpHwfFpUv4he5kH99gmmJU1kZaqRH4JUCeFqIzZAxey86i+qLzVS00r3GDw5o/tKYY/0677hgusH2srr8MZw==
   dependencies:
     "@cowprotocol/contracts" "^1.4.0"

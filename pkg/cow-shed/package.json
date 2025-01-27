@@ -9,11 +9,13 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest --config ../../jest.config.js",
+    "test": "jest --config jest.config.js",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@cowprotocol/common": "workspace:^",
+    "@cowprotocol/composable": "workspace:^",
+    "@cowprotocol/sdk-ethers-v5": "workspace:^",
     "@cowprotocol/contracts": "^1.7.0",
     "@cowprotocol/order-signing": "workspace:^",
     "@ethersproject/bytes": "^5.7.0",
