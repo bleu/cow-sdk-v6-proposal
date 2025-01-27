@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "files": [
-    "ComposableCoW.json",
-    "CoWShed.json",
-    "CoWShedFactory.json",
-    "EthFlow.json",
-    "ExtensibleFallbackHandler.json",
-    "GPv2Settlement.json",
-    "TWAP.json"
+    "src/abis/ComposableCoW.json",
+    "src/abis/CoWShed.json",
+    "src/abis/CoWShedFactory.json",
+    "src/abis/EthFlow.json",
+    "src/abis/ExtensibleFallbackHandler.json",
+    "src/abis/GPv2Settlement.json",
+    "src/abis/TWAP.json",
+    "src/index.ts"
   ],
   "scripts": {
     "test": "jest --config ../../jest.config.js",

@@ -12,7 +12,6 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
       "@cowprotocol/order-signing": ["../cow-order-signing/src"],
@@ -22,7 +21,6 @@
   "references": [
     { "path": "../../packages/typescript-config" },
     { "path": "../cow-common" },
-
     { "path": "../cow-order-signing" }
   ]
 }

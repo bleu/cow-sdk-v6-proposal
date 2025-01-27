@@ -9,9 +9,20 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'turbo',
   ],
-  plugins: ['prettier', 'unused-imports'],
+  env: {
+    node: true,
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project,
+      },
+    },
+  },
+  plugins: ['prettier', 'unused-imports', 'only-warn'],
   rules: {
     'prettier/prettier': 'error',
     'no-unused-vars': 'off',
@@ -26,13 +37,7 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: [
-    'dist',
-    'node_modules',
-    'src/subgraph/graphql.ts',
-    'examples',
-    'schemas'
-  ],
+  ignorePatterns: ['dist', 'node_modules', 'src/subgraph/graphql.ts', 'examples', 'schemas'],
   overrides: [
     {
       files: ['*.js?(x)', '*.cjs?(x)', '*.mjs?(x)', '*.ts?(x)'],
