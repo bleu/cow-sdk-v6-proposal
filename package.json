@@ -5,7 +5,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "test": "jest",
-    "test:ci": "jest --ci --coverage --json --outputFile=test-results/jest.results.json",
+    "test:ci": "jest --ci --coverage --json --outputFile=./test-results/jest.results.json",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

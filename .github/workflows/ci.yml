@@ -12,19 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/hydrogen'
-
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8.15.6
-          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/hydrogen'
+          cache: 'pnpm'
 
       - name: Get pnpm store directory
         shell: bash
@@ -40,20 +37,22 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       
       - name: Install dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       
       - name: Lint
         run: pnpm run lint
       
-      - name: Build core packages
+      - name: Build packages
         run: pnpm run build --filter="@cowprotocol/*"
       
       - name: Run tests
         run: |
           mkdir -p test-results
           pnpm run test:ci
+        env:
+          JEST_JUNIT_OUTPUT_DIR: ./test-results
+          JEST_JUNIT_OUTPUT_NAME: jest.results.json
+          JEST_JUNIT_UNIQUE_OUTPUT_NAME: false
       
       - name: Build CRA example
         run: |
@@ -68,4 +67,4 @@ jobs:
         with:
           name: test-results
           path: test-results
-          if-no-files-found: ignore
+          if-no-files-found: warn
