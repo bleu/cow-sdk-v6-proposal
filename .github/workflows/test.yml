@@ -17,28 +17,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
+
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
 
-      - name: Yarn cache
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Yarn install
+      - name: Get pnpm store directory
+        shell: bash
         run: |
-          mkdir .yarncache
-          yarn install --cache-folder ./.yarncache --frozen-lockfile
-          rm -rf .yarncache
-          yarn cache clean
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Run tests with coverage
-        run: yarn run test:coverage
+        run: pnpm run test:coverage
         if: env.COVERALLS_REPO_TOKEN != ''
       - name: Run tests without coverage
-        run: yarn run test
+        run: pnpm run test
         if: env.COVERALLS_REPO_TOKEN == ''
 
       - name: Comment in failing tests
