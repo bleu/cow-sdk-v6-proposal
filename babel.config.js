@@ -1,12 +1,19 @@
 module.exports = {
   presets: [
-    ['@babel/preset-env', { targets: { node: 'current' } }],
-    '@babel/preset-typescript',
+    ['@babel/preset-env', {
+      targets: { node: 'current' },
+      modules: 'commonjs'
+    }],
+    ['@babel/preset-typescript', {
+      allowNamespaces: true,
+      allowDeclareFields: true,
+      onlyRemoveTypeImports: true
+    }]
   ],
   plugins: [
     '@babel/plugin-transform-modules-commonjs',
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-proposal-private-methods',
-    '@babel/plugin-proposal-object-rest-spread'
+    '@babel/plugin-transform-class-properties',
+    '@babel/plugin-transform-private-methods',
+    '@babel/plugin-transform-object-rest-spread'
   ]
 };

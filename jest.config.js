@@ -1,4 +1,4 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   projects: ['<rootDir>/pkg/*'],
   collectCoverage: true,
@@ -16,20 +16,19 @@ module.exports = {
     }]
   ],
   testEnvironment: 'node',
-  preset: 'ts-jest',
   transform: {
-    '^.+\\.[jt]sx?$': ['ts-jest', {
-      tsconfig: {
-        allowJs: true,
-        esModuleInterop: true,
-        module: 'commonjs',
-        moduleResolution: 'node',
-        jsx: 'react',
-        target: 'es2020',
-        resolveJsonModule: true,
-        experimentalDecorators: true,
-        emitDecoratorMetadata: true
-      }
+    '^.+\\.[jt]sx?$': ['babel-jest', {
+      presets: [
+        ['@babel/preset-env', {
+          targets: { node: 'current' },
+          modules: 'commonjs'
+        }],
+        ['@babel/preset-typescript', {
+          allowNamespaces: true,
+          allowDeclareFields: true,
+          onlyRemoveTypeImports: true
+        }]
+      ]
     }]
   },
   moduleNameMapper: {
@@ -46,12 +45,5 @@ module.exports = {
   moduleDirectories: ['node_modules', 'src', 'pkg'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
-  globals: {
-    'ts-jest': {
-      tsconfig: {
-        jsx: 'react'
-      }
-    }
-  },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };
