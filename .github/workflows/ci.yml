@@ -50,10 +50,13 @@ jobs:
         run: pnpm run build --filter="@cowprotocol/*"
       
       - name: Install required dependencies in CRA example
-        run: cd examples/cra && pnpm add @ethersproject/providers @ethersproject/contracts @cowprotocol/contracts@^1.6.0
+        run: |
+          cd examples/cra
+          pnpm add @ethersproject/providers @ethersproject/contracts @cowprotocol/contracts@^1.6.0
+          pnpm add file:../../pkg/cow-sdk
       
       - name: Build CRA example
-        run: cd examples/cra && pnpm link ../../pkg/cow-sdk && pnpm run build
+        run: cd examples/cra && pnpm run build
       
       - name: Test all packages
         run: |

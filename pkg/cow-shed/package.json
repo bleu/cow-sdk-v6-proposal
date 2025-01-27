@@ -2,14 +2,30 @@
   "name": "@cowprotocol/cow-shed",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch"
+  },
   "devDependencies": {
-    "@vercel/style-guide": "^5.2.0",
-    "eslint-config-turbo": "^2.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-only-warn": "^1.1.0",
-    "@typescript-eslint/parser": "^7.1.0",
+    "@types/node": "^22.10.10",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "@vercel/style-guide": "^5.2.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.0.0",
+    "eslint-plugin-only-warn": "^1.1.0",
     "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@cowprotocol/contracts": "^1.6.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "ethers": "^5.7.2"
   }
 }

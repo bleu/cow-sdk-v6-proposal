@@ -2,7 +2,14 @@
   "name": "@cowprotocol/order-signing",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist/**"],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch"
+  },
   "devDependencies": {
     "@vercel/style-guide": "^5.2.0",
     "eslint-config-turbo": "^2.0.0",

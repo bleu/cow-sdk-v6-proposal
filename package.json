@@ -13,5 +13,8 @@
     "turbo": "^2.0.3"
   },
   "packageManager": "pnpm@8.15.6",
-  "name": "with-rollup"
+  "name": "with-rollup",
+  "dependencies": {
+    "tslib": "^2.8.1"
+  }
 }

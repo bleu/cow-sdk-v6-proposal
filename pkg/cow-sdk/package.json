@@ -2,8 +2,16 @@
   "name": "@cowprotocol/cow-sdk",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist/**"],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch"
+  },
   "dependencies": {
+    "tslib": "^2.6.2",
     "@cowprotocol/app-data": "^2.4.0",
     "@cowprotocol/common": "workspace:^",
     "@cowprotocol/composable": "workspace:^",

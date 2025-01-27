@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      tslib:
+        specifier: ^2.8.1
+        version: 2.8.1
     devDependencies:
       eslint:
         specifier: ^8.57.0
@@ -24,8 +28,8 @@ importers:
         specifier: ^1.6.0
         version: 1.7.0(ethers@5.7.2)
       '@cowprotocol/cow-sdk':
-        specifier: ../../
-        version: link:../..
+        specifier: file:../../pkg/cow-sdk
+        version: file:pkg/cow-sdk(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))(ipfs-only-hash@4.0.0)(multiformats@9.9.0)
       '@ethersproject/contracts':
         specifier: ^5.7.0
         version: 5.7.0
@@ -208,7 +212,26 @@ importers:
         version: 5.5.4
 
   pkg/cow-composable:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.6.0
+        version: 1.7.0(ethers@5.7.2)
+      '@ethersproject/abstract-signer':
+        specifier: ^5.7.0
+        version: 5.7.0
+      '@ethersproject/providers':
+        specifier: ^5.7.2
+        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@openzeppelin/merkle-tree':
+        specifier: ^1.0.0
+        version: 1.0.7
+      ethers:
+        specifier: ^5.7.2
+        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     devDependencies:
+      '@types/node':
+        specifier: ^22.10.10
+        version: 22.10.10
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.1.0
         version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)
@@ -266,6 +289,13 @@ importers:
         version: 5.5.4
 
   pkg/cow-order-book:
+    dependencies:
+      exponential-backoff:
+        specifier: ^3.1.1
+        version: 3.1.1
+      limiter:
+        specifier: ^2.1.0
+        version: 2.1.0
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.1.0
@@ -369,6 +399,9 @@ importers:
       limiter:
         specifier: ^2.1.0
         version: 2.1.0
+      tslib:
+        specifier: ^2.6.2
+        version: 2.8.1
     devDependencies:
       '@babel/plugin-proposal-nullish-coalescing-operator':
         specifier: ^7.18.6
@@ -567,7 +600,23 @@ importers:
         version: 5.5.4
 
   pkg/cow-shed:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.6.0
+        version: 1.7.0(ethers@5.7.2)
+      '@ethersproject/abstract-signer':
+        specifier: ^5.7.0
+        version: 5.7.0
+      '@ethersproject/providers':
+        specifier: ^5.7.2
+        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      ethers:
+        specifier: ^5.7.2
+        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     devDependencies:
+      '@types/node':
+        specifier: ^22.10.10
+        version: 22.10.10
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.1.0
         version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)
@@ -615,7 +664,23 @@ importers:
         version: 5.5.4
 
   pkg/cow-trading:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.6.0
+        version: 1.7.0(ethers@5.7.2)
+      '@ethersproject/abstract-signer':
+        specifier: ^5.7.0
+        version: 5.7.0
+      '@ethersproject/providers':
+        specifier: ^5.7.2
+        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      ethers:
+        specifier: ^5.7.2
+        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     devDependencies:
+      '@types/node':
+        specifier: ^22.10.10
+        version: 22.10.10
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.1.0
         version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)
@@ -1427,6 +1492,11 @@ packages:
 
   '@cowprotocol/cow-sdk@4.1.0':
     resolution: {integrity: sha512-Ps5VmegGF3yi0u6midj1offs4MvtBX8u6SHrSNoCzQsuQ5re+41OfRswZsB1Xp+3kxe1JFtFtq6oa7fT6fE7sw==}
+    peerDependencies:
+      ethers: ^5.7.2
+
+  '@cowprotocol/cow-sdk@file:pkg/cow-sdk':
+    resolution: {directory: pkg/cow-sdk, type: directory}
     peerDependencies:
       ethers: ^5.7.2
 
@@ -10918,6 +10988,33 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@cowprotocol/cow-sdk@file:pkg/cow-sdk(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))(ipfs-only-hash@4.0.0)(multiformats@9.9.0)':
+    dependencies:
+      '@cowprotocol/app-data': 2.5.1(cross-fetch@3.2.0)(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))(ipfs-only-hash@4.0.0)(multiformats@9.9.0)
+      '@cowprotocol/common': link:pkg/cow-common
+      '@cowprotocol/composable': link:pkg/cow-composable
+      '@cowprotocol/contracts': 1.7.0(ethers@5.7.2)
+      '@cowprotocol/cow-shed': link:pkg/cow-shed
+      '@cowprotocol/eslint-config': link:pkg/config-eslint
+      '@cowprotocol/order-book': link:pkg/cow-order-book
+      '@cowprotocol/order-signing': link:pkg/cow-order-signing
+      '@cowprotocol/subgraph': link:pkg/cow-subgraph
+      '@cowprotocol/trading': link:pkg/cow-trading
+      '@cowprotocol/typescript-config': link:pkg/config-typescript
+      '@ethersproject/abstract-signer': 5.7.0
+      '@openzeppelin/merkle-tree': 1.0.7
+      cross-fetch: 3.2.0
+      ethers: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      exponential-backoff: 3.1.1
+      graphql: 16.10.0
+      graphql-request: 4.3.0(graphql@16.10.0)
+      limiter: 2.1.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - encoding
+      - ipfs-only-hash
+      - multiformats
+
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
@@ -11742,7 +11839,7 @@ snapshots:
   '@jest/console@27.5.1':
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       jest-message-util: 27.5.1
       jest-util: 27.5.1
@@ -11751,7 +11848,7 @@ snapshots:
   '@jest/console@28.1.3':
     dependencies:
       '@jest/types': 28.1.3
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       jest-message-util: 28.1.3
       jest-util: 28.1.3
@@ -11773,7 +11870,7 @@ snapshots:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       emittery: 0.8.1
@@ -11842,7 +11939,7 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       jest-mock: 27.5.1
 
   '@jest/environment@29.7.0':
@@ -11867,7 +11964,7 @@ snapshots:
     dependencies:
       '@jest/types': 27.5.1
       '@sinonjs/fake-timers': 8.1.0
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       jest-message-util: 27.5.1
       jest-mock: 27.5.1
       jest-util: 27.5.1
@@ -11903,7 +12000,7 @@ snapshots:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       collect-v8-coverage: 1.0.2
       exit: 0.1.2
@@ -12056,7 +12153,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       '@types/yargs': 16.0.9
       chalk: 4.1.2
 
@@ -12065,7 +12162,7 @@ snapshots:
       '@jest/schemas': 28.1.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -12534,7 +12631,7 @@ snapshots:
 
   '@types/bn.js@5.1.6':
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   '@types/body-parser@1.19.5':
     dependencies:
@@ -12549,7 +12646,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       '@types/responselike': 1.0.3
 
   '@types/connect-history-api-fallback@1.5.4':
@@ -12640,7 +12737,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   '@types/long@4.0.2': {}
 
@@ -12668,7 +12765,7 @@ snapshots:
 
   '@types/pbkdf2@3.1.2':
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   '@types/prettier@2.7.3': {}
 
@@ -12695,13 +12792,13 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   '@types/retry@0.12.0': {}
 
   '@types/secp256k1@4.0.6':
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   '@types/semver@7.5.8': {}
 
@@ -12734,7 +12831,7 @@ snapshots:
 
   '@types/ws@8.5.14':
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -15603,7 +15700,7 @@ snapshots:
   eth-lib@0.1.29(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       bn.js: 4.12.1
-      elliptic: 6.5.4
+      elliptic: 6.6.1
       nano-json-stream-parser: 0.1.2
       servify: 0.1.12
       ws: 3.3.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -15616,7 +15713,7 @@ snapshots:
   eth-lib@0.2.8:
     dependencies:
       bn.js: 4.12.1
-      elliptic: 6.5.4
+      elliptic: 6.6.1
       xhr-request-promise: 0.1.3
 
   ethereum-bloom-filters@1.2.0:
@@ -17115,7 +17212,7 @@ snapshots:
       '@jest/environment': 27.5.1
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       co: 4.6.0
       dedent: 0.7.0
@@ -17308,7 +17405,7 @@ snapshots:
       '@jest/environment': 27.5.1
       '@jest/fake-timers': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       jest-mock: 27.5.1
       jest-util: 27.5.1
       jsdom: 16.7.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -17323,7 +17420,7 @@ snapshots:
       '@jest/environment': 27.5.1
       '@jest/fake-timers': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       jest-mock: 27.5.1
       jest-util: 27.5.1
 
@@ -17351,7 +17448,7 @@ snapshots:
     dependencies:
       '@jest/types': 27.5.1
       '@types/graceful-fs': 4.1.9
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -17386,7 +17483,7 @@ snapshots:
       '@jest/source-map': 27.5.1
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       co: 4.6.0
       expect: 27.5.1
@@ -17465,7 +17562,7 @@ snapshots:
   jest-mock@27.5.1:
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
 
   jest-mock@29.7.0:
     dependencies:
@@ -17534,7 +17631,7 @@ snapshots:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       emittery: 0.8.1
       graceful-fs: 4.2.11
@@ -17638,7 +17735,7 @@ snapshots:
 
   jest-serializer@27.5.1:
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       graceful-fs: 4.2.11
 
   jest-snapshot@27.5.1:
@@ -17696,7 +17793,7 @@ snapshots:
   jest-util@27.5.1:
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -17705,7 +17802,7 @@ snapshots:
   jest-util@28.1.3:
     dependencies:
       '@jest/types': 28.1.3
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -17714,7 +17811,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -17753,7 +17850,7 @@ snapshots:
     dependencies:
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       jest-util: 27.5.1
@@ -17763,7 +17860,7 @@ snapshots:
     dependencies:
       '@jest/test-result': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       emittery: 0.10.2
@@ -17795,7 +17892,7 @@ snapshots:
 
   jest-worker@28.1.3:
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 22.10.10
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
