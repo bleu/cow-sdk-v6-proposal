@@ -31,7 +31,7 @@
   },
   "references": [
     { "path": "../cow-common" },
-    { "path": "../cow-contracts" },
+
     { "path": "../cow-config" }
   ]
 }

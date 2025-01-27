@@ -13,8 +13,7 @@
     "paths": {
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/contracts": ["../cow-contracts/src"],
-      "@cowprotocol/contracts/*": ["../cow-contracts/src/*"],
+
       "@cowprotocol/order-book": ["../cow-order-book/src"],
       "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
       "@cowprotocol/order-signing": ["../cow-order-signing/src"],
@@ -23,7 +22,7 @@
   },
   "references": [
     { "path": "../cow-common" },
-    { "path": "../cow-contracts" },
+
     { "path": "../cow-order-book" },
     { "path": "../cow-order-signing" }
   ]
