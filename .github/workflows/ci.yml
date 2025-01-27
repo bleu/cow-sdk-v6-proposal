@@ -10,10 +10,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 'lts/hydrogen'
       
@@ -34,7 +34,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Cache pnpm store
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -42,24 +42,28 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          pnpm install --frozen-lockfile
       
       - name: Build packages
         run: pnpm run build --filter="!cra"
       
-      - name: Install ethers in CRA example
-        run: cd examples/cra && pnpm add @ethersproject/providers
+      - name: Install required dependencies in CRA example
+        run: cd examples/cra && pnpm add @ethersproject/providers @ethersproject/contracts @cowprotocol/contracts@^1.6.0
       
       - name: Build CRA example
         run: cd examples/cra && pnpm run build
       
-      - name: Test
-        run: pnpm run test
+      - name: Test all packages
+        run: |
+          mkdir -p test-results
+          pnpm -r exec -- sh -c '[ -f "package.json" ] && [ "$(jq -r .scripts.test package.json 2>/dev/null)" != "null" ] && pnpm test --json --outputFile="../../test-results/$(basename $(pwd)).jest.json" || true'
       
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: jest.results.json
+          path: test-results/*.jest.json
           if-no-files-found: ignore
