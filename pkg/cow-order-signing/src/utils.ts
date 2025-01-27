@@ -21,10 +21,9 @@ import {
 import type { Signer } from '@ethersproject/abstract-signer'
 import type { SigningResult, SignOrderParams, SignOrderCancellationParams, UnsignedOrder } from './types'
 
-import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS } from '../common/consts'
-import { CowError, SupportedChainId } from '../common'
-import { EcdsaSigningScheme } from '../order-book'
+import { EcdsaSigningScheme } from '@cowprotocol/order-book'
 import { SignOrderCancellationsParams } from './types'
+import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS, CowError, SupportedChainId } from '@cowprotocol/common'
 
 // For error codes, see:
 // - https://eth.wiki/json-rpc/json-rpc-error-codes-improvement-proposal

@@ -1,6 +1,6 @@
 import { LimitOrderAdvancedSettings, LimitOrderParameters } from './types'
 import { log } from './consts'
-import { OrderBookApi } from '../order-book'
+import { OrderBookApi } from '@cowprotocol/order-book'
 import { buildAppData } from './appDataUtils'
 import { postCoWProtocolTrade } from './postCoWProtocolTrade'
 import { getSigner } from './utils'

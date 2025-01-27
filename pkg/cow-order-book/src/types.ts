@@ -1,10 +1,10 @@
-import { Order } from "./generated";
+import { Order } from '.'
 
 /**
  * An order with the total fee added.
  */
 export interface EnrichedOrder extends Order {
-  totalFee: string;
+  totalFee: string
 }
 
 /**
@@ -21,25 +21,25 @@ export interface EnrichedOrder extends Order {
 export interface QuoteAmountsAndCosts<
   AmountType = bigint,
   Amounts = {
-    sellAmount: AmountType;
-    buyAmount: AmountType;
-  },
+    sellAmount: AmountType
+    buyAmount: AmountType
+  }
 > {
-  isSell: boolean;
+  isSell: boolean
 
   costs: {
     networkFee: {
-      amountInSellCurrency: AmountType;
-      amountInBuyCurrency: AmountType;
-    };
+      amountInSellCurrency: AmountType
+      amountInBuyCurrency: AmountType
+    }
     partnerFee: {
-      amount: AmountType;
-      bps: number;
-    };
-  };
+      amount: AmountType
+      bps: number
+    }
+  }
 
-  beforeNetworkCosts: Amounts;
-  afterNetworkCosts: Amounts;
-  afterPartnerFees: Amounts;
-  afterSlippage: Amounts;
+  beforeNetworkCosts: Amounts
+  afterNetworkCosts: Amounts
+  afterPartnerFees: Amounts
+  afterSlippage: Amounts
 }

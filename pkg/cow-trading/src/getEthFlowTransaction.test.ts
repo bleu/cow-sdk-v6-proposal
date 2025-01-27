@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 const GAS = '0x1e848' // 125000
 
 jest.mock('cross-fetch', () => {
@@ -11,8 +12,8 @@ jest.mock('cross-fetch', () => {
     default: fetchMock,
   }
 })
-jest.mock('../common/generated', () => {
-  const original = jest.requireActual('../common/generated')
+jest.mock('@cowprotocol/sdk-ethers-v5', () => {
+  const original = jest.requireActual('@cowprotocol/sdk-ethers-v5')
 
   return {
     ...original,
@@ -32,9 +33,9 @@ jest.mock('../common/generated', () => {
 
 import { getEthFlowTransaction } from './getEthFlowTransaction'
 import { VoidSigner } from '@ethersproject/abstract-signer'
-import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '../common'
+import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
 import { LimitTradeParameters } from './types'
-import { OrderKind } from '../order-book'
+import { OrderKind } from '@cowprotocol/order-book'
 
 const appDataKeccak256 = '0x578c975b1cfd3e24c21fb599076c4f7879c4268efd33eed3eb9efa5e30efac21'
 
@@ -58,6 +59,7 @@ describe('getEthFlowTransaction', () => {
   signer.getAddress = jest.fn().mockResolvedValue(account)
 
   it('Should always override sell token with wrapped native token', async () => {
+    // @ts-expect-error Migration from old sdk
     const result = await getEthFlowTransaction(signer, appDataKeccak256, params)
     const wrappedToken = WRAPPED_NATIVE_CURRENCIES[chainId]
 
@@ -66,6 +68,7 @@ describe('getEthFlowTransaction', () => {
   })
 
   it('Should call gas estimation and return estimated value + 20%', async () => {
+    // @ts-expect-error Migration from old sdk
     const result = await getEthFlowTransaction(signer, appDataKeccak256, params)
     const gasNum = +GAS
 
@@ -73,6 +76,7 @@ describe('getEthFlowTransaction', () => {
   })
 
   it('Transaction value should be equal to sell amount', async () => {
+    // @ts-expect-error Migration from old sdk
     const result = await getEthFlowTransaction(signer, appDataKeccak256, params)
 
     expect(result.transaction.value).toBe('0x' + BigInt(params.sellAmount).toString(16))

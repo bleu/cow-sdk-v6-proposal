@@ -7,7 +7,7 @@ const privateKey = 'xxx'
   return
 
   postSwapOrder({
-    appCode: 'cow-sdk-example',
+    appCode: 'sdk-example',
     signer: privateKey,
     chainId: SupportedChainId.SEPOLIA,
 
@@ -25,7 +25,7 @@ const privateKey = 'xxx'
   return
 
   postLimitOrder({
-    appCode: 'cow-sdk-example',
+    appCode: 'sdk-example',
     signer: privateKey,
     chainId: SupportedChainId.SEPOLIA,
 
@@ -44,7 +44,7 @@ const privateKey = 'xxx'
 ;(async function () {
   postSwapOrder(
     {
-      appCode: 'cow-sdk-example',
+      appCode: 'sdk-example',
       signer: privateKey,
       chainId: SupportedChainId.SEPOLIA,
 

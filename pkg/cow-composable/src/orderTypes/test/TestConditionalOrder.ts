@@ -1,4 +1,4 @@
-import { GPv2Order } from '../../../common/generated/ComposableCoW'
+import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
 import { ConditionalOrder } from '../../ConditionalOrder'
 import { IsValidResult, PollParams, PollResultErrors } from '../../types'
 import { encodeParams } from '../../utils'

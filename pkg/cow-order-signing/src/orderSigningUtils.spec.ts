@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 jest.mock('cross-fetch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const fetchMock = require('jest-fetch-mock')
@@ -11,11 +12,12 @@ jest.mock('cross-fetch', () => {
 })
 
 import { OrderSigningUtils } from './orderSigningUtils'
-import { SupportedChainId } from '../common'
+
 import { UnsignedOrder } from './types'
-import { OrderKind } from '../order-book'
+import { OrderKind } from '@cowprotocol/order-book'
 import { mock, instance, when, anything, capture } from 'ts-mockito'
 import type { TypedDataSigner } from '@cowprotocol/contracts'
+import { SupportedChainId } from '@cowprotocol/common'
 
 describe('OrderSigningApi', () => {
   const signature =

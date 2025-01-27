@@ -1,6 +1,5 @@
-import "cross-fetch/polyfill";
-import { RateLimiter } from "limiter";
-import { SupportedChainId } from "@cowprotocol/common/chains";
+import { RateLimiter } from 'limiter'
+
 import {
   ApiBaseUrls,
   ApiContext,
@@ -8,8 +7,8 @@ import {
   DEFAULT_COW_API_CONTEXT,
   ENVS_LIST,
   PartialApiContext,
-} from "@cowprotocol/common/configs";
-import { CowError } from "@cowprotocol/common/cow-error";
+} from '@cowprotocol/config'
+
 import {
   Address,
   AppDataHash,
@@ -26,61 +25,51 @@ import {
   Trade,
   TransactionHash,
   UID,
-} from "./generated";
-import {
-  DEFAULT_BACKOFF_OPTIONS,
-  DEFAULT_LIMITER_OPTIONS,
-  FetchParams,
-  OrderBookApiError,
-  request,
-} from "./request";
-import { transformOrder } from "./transformOrder";
-import { EnrichedOrder } from "./types";
+} from '.'
+import { DEFAULT_BACKOFF_OPTIONS, DEFAULT_LIMITER_OPTIONS, FetchParams, OrderBookApiError, request } from './request'
+import { transformOrder } from './transformOrder'
+import { EnrichedOrder } from './types'
+import { CowError, SupportedChainId } from '@cowprotocol/common'
 
 /**
  * An object containing *production* environment base URLs for each supported `chainId`.
  * @see {@link https://api.cow.fi/docs/#/}
  */
 export const ORDER_BOOK_PROD_CONFIG: ApiBaseUrls = {
-  [SupportedChainId.MAINNET]: "https://api.cow.fi/mainnet",
-  [SupportedChainId.GNOSIS_CHAIN]: "https://api.cow.fi/xdai",
-  [SupportedChainId.ARBITRUM_ONE]: "https://api.cow.fi/arbitrum_one",
-  [SupportedChainId.BASE]: "https://api.cow.fi/base",
-  [SupportedChainId.SEPOLIA]: "https://api.cow.fi/sepolia",
-};
+  [SupportedChainId.MAINNET]: 'https://api.cow.fi/mainnet',
+  [SupportedChainId.GNOSIS_CHAIN]: 'https://api.cow.fi/xdai',
+  [SupportedChainId.ARBITRUM_ONE]: 'https://api.cow.fi/arbitrum_one',
+  [SupportedChainId.BASE]: 'https://api.cow.fi/base',
+  [SupportedChainId.SEPOLIA]: 'https://api.cow.fi/sepolia',
+}
 
 /**
  * An object containing *staging* environment base URLs for each supported `chainId`.
  */
 export const ORDER_BOOK_STAGING_CONFIG: ApiBaseUrls = {
-  [SupportedChainId.MAINNET]: "https://barn.api.cow.fi/mainnet",
-  [SupportedChainId.GNOSIS_CHAIN]: "https://barn.api.cow.fi/xdai",
-  [SupportedChainId.ARBITRUM_ONE]: "https://barn.api.cow.fi/arbitrum_one",
-  [SupportedChainId.BASE]: "https://barn.api.cow.fi/base",
-  [SupportedChainId.SEPOLIA]: "https://barn.api.cow.fi/sepolia",
-};
+  [SupportedChainId.MAINNET]: 'https://barn.api.cow.fi/mainnet',
+  [SupportedChainId.GNOSIS_CHAIN]: 'https://barn.api.cow.fi/xdai',
+  [SupportedChainId.ARBITRUM_ONE]: 'https://barn.api.cow.fi/arbitrum_one',
+  [SupportedChainId.BASE]: 'https://barn.api.cow.fi/base',
+  [SupportedChainId.SEPOLIA]: 'https://barn.api.cow.fi/sepolia',
+}
 
-function cleanObjectFromUndefinedValues(
-  obj: Record<string, string>
-): typeof obj {
-  return Object.keys(obj).reduce(
-    (acc, key) => {
-      const val = obj[key];
-      if (typeof val !== "undefined") acc[key] = val;
-      return acc;
-    },
-    {} as typeof obj
-  );
+function cleanObjectFromUndefinedValues(obj: Record<string, string>): typeof obj {
+  return Object.keys(obj).reduce((acc, key) => {
+    const val = obj[key]
+    if (typeof val !== 'undefined') acc[key] = val
+    return acc
+  }, {} as typeof obj)
 }
 
 /**
  * The parameters for the `getOrders` request.
  */
 export type GetOrdersRequest = {
-  owner: Address;
-  offset?: number;
-  limit?: number;
-};
+  owner: Address
+  offset?: number
+  limit?: number
+}
 
 /**
  * The CoW Protocol OrderBook API client.
@@ -141,19 +130,17 @@ export type GetOrdersRequest = {
  * @see {@link OrderBook API https://github.com/cowprotocol/services}
  */
 export class OrderBookApi {
-  public context: ApiContext;
+  public context: ApiContext
 
-  private rateLimiter: RateLimiter;
+  private rateLimiter: RateLimiter
 
   /**
    * Creates a new instance of the CoW Protocol OrderBook API client.
    * @param context - The API context to use. If not provided, the default context will be used.
    */
   constructor(context: PartialApiContext = {}) {
-    this.context = { ...DEFAULT_COW_API_CONTEXT, ...context };
-    this.rateLimiter = new RateLimiter(
-      context.limiterOpts || DEFAULT_LIMITER_OPTIONS
-    );
+    this.context = { ...DEFAULT_COW_API_CONTEXT, ...context }
+    this.rateLimiter = new RateLimiter(context.limiterOpts || DEFAULT_LIMITER_OPTIONS)
   }
 
   /**
@@ -163,10 +150,7 @@ export class OrderBookApi {
    * @see {@link https://api.cow.fi/docs/#/default/get_api_v1_version}
    */
   getVersion(contextOverride: PartialApiContext = {}): Promise<string> {
-    return this.fetch(
-      { path: "/api/v1/version", method: "GET" },
-      contextOverride
-    );
+    return this.fetch({ path: '/api/v1/version', method: 'GET' }, contextOverride)
   }
 
   /**
@@ -184,21 +168,14 @@ export class OrderBookApi {
     contextOverride: PartialApiContext = {}
   ): Promise<Array<Trade>> {
     if (request.owner && request.orderUid) {
-      return Promise.reject(
-        new CowError("Cannot specify both owner and orderId")
-      );
+      return Promise.reject(new CowError('Cannot specify both owner and orderId'))
     } else if (!request.owner && !request.orderUid) {
-      return Promise.reject(
-        new CowError("Must specify either owner or orderId")
-      );
+      return Promise.reject(new CowError('Must specify either owner or orderId'))
     }
 
-    const query = new URLSearchParams(cleanObjectFromUndefinedValues(request));
+    const query = new URLSearchParams(cleanObjectFromUndefinedValues(request))
 
-    return this.fetch(
-      { path: "/api/v1/trades", method: "GET", query },
-      contextOverride
-    );
+    return this.fetch({ path: '/api/v1/trades', method: 'GET', query }, contextOverride)
   }
 
   /**
@@ -214,18 +191,15 @@ export class OrderBookApi {
     contextOverride: PartialApiContext = {}
   ): Promise<Array<EnrichedOrder>> {
     const query = new URLSearchParams(
-      cleanObjectFromUndefinedValues({
-        offset: offset.toString(),
-        limit: limit.toString(),
-      })
-    );
+      cleanObjectFromUndefinedValues({ offset: offset.toString(), limit: limit.toString() })
+    )
 
     return this.fetch<Array<EnrichedOrder>>(
-      { path: `/api/v1/account/${owner}/orders`, method: "GET", query },
+      { path: `/api/v1/account/${owner}/orders`, method: 'GET', query },
       contextOverride
     ).then((orders) => {
-      return orders.map(transformOrder);
-    });
+      return orders.map(transformOrder)
+    })
   }
 
   /**
@@ -235,16 +209,13 @@ export class OrderBookApi {
    * @returns A list of orders matching the request.
    * @see {@link EnrichedOrder}
    */
-  getTxOrders(
-    txHash: TransactionHash,
-    contextOverride: PartialApiContext = {}
-  ): Promise<Array<EnrichedOrder>> {
+  getTxOrders(txHash: TransactionHash, contextOverride: PartialApiContext = {}): Promise<Array<EnrichedOrder>> {
     return this.fetch<Array<EnrichedOrder>>(
-      { path: `/api/v1/transactions/${txHash}/orders`, method: "GET" },
+      { path: `/api/v1/transactions/${txHash}/orders`, method: 'GET' },
       contextOverride
     ).then((orders) => {
-      return orders.map(transformOrder);
-    });
+      return orders.map(transformOrder)
+    })
   }
 
   /**
@@ -253,29 +224,17 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns The order matching the request.
    */
-  getOrder(
-    orderUid: UID,
-    contextOverride: PartialApiContext = {}
-  ): Promise<EnrichedOrder> {
-    return this.fetch<Order>(
-      { path: `/api/v1/orders/${orderUid}`, method: "GET" },
-      contextOverride
-    ).then((order) => {
-      return transformOrder(order);
-    });
+  getOrder(orderUid: UID, contextOverride: PartialApiContext = {}): Promise<EnrichedOrder> {
+    return this.fetch<Order>({ path: `/api/v1/orders/${orderUid}`, method: 'GET' }, contextOverride).then((order) => {
+      return transformOrder(order)
+    })
   }
 
   /**
    * Get the order status while open
    */
-  getOrderCompetitionStatus(
-    orderUid: UID,
-    contextOverride: PartialApiContext = {}
-  ): Promise<CompetitionOrderStatus> {
-    return this.fetch(
-      { path: `/api/v1/orders/${orderUid}/status`, method: "GET" },
-      contextOverride
-    );
+  getOrderCompetitionStatus(orderUid: UID, contextOverride: PartialApiContext = {}): Promise<CompetitionOrderStatus> {
+    return this.fetch({ path: `/api/v1/orders/${orderUid}/status`, method: 'GET' }, contextOverride)
   }
 
   /**
@@ -289,37 +248,25 @@ export class OrderBookApi {
    * @returns The order matching the request.
    * @throws {OrderBookApiError} If the order is not found in any of the environments.
    */
-  getOrderMultiEnv(
-    orderUid: UID,
-    contextOverride: PartialApiContext = {}
-  ): Promise<EnrichedOrder> {
-    const { env } = this.getContextWithOverride(contextOverride);
-    const otherEnvs = ENVS_LIST.filter((i) => i !== env);
+  getOrderMultiEnv(orderUid: UID, contextOverride: PartialApiContext = {}): Promise<EnrichedOrder> {
+    const { env } = this.getContextWithOverride(contextOverride)
+    const otherEnvs = ENVS_LIST.filter((i) => i !== env)
 
-    let attemptsCount = 0;
+    let attemptsCount = 0
 
-    const fallback = (
-      error: Error | OrderBookApiError
-    ): Promise<EnrichedOrder> => {
-      const nextEnv = otherEnvs[attemptsCount];
+    const fallback = (error: Error | OrderBookApiError): Promise<EnrichedOrder> => {
+      const nextEnv = otherEnvs[attemptsCount]
 
-      if (
-        error instanceof OrderBookApiError &&
-        error.response.status === 404 &&
-        nextEnv
-      ) {
-        attemptsCount++;
+      if (error instanceof OrderBookApiError && error.response.status === 404 && nextEnv) {
+        attemptsCount++
 
-        return this.getOrder(orderUid, {
-          ...contextOverride,
-          env: nextEnv,
-        }).catch(fallback);
+        return this.getOrder(orderUid, { ...contextOverride, env: nextEnv }).catch(fallback)
       }
 
-      return Promise.reject(error);
-    };
+      return Promise.reject(error)
+    }
 
-    return this.getOrder(orderUid, { ...contextOverride, env }).catch(fallback);
+    return this.getOrder(orderUid, { ...contextOverride, env }).catch(fallback)
   }
 
   /**
@@ -329,14 +276,8 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns A hydrated order matching the request ready to be signed.
    */
-  getQuote(
-    requestBody: OrderQuoteRequest,
-    contextOverride: PartialApiContext = {}
-  ): Promise<OrderQuoteResponse> {
-    return this.fetch(
-      { path: "/api/v1/quote", method: "POST", body: requestBody },
-      contextOverride
-    );
+  getQuote(requestBody: OrderQuoteRequest, contextOverride: PartialApiContext = {}): Promise<OrderQuoteResponse> {
+    return this.fetch({ path: '/api/v1/quote', method: 'POST', body: requestBody }, contextOverride)
   }
 
   /**
@@ -353,10 +294,7 @@ export class OrderBookApi {
     requestBody: OrderCancellations,
     contextOverride: PartialApiContext = {}
   ): Promise<void> {
-    return this.fetch(
-      { path: "/api/v1/orders", method: "DELETE", body: requestBody },
-      contextOverride
-    );
+    return this.fetch({ path: '/api/v1/orders', method: 'DELETE', body: requestBody }, contextOverride)
   }
 
   /**
@@ -365,14 +303,8 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns The unique identifier of the order.
    */
-  sendOrder(
-    requestBody: OrderCreation,
-    contextOverride: PartialApiContext = {}
-  ): Promise<UID> {
-    return this.fetch(
-      { path: "/api/v1/orders", method: "POST", body: requestBody },
-      contextOverride
-    );
+  sendOrder(requestBody: OrderCreation, contextOverride: PartialApiContext = {}): Promise<UID> {
+    return this.fetch({ path: '/api/v1/orders', method: 'POST', body: requestBody }, contextOverride)
   }
 
   /**
@@ -384,14 +316,8 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns The native price of the token.
    */
-  getNativePrice(
-    tokenAddress: Address,
-    contextOverride: PartialApiContext = {}
-  ): Promise<NativePriceResponse> {
-    return this.fetch(
-      { path: `/api/v1/token/${tokenAddress}/native_price`, method: "GET" },
-      contextOverride
-    );
+  getNativePrice(tokenAddress: Address, contextOverride: PartialApiContext = {}): Promise<NativePriceResponse> {
+    return this.fetch({ path: `/api/v1/token/${tokenAddress}/native_price`, method: 'GET' }, contextOverride)
   }
 
   /**
@@ -400,14 +326,8 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns Calculated user's surplus
    */
-  getTotalSurplus(
-    address: Address,
-    contextOverride: PartialApiContext = {}
-  ): Promise<TotalSurplus> {
-    return this.fetch(
-      { path: `/api/v1/users/${address}/total_surplus`, method: "GET" },
-      contextOverride
-    );
+  getTotalSurplus(address: Address, contextOverride: PartialApiContext = {}): Promise<TotalSurplus> {
+    return this.fetch({ path: `/api/v1/users/${address}/total_surplus`, method: 'GET' }, contextOverride)
   }
 
   /**
@@ -416,14 +336,8 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns Full app data that was uploaded
    */
-  getAppData(
-    appDataHash: AppDataHash,
-    contextOverride: PartialApiContext = {}
-  ): Promise<AppDataObject> {
-    return this.fetch(
-      { path: `/api/v1/app_data/${appDataHash}`, method: "GET" },
-      contextOverride
-    );
+  getAppData(appDataHash: AppDataHash, contextOverride: PartialApiContext = {}): Promise<AppDataObject> {
+    return this.fetch({ path: `/api/v1/app_data/${appDataHash}`, method: 'GET' }, contextOverride)
   }
 
   /**
@@ -439,24 +353,14 @@ export class OrderBookApi {
     contextOverride: PartialApiContext = {}
   ): Promise<AppDataObject> {
     return this.fetch(
-      {
-        path: `/api/v1/app_data/${appDataHash}`,
-        method: "PUT",
-        body: { fullAppData },
-      },
+      { path: `/api/v1/app_data/${appDataHash}`, method: 'PUT', body: { fullAppData } },
       contextOverride
-    );
+    )
   }
 
-  getSolverCompetition(
-    auctionId: number,
-    contextOverride?: PartialApiContext
-  ): Promise<SolverCompetitionResponse>;
+  getSolverCompetition(auctionId: number, contextOverride?: PartialApiContext): Promise<SolverCompetitionResponse>
 
-  getSolverCompetition(
-    txHash: string,
-    contextOverride?: PartialApiContext
-  ): Promise<SolverCompetitionResponse>;
+  getSolverCompetition(txHash: string, contextOverride?: PartialApiContext): Promise<SolverCompetitionResponse>
 
   /**
    * Given an auction id or tx hash, get the details of the solver competition for that auction.
@@ -470,11 +374,11 @@ export class OrderBookApi {
   ): Promise<SolverCompetitionResponse> {
     return this.fetch(
       {
-        path: `/api/v1/solver_competition${typeof auctionIdorTx === "string" ? "/by_tx_hash" : ""}/${auctionIdorTx}`,
-        method: "GET",
+        path: `/api/v1/solver_competition${typeof auctionIdorTx === 'string' ? '/by_tx_hash' : ''}/${auctionIdorTx}`,
+        method: 'GET',
       },
       contextOverride
-    );
+    )
   }
 
   /**
@@ -484,8 +388,8 @@ export class OrderBookApi {
    * @returns The API endpoint to get the order.
    */
   getOrderLink(orderUid: UID, contextOverride?: PartialApiContext): string {
-    const { chainId, env } = this.getContextWithOverride(contextOverride);
-    return this.getApiBaseUrls(env)[chainId] + `/api/v1/orders/${orderUid}`;
+    const { chainId, env } = this.getContextWithOverride(contextOverride)
+    return this.getApiBaseUrls(env)[chainId] + `/api/v1/orders/${orderUid}`
   }
 
   /**
@@ -493,10 +397,8 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns New context with the override applied.
    */
-  private getContextWithOverride(
-    contextOverride: PartialApiContext = {}
-  ): ApiContext {
-    return { ...this.context, ...contextOverride };
+  private getContextWithOverride(contextOverride: PartialApiContext = {}): ApiContext {
+    return { ...this.context, ...contextOverride }
   }
 
   /**
@@ -505,9 +407,9 @@ export class OrderBookApi {
    * @returns The base URLs for the API endpoints.
    */
   private getApiBaseUrls(env: CowEnv): ApiBaseUrls {
-    if (this.context.baseUrls) return this.context.baseUrls;
+    if (this.context.baseUrls) return this.context.baseUrls
 
-    return env === "prod" ? ORDER_BOOK_PROD_CONFIG : ORDER_BOOK_STAGING_CONFIG;
+    return env === 'prod' ? ORDER_BOOK_PROD_CONFIG : ORDER_BOOK_STAGING_CONFIG
   }
 
   /**
@@ -516,21 +418,12 @@ export class OrderBookApi {
    * @param contextOverride Optional context override for this request.
    * @returns The response from the API.
    */
-  private fetch<T>(
-    params: FetchParams,
-    contextOverride: PartialApiContext = {}
-  ): Promise<T> {
-    const {
-      chainId,
-      env,
-      backoffOpts: _backoffOpts,
-    } = this.getContextWithOverride(contextOverride);
-    const baseUrl = this.getApiBaseUrls(env)[chainId];
-    const backoffOpts = _backoffOpts || DEFAULT_BACKOFF_OPTIONS;
-    const rateLimiter = contextOverride.limiterOpts
-      ? new RateLimiter(contextOverride.limiterOpts)
-      : this.rateLimiter;
+  private fetch<T>(params: FetchParams, contextOverride: PartialApiContext = {}): Promise<T> {
+    const { chainId, env, backoffOpts: _backoffOpts } = this.getContextWithOverride(contextOverride)
+    const baseUrl = this.getApiBaseUrls(env)[chainId]
+    const backoffOpts = _backoffOpts || DEFAULT_BACKOFF_OPTIONS
+    const rateLimiter = contextOverride.limiterOpts ? new RateLimiter(contextOverride.limiterOpts) : this.rateLimiter
 
-    return request(baseUrl, params, rateLimiter, backoffOpts);
+    return request(baseUrl, params, rateLimiter, backoffOpts)
   }
 }

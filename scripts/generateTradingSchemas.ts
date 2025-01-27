@@ -16,7 +16,7 @@ const types = [
   'QuoteResultsSerialized',
 ]
 
-const outputPath = 'dist/schemas/trading/'
+const outputPath = 'dist/schemas/trading'
 
 const generator = createGenerator(config)
 

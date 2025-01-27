@@ -1,6 +1,7 @@
-import 'src/order-book/__mock__/api'
+import '@testing-library/jest-dom'
+import '../../cow-order-book/src/__mock__/api'
 import { Multiplexer, Orders } from './Multiplexer'
-import { SupportedChainId } from '../common'
+import { SupportedChainId } from '@cowprotocol/common'
 import { ProofLocation } from './types'
 import { Twap } from './orderTypes/Twap'
 import { TWAP_PARAMS_TEST, generateRandomTWAPData } from './orderTypes/Twap.spec'
@@ -256,6 +257,7 @@ describe('Multiplexer (ComposableCoW)', () => {
     try {
       await m.prepareProofStruct(ProofLocation.SWARM)
     } catch (e) {
+      // @ts-expect-error migration from old sdk
       expect(e.message).toMatch('Error preparing proof struct: Error: Must provide an uploader function')
     }
 
@@ -267,6 +269,7 @@ describe('Multiplexer (ComposableCoW)', () => {
     try {
       await m.prepareProofStruct(ProofLocation.SWARM, undefined, upload)
     } catch (e) {
+      // @ts-expect-error migration from old sdk
       expect(e.message).toMatch('Error preparing proof struct: Error: data returned by uploader is invalid')
     }
 
@@ -278,6 +281,7 @@ describe('Multiplexer (ComposableCoW)', () => {
     try {
       await m.prepareProofStruct(ProofLocation.IPFS, undefined, upload2)
     } catch (e) {
+      // @ts-expect-error migration from old sdk
       expect(e.message).toMatch(
         'Error preparing proof struct: Error: Error uploading to decentralized storage 5: Error: bad'
       )

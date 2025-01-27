@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 const GAS = '0x1e848' // 125000
 
 jest.mock('cross-fetch', () => {
@@ -11,8 +12,9 @@ jest.mock('cross-fetch', () => {
     default: fetchMock,
   }
 })
-jest.mock('../common/generated', () => {
-  const original = jest.requireActual('../common/generated')
+
+jest.mock('@cowprotocol/sdk-ethers-v5', () => {
+  const original = jest.requireActual('@cowprotocol/sdk-ethers-v5')
 
   return {
     ...original,
@@ -30,7 +32,7 @@ jest.mock('../common/generated', () => {
   }
 })
 
-import { SupportedChainId } from '../common'
+import { SupportedChainId } from '@cowprotocol/common'
 import { VoidSigner } from '@ethersproject/abstract-signer'
 import { getPreSignTransaction } from './getPreSignTransaction'
 

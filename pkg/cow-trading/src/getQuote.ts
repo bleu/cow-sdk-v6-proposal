@@ -16,12 +16,12 @@ import {
   OrderQuoteSideKindSell,
   PriceQuality,
   SigningScheme,
-} from '../order-book'
+} from '@cowprotocol/order-book'
 import { buildAppData } from './appDataUtils'
 import { getOrderToSign } from './getOrderToSign'
 import { getIsEthFlowOrder, getSigner, swapParamsToLimitOrderParams } from './utils'
 import { Signer } from 'ethers'
-import { WRAPPED_NATIVE_CURRENCIES } from '../common'
+import { WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
 import { getOrderTypedData } from './getOrderTypedData'
 
 // ETH-FLOW orders require different quote params

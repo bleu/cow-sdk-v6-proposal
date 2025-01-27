@@ -1,8 +1,9 @@
-import 'src/order-book/__mock__/api'
+import '@testing-library/jest-dom'
+import '../../cow-order-book/src/__mock__/api'
 import { decodeParams, encodeParams, fromStructToOrder, isValidAbi } from './utils'
 import { DurationType, StartTimeValue, TwapData, TwapStruct, transformDataToStruct } from './orderTypes/Twap'
 import { BigNumber, utils } from 'ethers'
-import { GPv2Order } from './generated/ComposableCoW'
+import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
 
 export const TWAP_PARAMS_TEST: TwapData = {
   sellToken: '0x6810e776880C02933D47DB1b9fc05908e5386b96',

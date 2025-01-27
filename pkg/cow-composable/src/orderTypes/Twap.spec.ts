@@ -1,5 +1,6 @@
-import '../../order-book/__mock__/api'
-import { GPv2Order } from '../generated/ComposableCoW'
+import '@testing-library/jest-dom'
+import '../../../cow-order-book/src/__mock__/api'
+import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
 import { OwnerContext, PollParams, PollResultCode, PollResultErrors } from '../types'
 import { DurationType, StartTimeValue, Twap, TWAP_ADDRESS, TwapData } from './Twap'
 import { BigNumber, utils, constants, providers } from 'ethers'
@@ -304,6 +305,7 @@ describe('Poll Validate', () => {
 
   class MockTwap extends Twap {
     // Just make pollValidate public so we can call it in isolation
+    // @ts-expect-error migration from old sdk
     public pollValidate(params): Promise<PollResultErrors | undefined> {
       return super.pollValidate(params)
     }
@@ -428,6 +430,7 @@ describe('Current TWAP part is in the Order Book', () => {
 
   class MockTwap extends Twap {
     // Just make handlePollFailedAlreadyPresent public so we can call it in isolation
+    // @ts-expect-error migration from old sdk
     public handlePollFailedAlreadyPresent(orderId, order, params): Promise<PollResultErrors | undefined> {
       return super.handlePollFailedAlreadyPresent(orderId, order, params)
     }

@@ -15,7 +15,7 @@ import {
   solidityKeccak256,
   splitSignature,
 } from 'ethers/lib/utils'
-import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION, SupportedChainId } from '../common'
+import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION, SupportedChainId } from '@cowprotocol/common'
 import { getCoWShedFactoryInterface } from './contracts'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
 import { COW_SHED_712_TYPES, ICoWShedCall, ICoWShedOptions } from './types'

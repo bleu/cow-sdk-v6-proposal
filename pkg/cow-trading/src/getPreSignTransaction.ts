@@ -1,9 +1,9 @@
-import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS, SupportedChainId } from '../common'
+import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS, SupportedChainId } from '@cowprotocol/common'
 import type { Signer } from 'ethers'
 import { GAS_LIMIT_DEFAULT } from './consts'
 import { calculateGasMargin } from './utils'
 
-import { GPv2Settlement__factory } from '../common/generated'
+import { GPv2Settlement__factory } from '@cowprotocol/sdk-ethers-v5'
 import { TransactionParams } from './types'
 
 export async function getPreSignTransaction(

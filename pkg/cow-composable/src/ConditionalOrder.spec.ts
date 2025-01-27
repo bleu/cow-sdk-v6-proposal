@@ -1,4 +1,5 @@
-import { mockGetOrder } from '../order-book/__mock__/api'
+import '@testing-library/jest-dom'
+import { mockGetOrder } from '@cowprotocol/order-book/__mock__/api'
 import {
   DEFAULT_ORDER_PARAMS,
   TestConditionalOrder,
@@ -10,14 +11,14 @@ import { Twap } from './orderTypes/Twap'
 import { getComposableCow } from './contracts'
 import { constants } from 'ethers'
 import { OwnerContext, PollParams, PollResultCode, PollResultErrors } from './types'
-import { BuyTokenDestination, OrderKind, SellTokenSource } from '../order-book/generated'
-import { computeOrderUid } from '../utils'
-import { GPv2Order } from '../common/generated/ComposableCoW'
-import { OrderBookApi } from '../order-book'
+import { BuyTokenDestination, OrderKind, SellTokenSource } from '@cowprotocol/order-book'
+import { computeOrderUid } from '@cowprotocol/cow-ts'
+import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import { OrderBookApi } from '@cowprotocol/order-book'
 
 jest.mock('./contracts')
 
-jest.mock('../utils')
+jest.mock('@cowprotocol/cow-ts')
 
 const mockGetComposableCow = getComposableCow as jest.MockedFunction<typeof getComposableCow>
 const mockComputeOrderUid = computeOrderUid as jest.MockedFunction<typeof computeOrderUid>

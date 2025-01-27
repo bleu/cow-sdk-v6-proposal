@@ -46,3 +46,9 @@ jest.results.json
 yalc.lock
 src/common/generated
 docs/typedoc/
+
+**/*.tsbuildinfo
+**/src/*.js
+**/src/*.js.map
+**/src/*.d.ts.map
+**/src/*.d.ts

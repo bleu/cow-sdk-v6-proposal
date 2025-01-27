@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { request } from './request'
 import fetchMock from 'jest-fetch-mock'
 import { RateLimiter } from 'limiter'
