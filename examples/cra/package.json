@@ -51,7 +51,6 @@
     "typescript": "^5.0.2",
     "url": "npm:url@0.11.3",
     "util": "npm:util@0.12.5",
-    "yarn": "^1.22.19",
     "zlib": "npm:browserify-zlib@^0.2.0"
   }
 }

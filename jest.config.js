@@ -17,32 +17,20 @@ module.exports = {
   ],
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[jt]sx?$': ['babel-jest', {
-      presets: [
-        ['@babel/preset-env', {
-          targets: { node: 'current' },
-          modules: 'commonjs'
-        }],
-        ['@babel/preset-typescript', {
-          allowNamespaces: true,
-          allowDeclareFields: true,
-          onlyRemoveTypeImports: true
-        }]
-      ]
-    }]
+    '^.+\\.[jt]sx?$': ['babel-jest', { configFile: './babel.config.js' }]
   },
   moduleNameMapper: {
     '^@cowprotocol/(.*)$': '<rootDir>/pkg/$1/src',
     '^(\\.{1,2}/.*)\\.js$': '$1',
-    '^(\\.{1,2}/.*)\\.ts$': '$1',
-    '^../common(.*)$': '<rootDir>/pkg/cow-common/src$1',
-    '^../order-book(.*)$': '<rootDir>/pkg/cow-order-book/src$1',
-    '^../contracts(.*)$': '<rootDir>/pkg/contracts/src$1'
+    '^(\\.{1,2}/.*)\\.ts$': '$1'
   },
+  rootDir: '.',
+  roots: ['<rootDir>/pkg'],
   transformIgnorePatterns: [
     'node_modules/(?!(@cowprotocol|@ethersproject|ethers)/)'
   ],
   moduleDirectories: ['node_modules', 'src', 'pkg'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
