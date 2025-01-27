@@ -9,13 +9,13 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "@cowprotocol/contracts": "^1.7.0",
-    "ethers": "^5.7.2"
+    "@cowprotocol/contracts": "^1.7.0"
   },
   "peerDependencies": {
     "ethers": "^5.7.2"
   },
   "devDependencies": {
+    "ethers": "^5.7.2",
     "@vercel/style-guide": "^5.2.0",
     "eslint-config-turbo": "^2.0.0",
     "eslint-config-prettier": "^9.1.0",
