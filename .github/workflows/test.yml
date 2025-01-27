@@ -26,7 +26,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
 
       - name: Get pnpm store directory
         shell: bash
@@ -43,9 +47,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # First try with frozen lockfile
           pnpm install --frozen-lockfile || (
-            # If that fails, try to install and generate a new lockfile
             echo "Frozen lockfile install failed, attempting to generate new lockfile..."
             pnpm install --no-frozen-lockfile
           )
@@ -56,9 +58,17 @@ jobs:
       - name: Run tests with coverage
         run: pnpm run test:ci
         if: env.COVERALLS_REPO_TOKEN != ''
+
       - name: Run tests without coverage
         run: pnpm run test
         if: env.COVERALLS_REPO_TOKEN == ''
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
 
       - name: Comment in failing tests
         uses: mattallty/jest-github-action@v1.0.3

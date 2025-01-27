@@ -7,9 +7,7 @@ module.exports = {
     ['@babel/preset-typescript', {
       allowNamespaces: true,
       allowDeclareFields: true,
-      onlyRemoveTypeImports: true,
-      isTSX: true,
-      allExtensions: true
+      onlyRemoveTypeImports: true
     }]
   ],
   plugins: [
@@ -19,5 +17,8 @@ module.exports = {
       strict: true,
       strictMode: true
     }]
+  ],
+  transformIgnorePatterns: [
+    'node_modules/(?!(@cowprotocol|@ethersproject|ethers|web3|bn\.js|hash\.js|elliptic|lodash-es)/)'
   ]
 };

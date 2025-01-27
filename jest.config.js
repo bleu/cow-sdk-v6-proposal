@@ -7,21 +7,17 @@ module.exports = {
     }]
   },
   testEnvironment: 'node',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node', 'mjs'],
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
-    '^ethers$': require.resolve('ethers'),
     '^@cowprotocol/common/(.*)$': '<rootDir>/pkg/cow-common/src/$1',
     '^@cowprotocol/order-book/(.*)$': '<rootDir>/pkg/cow-order-book/src/$1',
     '^@cowprotocol/order-signing/(.*)$': '<rootDir>/pkg/cow-order-signing/src/$1',
-    '^@cowprotocol/contracts$': '<rootDir>/node_modules/@cowprotocol/contracts',
     '^@cowprotocol/(.*)$': '<rootDir>/pkg/$1/src',
     '^src/(.*)$': '<rootDir>/pkg/cow-order-book/src/$1',
+    '\\.\\./common/(.*)$': '<rootDir>/pkg/cow-common/src/$1',
     '\\.\\./order-book$': '<rootDir>/pkg/cow-order-book/src',
-    '\\.\\./common/generated$': '<rootDir>/pkg/cow-common/src/generated',
     '\\.\\./order-signing$': '<rootDir>/pkg/cow-order-signing/src',
-    '\\.\\./common/chains$': '<rootDir>/pkg/cow-common/src/chains',
     '\\.\\./utils$': '<rootDir>/pkg/cow-composable/src/utils',
     '\\.\\./api$': '<rootDir>/pkg/cow-order-book/src/api'
   },
