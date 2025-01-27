@@ -4,7 +4,7 @@
   "private": true,
   "files": [],
   "scripts": {
-    "typechain:codegen": "typechain --target ethers-v5 --out-dir ./src/__generated__ './abi/*.json'",
+    "typechain:codegen": "typechain --target ethers-v5 --out-dir ./src/__generated__ '../cow-abi/src/abis/*.json'",
     "test": "jest --config ../../jest.config.js",
     "lint": "eslint . --ext .ts,.tsx"
   },
@@ -23,6 +23,7 @@
     "@typescript-eslint/parser": "^5.62.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "typescript": "5.1.6",
-    "@typechain/ethers-v5": "^11.0.0"
+    "@typechain/ethers-v5": "^11.0.0",
+    "typechain": "^8.2.0"
   }
 }
