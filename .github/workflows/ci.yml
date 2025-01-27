@@ -44,18 +44,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      - name: Build
-        run: pnpm run build
+      - name: Build packages
+        run: pnpm run build --filter="!cra"
+      
+      - name: Install ethers in CRA example
+        run: cd examples/cra && pnpm add @ethersproject/providers
+      
+      - name: Build CRA example
+        run: cd examples/cra && pnpm run build
       
       - name: Test
-        run: pnpm run test -- --json --outputFile=jest.results.json
+        run: pnpm run test
       
-      - name: Comment in failing tests
-        uses: mattallty/jest-github-action@v1.0.3
+      - name: Upload test results
         if: always()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/upload-artifact@v3
         with:
-          test-command: echo "unit tests already executed"
-          coverage-comment: false
-          changes-only: false
+          name: test-results
+          path: jest.results.json
+          if-no-files-found: ignore
