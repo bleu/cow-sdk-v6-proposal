@@ -29,7 +29,7 @@
   "scripts": {
     "test": "jest --config ../../jest.config.js",
     "test:coverage": "jest --config ../../jest.config.js --coverage",
-    "lint": "eslint . --ext .ts,.tsx --config ../../.eslintrc.json"
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",

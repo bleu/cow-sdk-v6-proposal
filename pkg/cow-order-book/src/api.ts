@@ -1,6 +1,6 @@
 import 'cross-fetch/polyfill'
 import { RateLimiter } from 'limiter'
-import { SupportedChainId } from '@cowprotocol/common/chains'
+import { SupportedChainId } from '@cowprotocol/common'
 import {
   ApiBaseUrls,
   ApiContext,
@@ -8,8 +8,8 @@ import {
   DEFAULT_COW_API_CONTEXT,
   ENVS_LIST,
   PartialApiContext,
-} from '@cowprotocol/common/configs'
-import { CowError } from '@cowprotocol/common/cow-error'
+} from '@cowprotocol/config'
+import { CowError } from '@cowprotocol/common'
 import {
   Address,
   AppDataHash,

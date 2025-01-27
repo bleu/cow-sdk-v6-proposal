@@ -11,12 +11,10 @@ jest.mock('cross-fetch', () => {
 })
 
 import fetchMock, { enableFetchMocks } from 'jest-fetch-mock'
-import { CowError } from '@cowprotocol/common/cow-error'
-import { OrderBookApi } from '../api'
+import { CowError, SupportedChainId, ETH_ADDRESS } from '@cowprotocol/common'
+import { OrderBookApi } from './api'
 import { BuyTokenDestination, EcdsaSigningScheme, OrderKind, SellTokenSource, SigningScheme } from './generated'
-import { SupportedChainId } from '@cowprotocol/common/chains'
-import { ETH_ADDRESS } from '@cowprotocol/common/consts'
-import { AUCTION } from '../mock'
+import { AUCTION } from './mock'
 
 enableFetchMocks()
 

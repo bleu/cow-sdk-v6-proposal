@@ -1,5 +1,8 @@
 import { BigNumber, constants, ethers, utils } from 'ethers'
-import { GPv2Order, IConditionalOrder } from '@cowprotocol/common/generated/ComposableCoW'
+import { GPv2Order, IConditionalOrder, Order } from '@cowprotocol/contracts'
+import { SupportedChainId } from '@cowprotocol/common'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
+import { UID } from '@cowprotocol/order-book'
 
 import { decodeParams, encodeParams, fromStructToOrder } from './utils'
 import {
@@ -14,11 +17,6 @@ import {
   PollResultErrors,
 } from './types'
 import { getComposableCow, getComposableCowInterface } from './contracts'
-import { UID } from '../cow-order-book'
-
-import type { Order } from '@cowprotocol/contracts'
-import type { SupportedChainId } from '@cowprotocol/common'
-import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 export async function computeOrderUid(chainId: SupportedChainId, owner: string, order: Order): Promise<string> {
   const { computeOrderUid: _computeOrderUid } = await import('@cowprotocol/contracts')

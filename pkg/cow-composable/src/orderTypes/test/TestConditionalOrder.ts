@@ -1,4 +1,4 @@
-import { GPv2Order } from '../../../common/generated/ComposableCoW'
+import { GPv2Order } from '@cowprotocol/contracts'
 import { ConditionalOrder } from '../../ConditionalOrder'
 import { IsValidResult, PollParams, PollResultErrors } from '../../types'
 import { encodeParams } from '../../utils'

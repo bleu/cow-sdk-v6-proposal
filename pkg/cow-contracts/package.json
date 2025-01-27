@@ -1,0 +1,29 @@
+{
+  "name": "@cowprotocol/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config ../../jest.config.js",
+    "test:coverage": "jest --config ../../jest.config.js --coverage",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/providers": "^5.7.0",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@cowprotocol/common": "workspace:^",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.6.4",
+    "jest-environment-jsdom": "^29.7.0",
+    "typescript": "5.1.6"
+  }
+}

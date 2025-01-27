@@ -8,7 +8,6 @@ import type {
 } from '@cowprotocol/contracts'
 import {
   domain as domainGp,
-  EcdsaSignature,
   IntChainIdTypedDataV4Signer,
   SigningScheme,
   hashOrder,
@@ -16,14 +15,12 @@ import {
   signOrder as signOrderGp,
   signOrderCancellation as signOrderCancellationGp,
   signOrderCancellations as signOrderCancellationsGp,
-  TypedDataVersionedSigner,
 } from '@cowprotocol/contracts'
 import type { Signer } from '@ethersproject/abstract-signer'
 import type { SigningResult, SignOrderParams, SignOrderCancellationParams, UnsignedOrder } from './types'
 
-import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS } from '../common/consts'
-import { CowError, SupportedChainId } from '../common'
-import { EcdsaSigningScheme } from '../order-book'
+import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS, CowError, SupportedChainId } from '@cowprotocol/common'
+import { EcdsaSigningScheme } from '@cowprotocol/order-book'
 import { SignOrderCancellationsParams } from './types'
 
 // For error codes, see:
@@ -40,8 +37,8 @@ const RPC_REQUEST_FAILED_REGEX = /RPC request failed/i
 const METAMASK_STRING_CHAINID_REGEX = /provided chainid .* must match the active chainid/i
 
 const mapSigningSchema: Record<EcdsaSigningScheme, EcdsaSigningSchemeContract> = {
-  [EcdsaSigningScheme.EIP712]: SigningScheme.EIP712,
-  [EcdsaSigningScheme.ETHSIGN]: SigningScheme.ETHSIGN,
+  [SigningScheme.EIP712]: SigningScheme.EIP712,
+  [SigningScheme.ETHSIGN]: SigningScheme.ETHSIGN,
 }
 
 interface ProviderRpcError extends Error {
@@ -64,7 +61,12 @@ async function _signOrder(params: SignOrderParams): Promise<Signature> {
 
   const domain = getDomain(chainId)
 
-  return signOrderGp(domain, order as unknown as OrderFromContract, signer, mapSigningSchema[signingScheme])
+  const signature = await signOrderGp(domain, order as unknown as OrderFromContract, signer)
+  return {
+    signer: await signer.getAddress(),
+    signature,
+    signingScheme: mapSigningSchema[signingScheme],
+  }
 }
 
 async function _signOrderCancellation(params: SignOrderCancellationParams): Promise<Signature> {
@@ -72,7 +74,12 @@ async function _signOrderCancellation(params: SignOrderCancellationParams): Prom
 
   const domain = getDomain(chainId)
 
-  return signOrderCancellationGp(domain, orderUid, signer, mapSigningSchema[signingScheme])
+  const signature = await signOrderCancellationGp(domain, orderUid, signer)
+  return {
+    signer: await signer.getAddress(),
+    signature,
+    signingScheme: mapSigningSchema[signingScheme],
+  }
 }
 
 async function _signOrderCancellations(params: SignOrderCancellationsParams): Promise<Signature> {
@@ -80,7 +87,12 @@ async function _signOrderCancellations(params: SignOrderCancellationsParams): Pr
 
   const domain = getDomain(chainId)
 
-  return signOrderCancellationsGp(domain, orderUids, signer, mapSigningSchema[signingScheme])
+  const signature = await signOrderCancellationsGp(domain, orderUids, signer)
+  return {
+    signer: await signer.getAddress(),
+    signature,
+    signingScheme: mapSigningSchema[signingScheme],
+  }
 }
 
 async function _signPayload(
@@ -99,10 +111,10 @@ async function _signPayload(
     switch (signingMethod) {
       case 'default':
       case 'v3':
-        _signer = new TypedDataVersionedSigner(signer)
+        _signer = signer as TypedDataSigner
         break
       case 'int_v4':
-        _signer = new IntChainIdTypedDataV4Signer(signer)
+        _signer = new IntChainIdTypedDataV4Signer(signer as TypedDataSigner)
         break
       default:
         _signer = signer
@@ -113,7 +125,12 @@ async function _signPayload(
   }
 
   try {
-    signature = (await signFn({ ...payload, signer: _signer, signingScheme })) as EcdsaSignature // Only ECDSA signing supported for now
+    const result = await signFn({ ...payload, signer: _signer, signingScheme })
+    signature = {
+      signer: await _signer.getAddress(),
+      signature: result.signature,
+      signingScheme: result.signingScheme,
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     if (!isProviderRpcError(e)) {
@@ -164,7 +181,7 @@ async function _signPayload(
     }
   }
 
-  const data: unknown = signature?.data
+  const data: unknown = signature?.signature
 
   return { signature: data?.toString() || '', signingScheme }
 }
@@ -247,7 +264,7 @@ export async function generateOrderId(
   params: Pick<OrderUidParams, 'owner'>
 ): Promise<{ orderId: string; orderDigest: string }> {
   const domain = await getDomain(chainId)
-  const orderDigest = hashOrder(domain, order)
+  const orderDigest = hashOrder(order, domain)
   // Generate the orderId from owner, orderDigest, and max validTo
   const orderId = packOrderUidParams({
     ...params,

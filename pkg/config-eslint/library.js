@@ -6,27 +6,12 @@ const project = resolve(process.cwd(), 'tsconfig.json')
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'eslint:recommended',
     'prettier',
-    'turbo',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended'
   ],
-  plugins: ['prettier', 'unused-imports', 'only-warn'],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  env: {
-    node: true,
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project,
-      },
-    },
-  },
+  plugins: ['prettier', 'unused-imports'],
   rules: {
     'prettier/prettier': 'error',
     'no-unused-vars': 'off',
@@ -42,13 +27,11 @@ module.exports = {
     ],
   },
   ignorePatterns: [
-    // Ignore dotfiles
-    '.*.js',
-    'node_modules/',
-    'dist/',
+    'dist',
+    'node_modules',
     'src/subgraph/graphql.ts',
     'examples',
-    'schemas',
+    'schemas'
   ],
   overrides: [
     {

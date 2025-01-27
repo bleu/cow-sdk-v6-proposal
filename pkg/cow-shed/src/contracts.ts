@@ -1,6 +1,6 @@
-import { CoWShed__factory, CoWShedFactory__factory } from '../common/generated'
-import { CoWShedInterface } from '../common/generated/CoWShed'
-import { CoWShedFactoryInterface } from '../common/generated/CoWShedFactory'
+import { CoWShed__factory, CoWShedFactory__factory } from '@cowprotocol/contracts/generated'
+import type { CoWShedInterface } from '@cowprotocol/contracts/generated/CoWShed'
+import type { CoWShedFactoryInterface } from '@cowprotocol/contracts/generated/CoWShedFactory'
 
 let cowShedInterfaceCache: CoWShedInterface | undefined
 let cowShedFactoryInterface: CoWShedFactoryInterface | undefined

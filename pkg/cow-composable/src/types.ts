@@ -1,6 +1,6 @@
-import { OrderBookApi } from '../cow-order-book'
+import { OrderBookApi } from '@cowprotocol/order-book'
 import { SupportedChainId } from '@cowprotocol/common'
-import { GPv2Order } from '@cowprotocol/common/generated/ComposableCoW'
+import { GPv2Order } from '@cowprotocol/contracts'
 import { providers } from 'ethers'
 
 export interface ConditionalOrderArguments<T> {

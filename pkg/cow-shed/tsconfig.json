@@ -1,23 +1,28 @@
 {
-  "extends": "@cowprotocol/typescript-config/base.json",
-  "include": ["./src"],
+  "extends": "../../packages/typescript-config/base.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "paths": {
-      "@cowprotocol/cow-shed": ["./src/index.ts"],
-      "@cowprotocol/cow-shed/*": ["./src/*"],
-      "@cowprotocol/common": ["../cow-common/src/index.ts"],
+      "@cowprotocol/contracts": ["../cow-contracts/src"],
+      "@cowprotocol/contracts/*": ["../cow-contracts/src/*"],
+      "@cowprotocol/contracts/generated": ["../cow-contracts/src/generated"],
+      "@cowprotocol/contracts/generated/*": ["../cow-contracts/src/generated/*"],
+      "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/order-book": ["../cow-order-book/src/index.ts"],
-      "@cowprotocol/subgraph": ["../cow-subgraph/src/index.ts"],
-      "@cowprotocol/order-signing": ["../cow-order-signing/src/index.ts"],
-      "@cowprotocol/composable": ["../cow-composable/src/index.ts"],
-      "@cowprotocol/trading": ["../cow-trading/src/index.ts"],
-      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
-      "@cowprotocol/subgraph/*": ["../cow-subgraph/src/*"],
-      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"],
-      "@cowprotocol/composable/*": ["../cow-composable/src/*"],
-      "@cowprotocol/trading/*": ["../cow-trading/src/*"]
+      "@cowprotocol/common/consts": ["../cow-common/src/consts"],
+      "@cowprotocol/common/chains": ["../cow-common/src/chains"],
+      "@cowprotocol/common/types": ["../cow-common/src/types"]
     }
   },
-  "exclude": ["dist", "build", "node_modules"]
+  "references": [
+    { "path": "../cow-contracts" }
+  ]
 }

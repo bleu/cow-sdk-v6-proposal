@@ -1,0 +1,29 @@
+{
+  "extends": "../../packages/typescript-config/base.json",
+  "include": [
+    "src/**/*",
+    "src/generated/**/*",
+    "src/generated/models/**/*"
+  ],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "paths": {
+      "@cowprotocol/contracts": ["./src"],
+      "@cowprotocol/contracts/*": ["./src/*"],
+      "@cowprotocol/contracts/generated": ["./src/generated"],
+      "@cowprotocol/contracts/generated/*": ["./src/generated/*"],
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"]
+    }
+  },
+  "references": [
+    { "path": "../cow-common" }
+  ]
+}

@@ -1,9 +1,9 @@
-jest.mock('../api', () => {
-  return {
-    OrderBookApi: class MockedOrderBookApi {
-      getOrder = mockGetOrder
-    },
-  }
-})
+const mockGetOrder = jest.fn()
 
-export const mockGetOrder = jest.fn()
+jest.mock('../api', () => ({
+  OrderBookApi: class MockedOrderBookApi {
+    getOrder = mockGetOrder
+  },
+}))
+
+export { mockGetOrder }

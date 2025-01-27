@@ -1,9 +1,8 @@
 import { gql } from 'graphql-request'
 import fetchMock, { enableFetchMocks } from 'jest-fetch-mock'
-import { SupportedChainId } from '../common/chains'
-import { CowError } from '../common/cow-error'
-import { LAST_DAYS_VOLUME_QUERY, LAST_HOURS_VOLUME_QUERY, TOTALS_QUERY } from '../queries'
-import { SUBGRAPH_PROD_CONFIG, SubgraphApi } from '../api'
+import { SupportedChainId, CowError } from '@cowprotocol/common'
+import { LAST_DAYS_VOLUME_QUERY, LAST_HOURS_VOLUME_QUERY, TOTALS_QUERY } from './queries'
+import { SUBGRAPH_PROD_CONFIG, SubgraphApi } from './api'
 
 enableFetchMocks()
 
@@ -333,6 +332,8 @@ describe('CoW subgraph URL', () => {
       [SupportedChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/cowprotocol/cow-staging',
       [SupportedChainId.GNOSIS_CHAIN]: 'https://api.thegraph.com/subgraphs/name/cowprotocol/cow-gc-staging',
       [SupportedChainId.SEPOLIA]: null,
+      [SupportedChainId.ARBITRUM_ONE]: null,
+      [SupportedChainId.BASE]: null,
     }
 
     const customSubgraphApi = new SubgraphApi({

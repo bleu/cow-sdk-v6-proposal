@@ -1,23 +1,32 @@
 {
-  "extends": "@cowprotocol/typescript-config/base.json",
-  "include": ["./src"],
+  "extends": "../../packages/typescript-config/base.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "paths": {
-      "@cowprotocol/order-signing": ["./src/index.ts"],
       "@cowprotocol/order-signing/*": ["./src/*"],
-      "@cowprotocol/common": ["../cow-common/src/index.ts"],
-      "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/order-book": ["../cow-order-book/src/index.ts"],
-      "@cowprotocol/subgraph": ["../cow-subgraph/src/index.ts"],
-      "@cowprotocol/composable": ["../cow-composable/src/index.ts"],
-      "@cowprotocol/cow-shed": ["../cow-shed/src/index.ts"],
-      "@cowprotocol/trading": ["../cow-trading/src/index.ts"],
-      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
-      "@cowprotocol/subgraph/*": ["../cow-subgraph/src/*"],
-      "@cowprotocol/composable/*": ["../cow-composable/src/*"],
-      "@cowprotocol/cow-shed/*": ["../cow-shed/src/*"],
-      "@cowprotocol/trading/*": ["../cow-trading/src/*"]
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
+      "@cowprotocol/order-book": ["../../pkg/cow-order-book/src"],
+      "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
+      "@cowprotocol/order-book/generated": ["../../pkg/cow-order-book/src/generated"],
+      "@cowprotocol/order-book/generated/*": ["../../pkg/cow-order-book/src/generated/*"],
+      "@cowprotocol/order-book/models": ["../../pkg/cow-order-book/src/generated/models"],
+      "@cowprotocol/order-book/models/*": ["../../pkg/cow-order-book/src/generated/models/*"],
+      "@cowprotocol/contracts": ["../../pkg/cow-contracts/src"],
+      "@cowprotocol/contracts/*": ["../../pkg/cow-contracts/src/*"]
     }
   },
-  "exclude": ["dist", "build", "node_modules"]
+  "references": [
+    { "path": "../cow-common" },
+    { "path": "../cow-contracts" },
+    { "path": "../cow-order-book" }
+  ]
 }

@@ -1,7 +1,5 @@
 # dependencies
 node_modules
-.pnp
-.pnp.js
 
 # testing
 coverage
@@ -9,6 +7,12 @@ coverage
 # production
 build
 dist
+
+# generated files
+**/generated/**
+**/*.graphql.ts
+**/schemas/**
+**/graphql.ts
 
 # misc
 .DS_Store

@@ -12,7 +12,7 @@ import {
   PollResultErrors,
 } from '../../types'
 import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../../utils'
-import { GPv2Order } from '../../common/generated/ComposableCoW'
+import { GPv2Order } from '@cowprotocol/contracts'
 
 // The type of Conditional Order
 const TWAP_ORDER_TYPE = 'twap'

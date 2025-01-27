@@ -1,23 +1,25 @@
 {
-  "extends": "@cowprotocol/typescript-config/base.json",
-  "include": ["./src"],
+  "extends": "../../packages/typescript-config/base.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "paths": {
-      "@cowprotocol/subgraph": ["./src/index.ts"],
       "@cowprotocol/subgraph/*": ["./src/*"],
-      "@cowprotocol/common": ["../cow-common/src/index.ts"],
-      "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/order-book": ["../cow-order-book/src/index.ts"],
-      "@cowprotocol/order-signing": ["../cow-order-signing/src/index.ts"],
-      "@cowprotocol/composable": ["../cow-composable/src/index.ts"],
-      "@cowprotocol/cow-shed": ["../cow-shed/src/index.ts"],
-      "@cowprotocol/trading": ["../cow-trading/src/index.ts"],
-      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
-      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"],
-      "@cowprotocol/composable/*": ["../cow-composable/src/*"],
-      "@cowprotocol/cow-shed/*": ["../cow-shed/src/*"],
-      "@cowprotocol/trading/*": ["../cow-trading/src/*"]
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
+      "@cowprotocol/config": ["../../pkg/cow-config/src"],
+      "@cowprotocol/config/*": ["../../pkg/cow-config/src/*"]
     }
   },
-  "exclude": ["dist", "build", "node_modules"]
+  "references": [
+    { "path": "../cow-common" },
+    { "path": "../cow-config" }
+  ]
 }
