@@ -1,3 +1,4 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   projects: ['<rootDir>/pkg/*'],
   collectCoverage: true,
@@ -13,9 +14,27 @@ module.exports = {
   ],
   testEnvironment: 'node',
   transform: {
-    '^.+\\.tsx?$': 'ts-jest'
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: {
+        allowJs: true,
+        esModuleInterop: true,
+        moduleResolution: 'node',
+        module: 'commonjs',
+        jsx: 'react',
+        target: 'es2020'
+      }
+    }]
   },
   moduleNameMapper: {
     '^@cowprotocol/(.*)$': '<rootDir>/pkg/$1/src'
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!(@cowprotocol)/)'
+  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
   }
 };
