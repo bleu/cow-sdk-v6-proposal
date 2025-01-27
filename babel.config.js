@@ -1,18 +1,23 @@
 module.exports = {
   presets: [
     ['@babel/preset-env', {
-      targets: { node: 'current' }
+      targets: { node: 'current' },
+      modules: 'commonjs'
     }],
     ['@babel/preset-typescript', {
       allowNamespaces: true,
       allowDeclareFields: true,
-      onlyRemoveTypeImports: true
+      onlyRemoveTypeImports: true,
+      isTSX: true,
+      allExtensions: true
     }]
   ],
   plugins: [
-    ['@babel/plugin-transform-modules-commonjs', { allowTopLevelThis: true }],
-    '@babel/plugin-transform-class-properties',
-    '@babel/plugin-transform-private-methods',
-    '@babel/plugin-transform-object-rest-spread'
+    '@babel/plugin-transform-runtime',
+    ['@babel/plugin-transform-modules-commonjs', {
+      allowTopLevelThis: true,
+      strict: true,
+      strictMode: true
+    }]
   ]
 };

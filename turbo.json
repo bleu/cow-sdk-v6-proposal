@@ -3,20 +3,20 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
       "outputs": []
     },
     "test": {
-      "dependsOn": ["build"],
-      "inputs": ["src/**/*.ts", "test/**/*.ts"],
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
       "outputs": ["coverage/**", "test-results/**"]
     },
     "test:ci": {
-      "dependsOn": ["build"],
-      "inputs": ["src/**/*.ts", "test/**/*.ts"],
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
       "outputs": ["coverage/**", "test-results/**"]
     },
     "dev": {

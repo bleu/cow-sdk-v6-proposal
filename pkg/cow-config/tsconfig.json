@@ -1,7 +1,11 @@
 {
   "extends": "../config-typescript/base.json",
-  "include": ["./src", "../cow-common/src"],
+  "include": ["./src"],
+  "references": [
+    { "path": "../cow-common" }
+  ],
   "compilerOptions": {
+    "composite": true,
     "paths": {
       "@cowprotocol/common/*": ["../cow-common/src/*"]
     }

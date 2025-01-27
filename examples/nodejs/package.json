@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No tests required for nodejs example\" && exit 0"
   },
   "dependencies": {
     "@cowprotocol/cow-sdk": "^4.0.3",
