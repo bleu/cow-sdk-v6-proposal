@@ -11,9 +11,9 @@ jest.mock('cross-fetch', () => {
 })
 
 import { OrderSigningUtils } from './orderSigningUtils'
-import { SupportedChainId } from '../common'
+import { SupportedChainId } from '@cowprotocol/common/chains'
 import { UnsignedOrder } from './types'
-import { OrderKind } from '../order-book'
+import { OrderKind } from '@cowprotocol/order-book/generated'
 import { mock, instance, when, anything, capture } from 'ts-mockito'
 import type { TypedDataSigner } from '@cowprotocol/contracts'
 

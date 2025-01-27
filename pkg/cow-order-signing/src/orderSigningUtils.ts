@@ -1,10 +1,10 @@
-import type { SupportedChainId } from '../common'
+import type { SupportedChainId } from '@cowprotocol/common/chains'
 import type { Signer } from '@ethersproject/abstract-signer'
 import type { Order, TypedDataDomain, OrderUidParams } from '@cowprotocol/contracts'
 import type { SigningResult, UnsignedOrder } from './types'
 
 const getSignUtils = () => import('./utils')
-const ethersUtils = () => import('ethers/lib/utils')
+const ethersUtils = () => import('@ethersproject/hash')
 
 /**
  * Utility class for signing order intents and cancellations.
