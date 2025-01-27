@@ -9,6 +9,16 @@
     "lint": {
       "outputs": []
     },
+    "test": {
+      "dependsOn": ["build"],
+      "inputs": ["src/**/*.ts", "test/**/*.ts"],
+      "outputs": ["coverage/**", "test-results/**"]
+    },
+    "test:ci": {
+      "dependsOn": ["build"],
+      "inputs": ["src/**/*.ts", "test/**/*.ts"],
+      "outputs": ["coverage/**", "test-results/**"]
+    },
     "dev": {
       "cache": false,
       "persistent": true

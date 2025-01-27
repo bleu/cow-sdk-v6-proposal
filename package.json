@@ -4,8 +4,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "turbo run test --no-cache",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test:ci": "jest --ci --json --coverage --testLocationInResults --outputFile=test-results/jest.results.json"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
