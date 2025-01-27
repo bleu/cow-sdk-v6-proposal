@@ -4,7 +4,6 @@ import type { Order } from '../types'
 export const GPv2Order = {
   name: 'Gnosis Protocol',
   version: 'v2',
-  
   hashOrder(order: Order, domain: ethers.TypedDataDomain): string {
     return ethers.utils._TypedDataEncoder.hash(
       domain,

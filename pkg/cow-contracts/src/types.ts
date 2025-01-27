@@ -1,6 +1,10 @@
 import type { BytesLike } from 'ethers'
 import type { TypedDataSigner } from '@ethersproject/abstract-signer'
-import type { Result, EventFragment as EthersEventFragment, FunctionFragment as EthersFunctionFragment } from '@ethersproject/abi'
+import type {
+  Result,
+  EventFragment as EthersEventFragment,
+  FunctionFragment as EthersFunctionFragment,
+} from '@ethersproject/abi'
 
 export interface Order {
   sellToken: string
@@ -50,7 +54,7 @@ import type { EventFilter } from '@ethersproject/contracts'
 import type { Event } from '@ethersproject/contracts'
 
 export interface BaseEventObject extends Result {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface TypedEvent<TArgsObject extends BaseEventObject> extends Event {

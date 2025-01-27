@@ -27,7 +27,11 @@ export interface EcdsaSignature {
 }
 
 export interface TypedDataVersionedSigner extends TypedDataSigner {
-  _signTypedData(domain: any, types: any, value: any): Promise<string>
+  _signTypedData(
+    domain: Record<string, unknown>,
+    types: Record<string, Array<{ name: string; type: string }>>,
+    value: Record<string, unknown>
+  ): Promise<string>
 }
 
 export class IntChainIdTypedDataV4Signer {
@@ -51,7 +55,7 @@ export function domain(chainId: number, verifyingContract: string): ethers.Typed
   }
 }
 
-export function hashOrder(order: any, domain: ethers.TypedDataDomain): string {
+export function hashOrder(order: Record<string, unknown>, domain: ethers.TypedDataDomain): string {
   return ethers.utils._TypedDataEncoder.hash(
     domain,
     {
@@ -79,7 +83,7 @@ export function packOrderUidParams(params: { orderDigest: string; owner: string;
 }
 
 export async function signOrder(
-  order: any,
+  order: Record<string, unknown>,
   domain: ethers.TypedDataDomain,
   signer: TypedDataVersionedSigner
 ): Promise<string> {
