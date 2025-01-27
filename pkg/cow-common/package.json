@@ -2,8 +2,13 @@
   "name": "@cowprotocol/common",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
+    "build": "tsc",
     "test": "jest --config ../../jest.config.js",
     "test:coverage": "jest --config ../../jest.config.js --coverage",
     "lint": "eslint . --ext .ts,.tsx"

@@ -1,12 +1,12 @@
-import { utils } from 'ethers'
-import type { BigNumber, providers } from 'ethers'
+import { utils, BigNumber, providers } from 'ethers'
 import {
   COMPOSABLE_COW_CONTRACT_ADDRESS,
-  EXTENSIBLE_FALLBACK_HANDLER_CONTRACT_ADDRESS
+  EXTENSIBLE_FALLBACK_HANDLER_CONTRACT_ADDRESS,
+  SupportedChainId
 } from '@cowprotocol/common'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { TypedEvent, TypedEventFilter, BaseEventObject, GPv2Order } from '@cowprotocol/contracts'
 import { ExtensibleFallbackHandler__factory } from '@cowprotocol/contracts'
-import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
 import type { BlockInfo, ConditionalOrderParams } from './types'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 

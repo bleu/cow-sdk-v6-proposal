@@ -1,5 +1,4 @@
-import { constants, utils } from 'ethers'
-import type { BigNumber, providers } from 'ethers'
+import { constants, utils, BigNumber, providers } from 'ethers'
 import { ConditionalOrder } from '../ConditionalOrder'
 import type {
   ConditionalOrderArguments,
@@ -13,10 +12,10 @@ import type {
 } from '../types'
 import { PollResultCode } from '../types'
 import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../utils'
-import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/contracts'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS, TWAP_ADDRESS, SupportedChainId } from '@cowprotocol/common'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
-import { COMPOSABLE_COW_CONTRACT_ADDRESS, TWAP_ADDRESS } from '@cowprotocol/common'
 
 // The type of Conditional Order
 const TWAP_ORDER_TYPE = 'twap'
@@ -175,25 +174,6 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
     const domain = await OrderSigningUtils.getDomain(params.chainId)
     const signature = await OrderSigningUtils.signOrder(domain, order, params.provider)
     return signature
-  }
-
-  protected async handlePollFailedAlreadyPresent(
-    _orderUid: string,
-    _order: Order,
-    params: PollParams
-  ): Promise<PollResultErrors | undefined> {
-    const { blockInfo = await getBlockInfo(params.provider) } = params;
-    const startTime = await this.startTimestamp(params);
-    const endTime = this.endTimestamp(startTime);
-
-    if (blockInfo.blockTimestamp >= endTime) {
-      return {
-        result: PollResultCode.DONT_TRY_AGAIN,
-        reason: 'TWAP_EXPIRED',
-      };
-    }
-
-    return undefined;
   }
 
   get leaf(): ConditionalOrderParams {

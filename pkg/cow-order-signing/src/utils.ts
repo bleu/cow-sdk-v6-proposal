@@ -1,28 +1,26 @@
 import type {
   Order as OrderFromContract,
-  Signature,
+  EcdsaSignature,
   TypedDataDomain,
   Order,
   OrderUidParams,
   TypedDataVersionedSigner
 } from '@cowprotocol/contracts'
 import {
-  EcdsaSigningScheme as EcdsaSigningSchemeContract,
-  SigningScheme,
   domain as domainGp,
-  IntChainIdTypedDataV4Signer,
   hashOrder,
   packOrderUidParams,
   signOrder as signOrderGp,
   signOrderCancellation as signOrderCancellationGp,
-  signOrderCancellations as signOrderCancellationsGp
+  signOrderCancellations as signOrderCancellationsGp,
+  SigningScheme,
+  EcdsaSigningScheme
 } from '@cowprotocol/contracts'
-import type { Signer } from '@ethersproject/abstract-signer'
-import type { SigningResult, SignOrderParams, SignOrderCancellationParams, UnsignedOrder } from './types'
 
-import { COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS, CowError, SupportedChainId } from '@cowprotocol/common'
-import { EcdsaSigningScheme } from '@cowprotocol/order-book'
-import { SignOrderCancellationsParams } from './types'
+import type { Signer } from '@ethersproject/abstract-signer'
+import type { SigningResult, SignOrderParams, SignOrderCancellationParams, UnsignedOrder, SignOrderCancellationsParams } from './types'
+
+import { SupportedChainId, COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS } from '@cowprotocol/common'
 
 // For error codes, see:
 // - https://eth.wiki/json-rpc/json-rpc-error-codes-improvement-proposal
@@ -37,10 +35,7 @@ const V3_ERROR_MSG_REGEX = /eth_signTypedData_v3 does not exist/i
 const RPC_REQUEST_FAILED_REGEX = /RPC request failed/i
 const METAMASK_STRING_CHAINID_REGEX = /provided chainid .* must match the active chainid/i
 
-const mapSigningSchema: Record<EcdsaSigningScheme, SigningScheme> = {
-  [EcdsaSigningScheme.EIP712]: SigningScheme.EIP712,
-  [EcdsaSigningScheme.ETHSIGN]: SigningScheme.ETHSIGN,
-}
+// No need for mapping since we're using the same SigningScheme type throughout
 
 interface ProviderRpcError extends Error {
   message: string
@@ -57,55 +52,58 @@ function isProviderRpcError(error: unknown): error is ProviderRpcError {
   return (error as ProviderRpcError).code !== undefined || (error as ProviderRpcError).message !== undefined
 }
 
-async function _signOrder(params: SignOrderParams): Promise<Signature> {
+async function _signOrder(params: SignOrderParams): Promise<EcdsaSignature> {
   const { chainId, signer, order, signingScheme } = params
 
   const domain = getDomain(chainId)
 
   const signature = await signOrderGp(domain, order as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
   return {
-    signer: await signer.getAddress(),
-    signature,
-    signingScheme: mapSigningSchema[signingScheme],
+    r: signature.slice(0, 66),
+    s: '0x' + signature.slice(66, 130),
+    v: parseInt(signature.slice(130, 132), 16),
+    signatureScheme: signingScheme as unknown as EcdsaSigningScheme
   }
 }
 
-async function _signOrderCancellation(params: SignOrderCancellationParams): Promise<Signature> {
+async function _signOrderCancellation(params: SignOrderCancellationParams): Promise<EcdsaSignature> {
   const { chainId, signer, signingScheme, orderUid } = params
 
   const domain = getDomain(chainId)
 
   const signature = await signOrderCancellationGp(orderUid, domain as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
   return {
-    signer: await signer.getAddress(),
-    signature,
-    signingScheme: mapSigningSchema[signingScheme],
+    r: signature.slice(0, 66),
+    s: '0x' + signature.slice(66, 130),
+    v: parseInt(signature.slice(130, 132), 16),
+    signatureScheme: signingScheme as unknown as EcdsaSigningScheme
   }
 }
 
-async function _signOrderCancellations(params: SignOrderCancellationsParams): Promise<Signature> {
+async function _signOrderCancellations(params: SignOrderCancellationsParams): Promise<EcdsaSignature> {
   const { chainId, signer, signingScheme, orderUids } = params
 
   const domain = getDomain(chainId)
 
   const signature = await signOrderCancellationsGp(orderUids, domain as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
   return {
-    signer: await signer.getAddress(),
-    signature,
-    signingScheme: mapSigningSchema[signingScheme],
+    r: signature.slice(0, 66),
+    s: '0x' + signature.slice(66, 130),
+    v: parseInt(signature.slice(130, 132), 16),
+    signatureScheme: signingScheme as unknown as EcdsaSigningScheme
   }
 }
 
 async function _signPayload(
   payload: PayloadParams,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  signFn: (params: any) => Promise<Signature>,
+  signFn: (params: any) => Promise<EcdsaSignature>,
   signer: Signer,
   signingMethod: 'default' | 'v4' | 'int_v4' | 'v3' | 'eth_sign' = 'v4'
 ): Promise<SigningResult> {
   const signingScheme: EcdsaSigningScheme =
     signingMethod === 'eth_sign' ? EcdsaSigningScheme.ETHSIGN : EcdsaSigningScheme.EIP712
-  let signature: Signature | null = null
+  let signature: EcdsaSignature | null = null
 
   let _signer: Signer & TypedDataVersionedSigner
   try {
@@ -122,16 +120,11 @@ async function _signPayload(
     }
   } catch (e) {
     console.error('Wallet not supported:', e)
-    throw new CowError('Wallet not supported')
+    throw new Error('Wallet not supported')
   }
 
   try {
-    const result = await signFn({ ...payload, signer: _signer, signingScheme })
-    signature = {
-      signer: await _signer.getAddress(),
-      signature: result.signature,
-      signingScheme: result.signingScheme,
-    }
+    signature = await signFn({ ...payload, signer: _signer, signingScheme })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     if (!isProviderRpcError(e)) {
@@ -182,9 +175,11 @@ async function _signPayload(
     }
   }
 
-  const data: unknown = signature?.signature
+  if (!signature) {
+    throw new Error('Failed to generate signature')
+  }
 
-  return { signature: data?.toString() || '', signingScheme }
+  return { signature, signingScheme }
 }
 
 /**
@@ -247,7 +242,7 @@ export function getDomain(chainId: SupportedChainId): TypedDataDomain {
   const settlementContract = COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS[chainId]
 
   if (!settlementContract) {
-    throw new CowError('Unsupported network. Settlement contract is not deployed')
+    throw new Error('Unsupported network. Settlement contract is not deployed')
   }
 
   return domainGp(chainId, settlementContract) as TypedDataDomain
@@ -265,7 +260,7 @@ export async function generateOrderId(
   params: Pick<OrderUidParams, 'owner'>
 ): Promise<{ orderId: string; orderDigest: string }> {
   const domain = await getDomain(chainId)
-  const orderDigest = hashOrder(order as unknown as Record<string, unknown>, domain)
+  const orderDigest = hashOrder(domain, order as unknown as Record<string, unknown>)
   // Generate the orderId from owner, orderDigest, and max validTo
   const orderId = packOrderUidParams({
     ...params,

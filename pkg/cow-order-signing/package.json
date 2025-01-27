@@ -2,11 +2,25 @@
   "name": "@cowprotocol/order-signing",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
+    "build": "tsc",
     "test": "jest --config ../../jest.config.js",
     "test:coverage": "jest --config ../../jest.config.js --coverage",
     "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@cowprotocol/common": "workspace:^",
+    "@cowprotocol/contracts": "workspace:^",
+    "@cowprotocol/order-book": "workspace:^",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "ethers": "^5.7.2"
   },
   "devDependencies": {
     "@vercel/style-guide": "^5.2.0",

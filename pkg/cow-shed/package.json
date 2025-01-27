@@ -15,6 +15,10 @@
   "dependencies": {
     "@cowprotocol/common": "workspace:^",
     "@cowprotocol/contracts": "workspace:^",
+    "@cowprotocol/order-signing": "workspace:^",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
     "ethers": "^5.7.2"
   },
   "devDependencies": {

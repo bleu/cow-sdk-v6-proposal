@@ -2,6 +2,8 @@ import { BackoffOptions } from 'exponential-backoff'
 import { RateLimiterOpts } from 'limiter/dist/esm'
 import { SupportedChainId } from '@cowprotocol/common'
 
+export * from './configs'
+
 export interface IpfsConfig {
   uri?: string
   writeUri?: string

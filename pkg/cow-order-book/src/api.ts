@@ -253,7 +253,7 @@ export class OrderBookApi {
    */
   getOrderMultiEnv(orderUid: UID, contextOverride: PartialApiContext = {}): Promise<EnrichedOrder> {
     const { env } = this.getContextWithOverride(contextOverride)
-    const otherEnvs = ENVS_LIST.filter((i) => i !== env)
+    const otherEnvs = ENVS_LIST.filter((i: string) => i !== env)
 
     let attemptsCount = 0
 

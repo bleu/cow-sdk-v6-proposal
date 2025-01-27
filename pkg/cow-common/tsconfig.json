@@ -1,6 +1,6 @@
 {
   "extends": "../../packages/typescript-config/base.json",
-  "include": ["src/**/*", "src/chains/**/*", "src/types.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "compilerOptions": {
     "outDir": "./dist",
@@ -13,9 +13,10 @@
     "baseUrl": ".",
     "paths": {
       "@cowprotocol/common": ["./src"],
-      "@cowprotocol/common/*": ["./src/*"],
-      "@cowprotocol/common/chains": ["./src/chains"],
-      "@cowprotocol/common/consts": ["./src/consts"]
+      "@cowprotocol/common/*": ["./src/*"]
     }
-  }
+  },
+  "references": [
+    { "path": "../../packages/typescript-config" }
+  ]
 }

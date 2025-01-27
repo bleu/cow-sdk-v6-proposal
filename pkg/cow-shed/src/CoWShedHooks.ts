@@ -1,7 +1,9 @@
 import {
   SigningScheme,
   hashTypedData,
-  isTypedDataSigner,
+  isTypedDataSigner
+} from '@cowprotocol/contracts'
+import type {
   TypedDataTypes,
   TypedDataDomain
 } from '@cowprotocol/contracts'
@@ -14,8 +16,9 @@ import {
   solidityKeccak256,
   splitSignature,
 } from 'ethers/lib/utils'
-import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION } from '@cowprotocol/common/consts'
-import { SupportedChainId } from '@cowprotocol/common/chains'
+import type { SignatureLike } from '@ethersproject/bytes'
+import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION, SupportedChainId } from '@cowprotocol/common'
+import { OrderSigningUtils } from '../cow-order-signing/src'
 import { getCoWShedFactoryInterface } from './contracts'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
 import { COW_SHED_712_TYPES, ICoWShedCall, ICoWShedOptions } from './types'
@@ -106,7 +109,7 @@ async function ecdsaSignTypedData(
       if (!isTypedDataSigner(owner)) {
         throw new Error('signer does not support signing typed data')
       }
-      signature = await owner._signTypedData(domain, types, data)
+      signature = await OrderSigningUtils.signTypedData(owner, domain, types, data)
       break
     case SigningScheme.ETHSIGN:
       signature = await owner.signMessage(arrayify(hashTypedData(domain, types, data)))
@@ -116,6 +119,10 @@ async function ecdsaSignTypedData(
       throw new Error('Unsupported signing scheme')
     default:
       throw new Error('Invalid signing scheme')
+  }
+
+  if (!signature) {
+    throw new Error('Failed to sign data')
   }
 
   // Passing the signature through split/join to normalize the `v` byte.

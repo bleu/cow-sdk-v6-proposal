@@ -18,11 +18,12 @@
       "@cowprotocol/contracts/*": ["./src/*"],
       "@cowprotocol/contracts/generated": ["./src/generated"],
       "@cowprotocol/contracts/generated/*": ["./src/generated/*"],
-      "@cowprotocol/common": ["../../pkg/cow-common/src"],
-      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"]
+      "@cowprotocol/common": ["../cow-common/src"],
+      "@cowprotocol/common/*": ["../cow-common/src/*"]
     }
   },
   "references": [
+    { "path": "../../packages/typescript-config" },
     { "path": "../cow-common" }
   ]
 }

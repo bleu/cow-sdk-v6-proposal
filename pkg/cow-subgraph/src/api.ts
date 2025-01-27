@@ -1,6 +1,6 @@
 import { Variables, request } from 'graphql-request'
 import { DocumentNode } from 'graphql/index'
-import { SupportedChainId, CowError } from '@cowprotocol/common'
+import { SupportedChainId } from '@cowprotocol/common'
 import { ApiContext, CowEnv, DEFAULT_COW_API_CONTEXT } from '@cowprotocol/config'
 import { LastDaysVolumeQuery, LastHoursVolumeQuery, TotalsQuery } from './graphql'
 import { LAST_DAYS_VOLUME_QUERY, LAST_HOURS_VOLUME_QUERY, TOTALS_QUERY } from './queries'
@@ -118,7 +118,7 @@ export class SubgraphApi {
       return await request(baseUrl, query, variables)
     } catch (error) {
       console.error(`[subgraph:${this.API_NAME}]`, error)
-      throw new CowError(
+      throw new Error(
         `Error running query: ${query}. Variables: ${JSON.stringify(variables)}. API: ${baseUrl}. Inner Error: ${error}`
       )
     }

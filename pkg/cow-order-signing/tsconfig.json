@@ -12,16 +12,16 @@
     "isolatedModules": true,
     "paths": {
       "@cowprotocol/order-signing/*": ["./src/*"],
-      "@cowprotocol/common": ["../../pkg/cow-common/src"],
-      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
-      "@cowprotocol/order-book": ["../../pkg/cow-order-book/src"],
-      "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
-      "@cowprotocol/order-book/generated": ["../../pkg/cow-order-book/src/generated"],
-      "@cowprotocol/order-book/generated/*": ["../../pkg/cow-order-book/src/generated/*"],
-      "@cowprotocol/order-book/models": ["../../pkg/cow-order-book/src/generated/models"],
-      "@cowprotocol/order-book/models/*": ["../../pkg/cow-order-book/src/generated/models/*"],
-      "@cowprotocol/contracts": ["../../pkg/cow-contracts/src"],
-      "@cowprotocol/contracts/*": ["../../pkg/cow-contracts/src/*"]
+      "@cowprotocol/common": ["../cow-common/src"],
+      "@cowprotocol/common/*": ["../cow-common/src/*"],
+      "@cowprotocol/order-book": ["../cow-order-book/src"],
+      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
+      "@cowprotocol/order-book/generated": ["../cow-order-book/src/generated"],
+      "@cowprotocol/order-book/generated/*": ["../cow-order-book/src/generated/*"],
+      "@cowprotocol/order-book/models": ["../cow-order-book/src/generated/models"],
+      "@cowprotocol/order-book/models/*": ["../cow-order-book/src/generated/models/*"],
+      "@cowprotocol/contracts": ["../cow-contracts/src"],
+      "@cowprotocol/contracts/*": ["../cow-contracts/src/*"]
     }
   },
   "references": [
