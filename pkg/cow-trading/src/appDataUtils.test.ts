@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { buildAppData, generateAppDataFromDoc } from './appDataUtils'
 
 describe('AppData utils', () => {

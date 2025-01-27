@@ -1,6 +1,6 @@
 import { LimitTradeParametersFromQuote, PrivateKey, TradeParameters } from './types'
-import { OrderQuoteResponse, QuoteAmountsAndCosts } from '../order-book'
-import { ETH_ADDRESS } from '../common'
+import { OrderQuoteResponse, QuoteAmountsAndCosts } from '@cowprotocol/order-book'
+import { ETH_ADDRESS } from '@cowprotocol/common'
 import { ethers, Signer } from 'ethers'
 import { type ExternalProvider, Web3Provider } from '@ethersproject/providers'
 

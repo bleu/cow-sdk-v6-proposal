@@ -1,21 +1,23 @@
 {
-  "extends": "../config-typescript/base.json",
-  "include": ["./src"],
+  "extends": "../../pkg/config-typescript/base.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
     "paths": {
+      "@cowprotocol/order-signing/*": ["./src/*"],
+      "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/contracts/*": ["../contracts/src/*"],
+      "@cowprotocol/order-book": ["../cow-order-book/src"],
       "@cowprotocol/order-book/*": ["../cow-order-book/src/*"]
     },
     "types": ["jest", "node"],
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
     "skipLibCheck": true
   },
-  "references": [
-    { "path": "../cow-common" },
-    { "path": "../cow-order-book" }
-  ]
+  "references": [{ "path": "../cow-common" }, { "path": "../cow-order-book" }]
 }

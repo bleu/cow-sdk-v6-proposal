@@ -1,9 +1,10 @@
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree'
 import { BigNumber, providers, utils } from 'ethers'
 
-import { SupportedChainId } from '../common'
+import { SupportedChainId } from '@cowprotocol/common'
 
-import { ComposableCoW, GPv2Order } from '../common/generated/ComposableCoW'
+import { ComposableCoW } from '@cowprotocol/sdk-ethers-v5'
+import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
 import { ProofLocation, ProofWithParams, ConditionalOrderParams } from './types'
 import { ConditionalOrder } from './ConditionalOrder'
 import { getComposableCow } from './contracts'

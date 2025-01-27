@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { getQuoteWithSigner } from './getQuote'
 
 jest.mock('cross-fetch', () => {
@@ -14,9 +15,9 @@ jest.mock('cross-fetch', () => {
 
 import { postSwapOrderFromQuote } from './postSwapOrder'
 import { SwapParameters } from './types'
-import { OrderKind } from '../order-book'
+import { OrderKind } from '@cowprotocol/order-book'
 import { parseUnits } from 'ethers/lib/utils'
-import { SupportedChainId } from '../common'
+import { SupportedChainId } from '@cowprotocol/common'
 
 const WETH_ADDRESS = '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14'
 const COW_ADDRESS = '0x0625aFB445C3B6B7B929342a04A22599fd5dBB59'

@@ -1,5 +1,10 @@
-import { BuyTokenDestination, getQuoteAmountsAndCosts, type OrderParameters, SellTokenSource } from '../order-book'
-import { UnsignedOrder } from '../order-signing'
+import {
+  BuyTokenDestination,
+  getQuoteAmountsAndCosts,
+  type OrderParameters,
+  SellTokenSource,
+} from '@cowprotocol/order-book'
+import { UnsignedOrder } from '@cowprotocol/order-signing'
 import { LimitTradeParameters } from './types'
 import { DEFAULT_QUOTE_VALIDITY } from './consts'
 

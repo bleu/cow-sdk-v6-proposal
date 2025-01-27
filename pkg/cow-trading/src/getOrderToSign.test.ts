@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 jest.mock('cross-fetch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const fetchMock = require('jest-fetch-mock')
@@ -12,8 +13,8 @@ jest.mock('cross-fetch', () => {
 
 import { getOrderToSign } from './getOrderToSign'
 import { LimitOrderParameters } from './types'
-import { SupportedChainId } from '../common'
-import { OrderKind } from '../order-book'
+import { SupportedChainId } from '@cowprotocol/common'
+import { OrderKind } from '@cowprotocol/order-book'
 import { DEFAULT_QUOTE_VALIDITY } from './consts'
 
 const currentTimestamp = 1487076708000

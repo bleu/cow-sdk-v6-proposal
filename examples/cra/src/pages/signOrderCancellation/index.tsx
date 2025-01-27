@@ -6,7 +6,7 @@ import { parseFormData } from '../../utils'
 import { JsonContent } from '../../components/jsonContent'
 import { ResultContent } from '../../components/resultContent'
 import { useCurrentChainId } from '../../hooks/useCurrentChainId'
-import { signOrderCancellation } from '@cowprotocol/contracts'
+import { signOrderCancellation } from '@cowprotocol/common/signing'
 
 export function SignOrderCancellationPage() {
   const { provider } = useWeb3Info()

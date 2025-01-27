@@ -1,4 +1,4 @@
-import { EcdsaSigningScheme, SigningScheme } from '../order-book'
+import { EcdsaSigningScheme, SigningScheme } from '@cowprotocol/order-book'
 
 export const log = (text: string) => console.log(`[COW TRADING SDK] ${text}`)
 
