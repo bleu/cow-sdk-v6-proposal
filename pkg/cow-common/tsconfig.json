@@ -16,7 +16,5 @@
       "@cowprotocol/common/*": ["./src/*"]
     }
   },
-  "references": [
-    { "path": "../../packages/typescript-config" }
-  ]
+  "references": [{ "path": "../../packages/typescript-config" }]
 }

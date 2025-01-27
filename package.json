@@ -75,5 +75,10 @@
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
     "@ethersproject/solidity": "^5.7.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "limiter@2.1.0": "patches/limiter@2.1.0.patch"
+    }
   }
 }

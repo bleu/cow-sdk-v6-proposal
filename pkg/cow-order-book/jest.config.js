@@ -14,7 +14,7 @@ module.exports = {
   },
   moduleNameMapper: {
     // Local monorepo packages
-    '^@cowprotocol/order-signing/(.*)$': '<rootDir>/src/$1',
+    '^@cowprotocol/order-book/(.*)$': '<rootDir>/src/$1',
     '^@cowprotocol/common$': '<rootDir>/../../pkg/cow-common/src/index.ts',
     '^@cowprotocol/common/(.*)$': '<rootDir>/../../pkg/cow-common/src/$1',
     '^@cowprotocol/config$': '<rootDir>/../../pkg/cow-config/src/index.ts',
@@ -27,7 +27,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[tj]sx?$',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.d.ts', '!src/**/__generated__/**', '!src/**/index.ts'],
   coverageThreshold: {
     global: {

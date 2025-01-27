@@ -9,7 +9,8 @@
     "declaration": true,
     "declarationMap": true,
     "skipLibCheck": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "."
   },
   "references": [
     { "path": "../cow-common" },
