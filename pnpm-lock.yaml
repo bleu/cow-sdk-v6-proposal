@@ -11,7 +11,16 @@ importers:
       '@ethersproject/abi':
         specifier: ^5.7.0
         version: 5.7.0
+      '@ethersproject/bytes':
+        specifier: ^5.7.0
+        version: 5.7.0
       '@ethersproject/contracts':
+        specifier: ^5.7.0
+        version: 5.7.0
+      '@ethersproject/hash':
+        specifier: ^5.7.0
+        version: 5.7.0
+      '@ethersproject/solidity':
         specifier: ^5.7.0
         version: 5.7.0
     devDependencies:
@@ -19,7 +28,7 @@ importers:
         specifier: ^2.4.0
         version: 2.5.1(cross-fetch@4.1.0)(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))(ipfs-only-hash@4.0.0)(multiformats@9.9.0)
       '@cowprotocol/contracts':
-        specifier: ^1.6.0
+        specifier: ^1.7.0
         version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@ethersproject/abstract-signer':
         specifier: ^5.7.0
@@ -328,8 +337,8 @@ importers:
         specifier: workspace:^
         version: link:../cow-common
       '@cowprotocol/contracts':
-        specifier: workspace:^
-        version: link:../cow-contracts
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -395,38 +404,11 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  pkg/cow-contracts:
-    dependencies:
-      '@cowprotocol/common':
-        specifier: workspace:^
-        version: link:../cow-common
-    devDependencies:
-      '@ethersproject/abi':
-        specifier: ^5.7.0
-        version: 5.7.0
-      '@ethersproject/abstract-signer':
-        specifier: ^5.7.0
-        version: 5.7.0
-      '@ethersproject/providers':
-        specifier: ^5.7.0
-        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      '@types/jest':
-        specifier: ^29.5.14
-        version: 29.5.14
-      ethers:
-        specifier: ^5.7.2
-        version: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      jest:
-        specifier: ^29.6.4
-        version: 29.7.0(@types/node@22.10.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.10.9)(@types/node@22.10.10)(typescript@5.1.6))
-      jest-environment-jsdom:
-        specifier: ^29.7.0
-        version: 29.7.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-
   pkg/cow-order-book:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@types/jest':
         specifier: ^29.5.14
@@ -468,8 +450,8 @@ importers:
         specifier: workspace:^
         version: link:../cow-common
       '@cowprotocol/contracts':
-        specifier: workspace:^
-        version: link:../cow-contracts
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@cowprotocol/order-book':
         specifier: workspace:^
         version: link:../cow-order-book
@@ -532,7 +514,7 @@ importers:
         specifier: workspace:^
         version: link:../cow-composable
       '@cowprotocol/contracts':
-        specifier: ^1.6.0
+        specifier: ^1.7.0
         version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@cowprotocol/cow-shed':
         specifier: workspace:^
@@ -678,6 +660,10 @@ importers:
         version: 5.1.6
 
   pkg/cow-sdk-ethers-v5:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
@@ -702,6 +688,10 @@ importers:
         version: 5.1.6
 
   pkg/cow-sdk-ethers-v6:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
@@ -726,6 +716,10 @@ importers:
         version: 5.1.6
 
   pkg/cow-sdk-viem:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
@@ -750,6 +744,10 @@ importers:
         version: 5.1.6
 
   pkg/cow-sdk-wagmi:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
@@ -779,8 +777,8 @@ importers:
         specifier: workspace:^
         version: link:../cow-common
       '@cowprotocol/contracts':
-        specifier: workspace:^
-        version: link:../cow-contracts
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@cowprotocol/order-signing':
         specifier: workspace:^
         version: link:../cow-order-signing
@@ -847,6 +845,10 @@ importers:
         version: 5.1.6
 
   pkg/cow-trading:
+    dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0

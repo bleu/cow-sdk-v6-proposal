@@ -4,7 +4,7 @@ import { AddressZero } from '@ethersproject/constants'
 import { ICoWShedCall } from './types'
 import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION } from '../common/consts'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
-import { SigningScheme } from '@cowprotocol/contracts'
+import { SigningScheme } from '@cowprotocol/common/signing'
 import { formatBytes32String, solidityPack } from 'ethers/lib/utils'
 import * as contracts from './contracts'
 

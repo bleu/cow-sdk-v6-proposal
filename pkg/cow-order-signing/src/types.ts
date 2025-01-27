@@ -1,7 +1,8 @@
 import type { SupportedChainId } from '@cowprotocol/common'
 import type { Signer } from '@ethersproject/abstract-signer'
-import type { Order, EcdsaSignature } from '@cowprotocol/contracts'
-import { SigningScheme, EcdsaSigningScheme } from '@cowprotocol/contracts'
+import type { Order } from '@cowprotocol/common'
+import type { EcdsaSignature } from '@cowprotocol/common'
+import { SigningScheme, EcdsaSigningScheme } from '@cowprotocol/common'
 
 export { SigningScheme }
 export type { EcdsaSignature }

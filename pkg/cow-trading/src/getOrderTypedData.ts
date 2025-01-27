@@ -1,4 +1,4 @@
-import { ORDER_TYPE_FIELDS } from '@cowprotocol/contracts'
+import { ORDER_TYPE_FIELDS } from '@cowprotocol/common/signing'
 import { ORDER_PRIMARY_TYPE, OrderTypedData } from './types'
 import { OrderSigningUtils, UnsignedOrder } from '../order-signing'
 import { SupportedChainId } from '../common'

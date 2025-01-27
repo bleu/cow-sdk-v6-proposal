@@ -1,12 +1,13 @@
 import '@cowprotocol/order-book/__mock__/api'
-import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { Order, OrderBalance, OrderKind } from '@cowprotocol/common/types/order'
 import type { OwnerContext, PollParams, PollResultErrors, IConditionalOrder } from '../types'
 import { PollResultCode } from '../types'
 import { DurationType, StartTimeValue, Twap, TWAP_ADDRESS } from './Twap'
 import type { TwapData } from './Twap'
 import type { BigNumber, providers } from 'ethers'
 import { utils, constants } from 'ethers'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import type { SupportedChainId } from '@cowprotocol/common'
+import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common/types/events'
 import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
@@ -427,7 +428,7 @@ describe('Current TWAP part is in the Order Book', () => {
   const numberOfParts = 10
   const totalDuration = timeBetweenParts * numberOfParts
   const orderId = '0x1'
-  const order = {} as GPv2Order.DataStruct
+  const order = {} as Order
 
   const getPollParams = ({ blockTimestamp }: { blockTimestamp: number }) =>
     ({

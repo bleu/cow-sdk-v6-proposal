@@ -1,11 +1,7 @@
-import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { Order } from '@cowprotocol/common/types/order'
 import { ConditionalOrder } from '../../ConditionalOrder'
-import type { IsValidResult, PollParams, PollResultErrors, IConditionalOrder } from '../../types'
-import { PollResultCode } from '../../types'
+import type { IsValidResult, PollParams, PollResultErrors } from '../../types'
 import { encodeParams } from '../../utils'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
-import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
-import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 export const DEFAULT_ORDER_PARAMS: TestConditionalOrderParams = {
   handler: '0x910d00a310f7Dc5B29FE73458F47f519be547D3d',

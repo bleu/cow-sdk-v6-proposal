@@ -1,11 +1,5 @@
-import type {
-  Order as OrderFromContract,
-  EcdsaSignature,
-  TypedDataDomain,
-  Order,
-  OrderUidParams,
-  TypedDataVersionedSigner
-} from '@cowprotocol/contracts'
+import type { Order, OrderUidParams } from '@cowprotocol/common'
+import type { EcdsaSignature, TypedDataDomain, TypedDataVersionedSigner } from '@cowprotocol/common'
 import {
   domain as domainGp,
   hashOrder,
@@ -13,12 +7,17 @@ import {
   signOrder as signOrderGp,
   signOrderCancellation as signOrderCancellationGp,
   signOrderCancellations as signOrderCancellationsGp,
-  SigningScheme,
-  EcdsaSigningScheme
-} from '@cowprotocol/contracts'
+  EcdsaSigningScheme,
+} from '@cowprotocol/common'
 
 import type { Signer } from '@ethersproject/abstract-signer'
-import type { SigningResult, SignOrderParams, SignOrderCancellationParams, UnsignedOrder, SignOrderCancellationsParams } from './types'
+import type {
+  SigningResult,
+  SignOrderParams,
+  SignOrderCancellationParams,
+  UnsignedOrder,
+  SignOrderCancellationsParams,
+} from './types'
 
 import { SupportedChainId, COW_PROTOCOL_SETTLEMENT_CONTRACT_ADDRESS } from '@cowprotocol/common'
 
@@ -57,12 +56,16 @@ async function _signOrder(params: SignOrderParams): Promise<EcdsaSignature> {
 
   const domain = getDomain(chainId)
 
-  const signature = await signOrderGp(domain, order as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
+  const signature = await signOrderGp(
+    domain,
+    order as unknown as Record<string, unknown>,
+    signer as unknown as TypedDataVersionedSigner
+  )
   return {
     r: signature.slice(0, 66),
     s: '0x' + signature.slice(66, 130),
     v: parseInt(signature.slice(130, 132), 16),
-    signatureScheme: signingScheme as unknown as EcdsaSigningScheme
+    signatureScheme: signingScheme as unknown as EcdsaSigningScheme,
   }
 }
 
@@ -71,12 +74,16 @@ async function _signOrderCancellation(params: SignOrderCancellationParams): Prom
 
   const domain = getDomain(chainId)
 
-  const signature = await signOrderCancellationGp(orderUid, domain as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
+  const signature = await signOrderCancellationGp(
+    orderUid,
+    domain as unknown as Record<string, unknown>,
+    signer as unknown as TypedDataVersionedSigner
+  )
   return {
     r: signature.slice(0, 66),
     s: '0x' + signature.slice(66, 130),
     v: parseInt(signature.slice(130, 132), 16),
-    signatureScheme: signingScheme as unknown as EcdsaSigningScheme
+    signatureScheme: signingScheme as unknown as EcdsaSigningScheme,
   }
 }
 
@@ -85,12 +92,16 @@ async function _signOrderCancellations(params: SignOrderCancellationsParams): Pr
 
   const domain = getDomain(chainId)
 
-  const signature = await signOrderCancellationsGp(orderUids, domain as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
+  const signature = await signOrderCancellationsGp(
+    orderUids,
+    domain as unknown as Record<string, unknown>,
+    signer as unknown as TypedDataVersionedSigner
+  )
   return {
     r: signature.slice(0, 66),
     s: '0x' + signature.slice(66, 130),
     v: parseInt(signature.slice(130, 132), 16),
-    signatureScheme: signingScheme as unknown as EcdsaSigningScheme
+    signatureScheme: signingScheme as unknown as EcdsaSigningScheme,
   }
 }
 

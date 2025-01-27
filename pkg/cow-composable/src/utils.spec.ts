@@ -5,9 +5,7 @@ import type { TwapData, TwapStruct } from './orderTypes/Twap'
 import { transformDataToStruct } from './orderTypes/Twap'
 import { utils } from 'ethers'
 import type { BigNumber } from 'ethers'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
-import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
-import type { IConditionalOrder } from './types'
+import type { Order } from '@cowprotocol/common/types/order'
 
 export const TWAP_PARAMS_TEST: TwapData = {
   sellToken: '0x6810e776880C02933D47DB1b9fc05908e5386b96',

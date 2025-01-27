@@ -15,7 +15,7 @@ import { SupportedChainId } from '@cowprotocol/common'
 import { UnsignedOrder } from './types'
 import { OrderKind } from '@cowprotocol/order-book'
 import { mock, instance, when, anything, capture } from 'ts-mockito'
-import type { TypedDataSigner } from '@cowprotocol/contracts'
+import type { TypedDataSigner } from '@cowprotocol/common/signing'
 
 describe('OrderSigningApi', () => {
   const signature =

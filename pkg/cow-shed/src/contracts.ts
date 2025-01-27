@@ -1,14 +1,10 @@
-import { 
-  CoWShed__factory, 
-  CoWShedFactory__factory,
-  type CoWShedInterface,
-  type CoWShedFactoryInterface
-} from '@cowprotocol/contracts'
+import { CoWShed__factory, CoWShedFactory__factory } from '@cowprotocol/abi'
+import { Interface } from '@ethersproject/abi'
 
-let cowShedInterfaceCache: CoWShedInterface | undefined
-let cowShedFactoryInterface: CoWShedFactoryInterface | undefined
+let cowShedInterfaceCache: Interface | undefined
+let cowShedFactoryInterface: Interface | undefined
 
-export function getCoWShedInterface(): CoWShedInterface {
+export function getCoWShedInterface(): Interface {
   if (!cowShedInterfaceCache) {
     cowShedInterfaceCache = CoWShed__factory.createInterface()
   }
@@ -16,7 +12,7 @@ export function getCoWShedInterface(): CoWShedInterface {
   return cowShedInterfaceCache
 }
 
-export function getCoWShedFactoryInterface(): CoWShedFactoryInterface {
+export function getCoWShedFactoryInterface(): Interface {
   if (!cowShedFactoryInterface) {
     cowShedFactoryInterface = CoWShedFactory__factory.createInterface()
   }

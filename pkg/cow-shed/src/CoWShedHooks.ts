@@ -1,12 +1,10 @@
 import {
   SigningScheme,
   hashTypedData,
-  isTypedDataSigner
-} from '@cowprotocol/contracts'
-import type {
-  TypedDataTypes,
-  TypedDataDomain
-} from '@cowprotocol/contracts'
+  isTypedDataSigner,
+  type TypedDataTypes,
+} from '@cowprotocol/common'
+import type { TypedDataDomain } from '@ethersproject/abstract-signer'
 import type { Signer } from '@ethersproject/abstract-signer'
 import {
   arrayify,
@@ -16,9 +14,8 @@ import {
   solidityKeccak256,
   splitSignature,
 } from 'ethers/lib/utils'
-import type { SignatureLike } from '@ethersproject/bytes'
 import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION, SupportedChainId } from '@cowprotocol/common'
-import { OrderSigningUtils } from '../cow-order-signing/src'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
 import { getCoWShedFactoryInterface } from './contracts'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
 import { COW_SHED_712_TYPES, ICoWShedCall, ICoWShedOptions } from './types'
@@ -109,10 +106,13 @@ async function ecdsaSignTypedData(
       if (!isTypedDataSigner(owner)) {
         throw new Error('signer does not support signing typed data')
       }
-      signature = await OrderSigningUtils.signTypedData(owner, domain, types, data)
+      if (!isTypedDataSigner(owner)) {
+        throw new Error('signer does not support signing typed data')
+      }
+      signature = await owner._signTypedData(domain, types, data)
       break
     case SigningScheme.ETHSIGN:
-      signature = await owner.signMessage(arrayify(hashTypedData(domain, types, data)))
+      signature = await owner.signMessage(arrayify(hashTypedData(domain as Record<string, unknown>, types, data)))
       break
     case SigningScheme.PRESIGN:
     case SigningScheme.EIP1271:

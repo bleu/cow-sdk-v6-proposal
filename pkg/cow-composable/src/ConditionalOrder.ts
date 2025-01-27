@@ -1,10 +1,13 @@
-import { constants, utils, BigNumber, providers } from 'ethers'
-import { Order, computeOrderUid as _computeOrderUid } from '@cowprotocol/contracts'
-import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/contracts'
-import { COMPOSABLE_COW_CONTRACT_ADDRESS, SupportedChainId } from '@cowprotocol/common'
+import { constants, utils } from 'ethers'
+import type { BigNumber, providers } from 'ethers'
+import { isAddress, isHexString, hexDataLength } from '@ethersproject/bytes'
+import type { Order } from '@cowprotocol/common/types/order'
+import { computeOrderUid as _computeOrderUid } from '@cowprotocol/common/signing'
+import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common/types/events'
+import type { SupportedChainId } from '@cowprotocol/common'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 import type { UID } from '@cowprotocol/order-book'
-import { isAddress, isHexString, hexDataLength } from '@ethersproject/bytes'
 
 import { decodeParams, encodeParams, fromStructToOrder } from './utils'
 import type {
@@ -253,7 +256,7 @@ export abstract class ConditionalOrder<D, S> {
    * @param provider An RPC provider for the chain.
    * @param offChainInputFn A function, if provided, that will return the off-chain input for the conditional order.
    * @throws If the conditional order is not tradeable.
-   * @returns The tradeable `GPv2Order.Data` struct and the `signature` for the conditional order.
+   * @returns The tradeable `Order` struct and the `signature` for the conditional order.
    */
   async poll(params: PollParams): Promise<PollResult> {
     const { chainId, owner, provider, orderBookApi } = params

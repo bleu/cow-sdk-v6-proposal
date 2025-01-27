@@ -1,12 +1,13 @@
 import type { providers } from 'ethers'
 import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
-import type { ComposableCoW, ComposableCoWInterface } from '@cowprotocol/contracts'
-import { ComposableCoW__factory } from '@cowprotocol/contracts'
+import type { SupportedChainId } from '@cowprotocol/common'
+import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common/types/events'
+import { ComposableCoW__factory } from '@cowprotocol/abi'
+import type { Interface } from '@ethersproject/abi'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
-let composableCowInterfaceCache: ComposableCoWInterface | undefined
-let composableCowContractCache: ComposableCoW | undefined
+let composableCowInterfaceCache: Interface | undefined
+let composableCowContractCache: ReturnType<typeof ComposableCoW__factory.connect> | undefined
 
 export function getComposableCowInterface(): ComposableCoWInterface {
   if (!composableCowInterfaceCache) {

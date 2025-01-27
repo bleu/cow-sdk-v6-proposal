@@ -19,7 +19,7 @@ export type OnEvent<TArgs extends Result> = (
 ) => BaseContract
 
 export interface BaseEventObject extends Result {
-  [key: string]: unknown;
+  [key: string]: unknown
 }
 
 export type { BaseContract, Event, Result }

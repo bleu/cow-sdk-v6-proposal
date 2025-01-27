@@ -8,12 +8,11 @@ import { ConditionalOrder } from './ConditionalOrder'
 import { Twap } from './orderTypes/Twap'
 import { getComposableCow } from './contracts'
 import { constants } from 'ethers'
-import type { OwnerContext, PollParams, PollResultErrors, IConditionalOrder } from './types'
+import type { OwnerContext, PollParams, PollResultErrors } from './types'
 import { PollResultCode } from './types'
 import type { BuyTokenDestination, OrderKind, SellTokenSource, OrderBookApi } from '@cowprotocol/order-book'
 import { computeOrderUid } from './utils'
-import type { Order } from '@cowprotocol/contracts'
-import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import type { Order } from '@cowprotocol/common/types/order'
 
 jest.mock('./contracts')
 

@@ -1,6 +1,6 @@
-import type { OrderBookApi, UID } from '@cowprotocol/order-book'
-import { SupportedChainId } from '@cowprotocol/common'
-import type { Order } from '@cowprotocol/contracts'
+import type { OrderBookApi } from '@cowprotocol/order-book'
+import type { SupportedChainId } from '@cowprotocol/common'
+import type { Order } from '@cowprotocol/common/types/order'
 import type { providers, BigNumber } from 'ethers'
 
 // Export as const enum to ensure it's available as both type and value

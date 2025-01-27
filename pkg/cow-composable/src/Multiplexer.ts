@@ -1,8 +1,9 @@
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree'
 import { utils, BigNumber, providers } from 'ethers'
 import { COMPOSABLE_COW_CONTRACT_ADDRESS, SupportedChainId } from '@cowprotocol/common'
-import { Order } from '@cowprotocol/contracts'
-import type { ComposableCoW, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/contracts'
+import type { Order } from '@cowprotocol/common/types/order'
+import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common/types/events'
+import type { ComposableCoW, ComposableCoW__factory } from '@cowprotocol/contracts'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 import { ConditionalOrder } from './ConditionalOrder'
 import { ProofLocation } from './types'
@@ -335,7 +336,7 @@ export class Multiplexer {
    * @param provider An RPC provider for the chain.
    * @param offChainInputFn A function, if provided, that will return the off-chain input for the conditional order.
    * @throws If the conditional order is not tradeable.
-   * @returns The tradeable `GPv2Order.Data` struct and the `signature` for the conditional order.
+   * @returns The tradeable `Order` struct and the `signature` for the conditional order.
    */
   static async poll(
     owner: string,

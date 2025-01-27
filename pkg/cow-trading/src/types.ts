@@ -1,5 +1,5 @@
 import type { AppDataParams, latest, LatestAppDataDocVersion } from '@cowprotocol/app-data'
-import {
+import type {
   AppData,
   AppDataHash,
   OrderKind,

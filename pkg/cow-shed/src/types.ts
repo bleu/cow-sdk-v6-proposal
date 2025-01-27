@@ -1,17 +1,17 @@
-import type { TypedDataTypes } from '@cowprotocol/contracts'
+import type { TypedDataTypes } from '@cowprotocol/common/signing'
 
 export interface ICoWShedOptions {
-  factoryAddress: string;
-  proxyCreationCode?: string;
-  implementationAddress: string;
+  factoryAddress: string
+  proxyCreationCode?: string
+  implementationAddress: string
 }
 
 export interface ICoWShedCall {
-  target: string;
-  value: bigint;
-  callData: string;
-  allowFailure: boolean;
-  isDelegateCall: boolean;
+  target: string
+  value: bigint
+  callData: string
+  allowFailure: boolean
+  isDelegateCall: boolean
 }
 
 export const DOMAIN_TYPE: TypedDataTypes = {

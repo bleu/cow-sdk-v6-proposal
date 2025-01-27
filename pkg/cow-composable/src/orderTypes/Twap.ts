@@ -1,4 +1,4 @@
-import { constants, utils, BigNumber, providers } from 'ethers'
+import { constants, utils, BigNumber } from 'ethers'
 import { ConditionalOrder } from '../ConditionalOrder'
 import type {
   ConditionalOrderArguments,
@@ -7,14 +7,12 @@ import type {
   OwnerContext,
   IsValidResult,
   PollParams,
-  PollResultErrors,
-  IConditionalOrder
+  PollResultErrors
 } from '../types'
 import { PollResultCode } from '../types'
 import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../utils'
-import { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
-import type { TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/contracts'
-import { COMPOSABLE_COW_CONTRACT_ADDRESS, TWAP_ADDRESS, SupportedChainId } from '@cowprotocol/common'
+import type { Order } from '@cowprotocol/common/types/order'
+import { TWAP_ADDRESS } from '@cowprotocol/common'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 // The type of Conditional Order
