@@ -4,20 +4,25 @@
   "private": true,
   "files": [],
   "scripts": {
-    "test": "jest --config ../../jest.config.js",
-    "test:coverage": "jest --config ../../jest.config.js --coverage",
+    "test": "jest --config jest.config.js",
+    "test:coverage": "jest --config jest.config.js --coverage",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "@cowprotocol/contracts": "^1.7.0"
+    "@cowprotocol/app-data": "^2.4.0",
+    "@cowprotocol/contracts": "^1.7.0",
+    "@cowprotocol/order-book": "workspace:^",
+    "@cowprotocol/common": "workspace:^",
+    "@cowprotocol/order-signing": "workspace:^"
   },
   "devDependencies": {
-    "@vercel/style-guide": "^5.2.0",
-    "eslint-config-turbo": "^2.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-only-warn": "^1.1.0",
-    "@typescript-eslint/parser": "^5.62.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vercel/style-guide": "^5.2.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.0.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "ts-jest": "^29.2.5",
     "typescript": "5.1.6"
   }
 }

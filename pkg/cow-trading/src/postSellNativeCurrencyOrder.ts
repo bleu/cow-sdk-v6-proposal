@@ -3,7 +3,7 @@ import { AppDataInfo, LimitTradeParametersFromQuote } from './types'
 import { EthFlowOrderExistsCallback } from './calculateUniqueOrderId'
 
 import { log } from './consts'
-import { OrderBookApi } from '../order-book'
+import { OrderBookApi } from '@cowprotocol/order-book'
 import { getEthFlowTransaction } from './getEthFlowTransaction'
 
 export async function postSellNativeCurrencyOrder(

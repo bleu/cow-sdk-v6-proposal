@@ -11,8 +11,8 @@ jest.mock('cross-fetch', () => {
     default: fetchMock,
   }
 })
-jest.mock('../common/generated', () => {
-  const original = jest.requireActual('../common/generated')
+jest.mock('@cowprotocol/common', () => {
+  const original = jest.requireActual('@cowprotocol/common')
 
   return {
     ...original,
@@ -30,7 +30,7 @@ jest.mock('../common/generated', () => {
   }
 })
 
-import { SupportedChainId } from '../common'
+import { SupportedChainId } from '@cowprotocol/common'
 import { VoidSigner } from '@ethersproject/abstract-signer'
 import { getPreSignTransaction } from './getPreSignTransaction'
 

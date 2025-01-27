@@ -12,8 +12,8 @@ jest.mock('cross-fetch', () => {
 
 import { getQuoteWithSigner } from './getQuote'
 import { SwapParameters } from './types'
-import { ETH_ADDRESS, SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '../common'
-import { OrderBookApi, OrderKind, OrderQuoteResponse } from '../order-book'
+import { ETH_ADDRESS, SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
+import { OrderBookApi, OrderKind, OrderQuoteResponse } from '@cowprotocol/order-book'
 
 const quoteResponseMock = {
   quote: {

@@ -43,7 +43,7 @@ And two for specific cases:
 
 The SDK requires the following parameters:
 
-- `chainId` - one of supported chain ids (see [`SupportedChainId`](../common/chains.ts))
+- `chainId` - one of supported chain ids (see [`SupportedChainId`](@cowprotocol/common/chains.ts))
 - `signer` - private key or ethers signer or `Eip1193` provider. The signer is used to sign the order. If you use a private key, the SDK will create an ethers signer from it. If you use an ethers signer, the SDK will use it directly.
 - `appCode` - a unique identifier for your application. It is used to identify orders created by your application.
 

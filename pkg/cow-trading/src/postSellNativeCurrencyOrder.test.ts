@@ -1,8 +1,8 @@
-import { EthFlow__factory } from '../common/generated'
+import { EthFlow__factory } from '@cowprotocol/common'
 import { VoidSigner } from '@ethersproject/abstract-signer'
 import { AppDataInfo, LimitOrderParameters } from './types'
-import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '../common'
-import { OrderBookApi, OrderKind } from '../order-book'
+import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
+import { OrderBookApi, OrderKind } from '@cowprotocol/order-book'
 import { postSellNativeCurrencyOrder } from './postSellNativeCurrencyOrder'
 
 jest.mock('cross-fetch', () => {
@@ -17,8 +17,8 @@ jest.mock('cross-fetch', () => {
   }
 })
 
-jest.mock('../common/generated', () => {
-  const original = jest.requireActual('../common/generated')
+jest.mock('@cowprotocol/common', () => {
+  const original = jest.requireActual('@cowprotocol/common')
 
   return {
     ...original,

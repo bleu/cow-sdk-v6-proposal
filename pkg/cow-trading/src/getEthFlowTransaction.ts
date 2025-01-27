@@ -2,16 +2,16 @@ import { Signer } from 'ethers'
 import { LimitTradeParametersFromQuote, TransactionParams } from './types'
 import { calculateUniqueOrderId, EthFlowOrderExistsCallback } from './calculateUniqueOrderId'
 import { getOrderToSign } from './getOrderToSign'
-import { type EthFlow, EthFlow__factory } from '../common/generated'
+import { type EthFlow, EthFlow__factory } from '@cowprotocol/common'
 import {
   BARN_ETH_FLOW_ADDRESSES,
   CowEnv,
   ETH_FLOW_ADDRESSES,
   SupportedChainId,
   WRAPPED_NATIVE_CURRENCIES,
-} from '../common'
+} from '@cowprotocol/common'
 import { GAS_LIMIT_DEFAULT } from './consts'
-import type { EthFlowOrder } from '../common/generated/EthFlow'
+import type { EthFlowOrder } from '@cowprotocol/common/EthFlow'
 import { calculateGasMargin } from './utils'
 
 export async function getEthFlowTransaction(

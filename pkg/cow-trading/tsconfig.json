@@ -1,7 +1,7 @@
 {
   "extends": "../../packages/typescript-config/base.json",
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
+  "exclude": ["node_modules", "dist", "**/__mocks__/**"],
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
@@ -11,11 +11,10 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "baseUrl": ".",
-
     "paths": {
+      "@cowprotocol/trading/*": ["./src/*"],
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
-
       "@cowprotocol/order-book": ["../cow-order-book/src"],
       "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
       "@cowprotocol/order-signing": ["../cow-order-signing/src"],

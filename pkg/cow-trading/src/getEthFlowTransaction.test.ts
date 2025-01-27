@@ -11,8 +11,8 @@ jest.mock('cross-fetch', () => {
     default: fetchMock,
   }
 })
-jest.mock('../common/generated', () => {
-  const original = jest.requireActual('../common/generated')
+jest.mock('@cowprotocol/common', () => {
+  const original = jest.requireActual('@cowprotocol/common')
 
   return {
     ...original,
@@ -32,9 +32,9 @@ jest.mock('../common/generated', () => {
 
 import { getEthFlowTransaction } from './getEthFlowTransaction'
 import { VoidSigner } from '@ethersproject/abstract-signer'
-import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '../common'
+import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
 import { LimitTradeParameters } from './types'
-import { OrderKind } from '../order-book'
+import { OrderKind } from '@cowprotocol/order-book'
 
 const appDataKeccak256 = '0x578c975b1cfd3e24c21fb599076c4f7879c4268efd33eed3eb9efa5e30efac21'
 

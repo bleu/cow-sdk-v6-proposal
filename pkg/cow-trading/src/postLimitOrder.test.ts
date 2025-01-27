@@ -26,8 +26,8 @@ import { postCoWProtocolTrade } from './postCoWProtocolTrade'
 import { buildAppData } from './appDataUtils'
 
 import { AppDataInfo, LimitOrderParameters } from './types'
-import { SupportedChainId } from '../common'
-import { OrderBookApi, OrderKind } from '../order-book'
+import { SupportedChainId } from '@cowprotocol/common'
+import { OrderBookApi, OrderKind } from '@cowprotocol/order-book'
 import { postLimitOrder } from './postLimitOrder'
 
 const defaultOrderParams: LimitOrderParameters = {

@@ -1,13 +1,13 @@
-jest.mock('../order-signing', () => ({
+jest.mock('@cowprotocol/order-signing', () => ({
   OrderSigningUtils: {
     generateOrderId: jest.fn(),
   },
 }))
 
 import { calculateUniqueOrderId } from './calculateUniqueOrderId'
-import { MAX_VALID_TO_EPOCH, SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '../common'
-import { OrderSigningUtils as OrderSigningUtilsMock, UnsignedOrder } from '../order-signing'
-import { BuyTokenDestination, OrderKind, SellTokenSource } from '../order-book/generated'
+import { MAX_VALID_TO_EPOCH, SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
+import { OrderSigningUtils as OrderSigningUtilsMock, UnsignedOrder } from '@cowprotocol/order-signing'
+import { BuyTokenDestination, OrderKind, SellTokenSource } from '@cowprotocol/order-book'
 
 const orderMock: UnsignedOrder = {
   buyAmount: '100',

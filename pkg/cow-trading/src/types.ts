@@ -8,11 +8,11 @@ import type {
   OrderQuoteResponse,
   QuoteAmountsAndCosts,
   TokenAmount,
-} from '../order-book'
+} from '@cowprotocol/order-book'
 import type { Signer } from '@ethersproject/abstract-signer'
-import type { CowEnv, SupportedChainId } from '../common'
+import type { CowEnv, SupportedChainId } from '@cowprotocol/common'
 import type { ExternalProvider } from '@ethersproject/providers'
-import type { UnsignedOrder } from '../order-signing'
+import type { UnsignedOrder } from '@cowprotocol/order-signing'
 
 export type PrivateKey = string // 64 characters
 export type AccountAddress = `0x${string}` // 42 characters

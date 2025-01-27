@@ -10,7 +10,7 @@ jest.mock('cross-fetch', () => {
   }
 })
 
-jest.mock('../order-signing', () => {
+jest.mock('@cowprotocol/order-signing', () => {
   return {
     OrderSigningUtils: {
       signOrder: jest.fn(),
@@ -28,9 +28,9 @@ import { postCoWProtocolTrade } from './postCoWProtocolTrade'
 import { postSellNativeCurrencyOrder } from './postSellNativeCurrencyOrder'
 
 import { AppDataInfo, LimitOrderParameters } from './types'
-import { ETH_ADDRESS, SupportedChainId } from '../common'
-import { OrderBookApi, OrderKind } from '../order-book'
-import { OrderSigningUtils as OrderSigningUtilsMock } from '../order-signing'
+import { ETH_ADDRESS, SupportedChainId } from '@cowprotocol/common'
+import { OrderBookApi, OrderKind } from '@cowprotocol/order-book'
+import { OrderSigningUtils as OrderSigningUtilsMock } from '@cowprotocol/order-signing'
 import { VoidSigner } from '@ethersproject/abstract-signer'
 
 const defaultOrderParams: LimitOrderParameters = {
