@@ -18,7 +18,7 @@ module.exports = {
   testEnvironment: 'node',
   preset: 'ts-jest',
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
+    '^.+\\.[jt]sx?$': ['ts-jest', {
       tsconfig: {
         allowJs: true,
         esModuleInterop: true,
@@ -28,12 +28,8 @@ module.exports = {
         target: 'es2020',
         resolveJsonModule: true,
         experimentalDecorators: true,
-        emitDecoratorMetadata: true,
-        paths: {
-          "@cowprotocol/*": ["./pkg/*/src"]
-        }
-      },
-      isolatedModules: true
+        emitDecoratorMetadata: true
+      }
     }]
   },
   moduleNameMapper: {
@@ -52,8 +48,6 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   globals: {
     'ts-jest': {
-      isolatedModules: true,
-      useESM: false,
       tsconfig: {
         jsx: 'react'
       }

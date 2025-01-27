@@ -28,7 +28,7 @@ jest.mock('../common/generated', () => {
   }
 })
 
-const defaultOrderParams: LimitOrderParameters & { quoteId: number } = {
+const defaultOrderParams: LimitOrderParameters & { quoteId: number; } = {
   chainId: SupportedChainId.GNOSIS_CHAIN,
   signer: '1bb337bafb276f779c3035874b8914e4b851bb989dbb34e776397076576f3804',
   appCode: '0x007',
