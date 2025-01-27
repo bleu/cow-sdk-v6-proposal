@@ -25,5 +25,5 @@ export const GPv2Order = {
       },
       order
     )
-  }
+  },
 }

@@ -29,22 +29,10 @@ export {
   signOrder,
   signOrderCancellation,
   signOrderCancellations,
-  computeOrderUid
+  computeOrderUid,
 } from './signing'
 
-export type {
-  Signature,
-  EcdsaSignature,
-  TypedDataVersionedSigner
-} from './signing'
+export type { Signature, EcdsaSignature, TypedDataVersionedSigner } from './signing'
 
 // Re-export types
-export type { 
-  TypedEvent, 
-  TypedEventFilter, 
-  TypedListener, 
-  OnEvent,
-  Result,
-  FunctionFragment,
-  EventFragment
-} from './types'
+export type { TypedEvent, TypedEventFilter, TypedListener, OnEvent, Result, FunctionFragment, EventFragment } from './types'

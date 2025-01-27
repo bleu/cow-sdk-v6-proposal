@@ -29,14 +29,14 @@ export enum OrderBalance {
 
 export enum OrderKind {
   SELL = 'sell',
-  BUY = 'buy'
+  BUY = 'buy',
 }
 
 export interface TypedDataDomain {
-  name: string
-  version: string
-  chainId: number
-  verifyingContract: string
+  name: string,
+  version: string,
+  chainId: number,
+  verifyingContract: string,
 }
 
 export interface OrderUidParams {
@@ -58,17 +58,17 @@ export interface BaseEventObject extends Result {
 }
 
 export interface TypedEvent<TArgsObject extends BaseEventObject> extends Event {
-  args: TArgsObject;
-  decode?(data: string, topics?: Array<string>): TArgsObject;
+  args: TArgsObject
+  decode?(data: string, topics?: Array<string>): TArgsObject
 }
 
 export interface TypedEventFilter<TArgsObject extends BaseEventObject> extends EventFilter {
-  address?: string;
-  topics?: Array<string | Array<string>>;
+  address?: string
+  topics?: Array<string | Array<string>>
 }
 
 export interface TypedListener<TArgsObject extends BaseEventObject> {
-  (event: TypedEvent<TArgsObject>): void;
+  (event: TypedEvent<TArgsObject>): void
 }
 
 export type OnEvent<TRes> = <TArgsObject extends BaseEventObject>(

@@ -37,10 +37,10 @@ export interface TypedDataVersionedSigner extends TypedDataSigner {
 export class IntChainIdTypedDataV4Signer {
   constructor(private readonly signer: TypedDataVersionedSigner) {}
 
-  async signTypedDataV4<T extends Record<string, any>>(
+  async signTypedDataV4<T extends Record<string, unknown>>(
     domain: T,
     types: Record<string, Array<{ name: string; type: string }>>,
-    value: Record<string, any>
+    value: Record<string, unknown>
   ): Promise<string> {
     return this.signer._signTypedData(domain, types, value)
   }
