@@ -10,6 +10,7 @@
     "declarationMap": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "baseUrl": ".",
     "paths": {
       "@cowprotocol/composable/*": ["./src/*"],
       "@cowprotocol/contracts": ["../cow-contracts/src"],
@@ -19,7 +20,8 @@
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
       "@cowprotocol/order-signing": ["../cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"]
+      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"],
+      "@ethersproject/*": ["../../node_modules/@ethersproject/*"]
     }
   },
   "references": [

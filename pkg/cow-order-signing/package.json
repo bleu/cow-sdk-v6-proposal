@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@cowprotocol/common": "workspace:^",
-    "@cowprotocol/contracts": "workspace:^",
+    "@cowprotocol/contracts": "^1.7.0",
     "@cowprotocol/order-book": "workspace:^",
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/abi": "^5.7.0",

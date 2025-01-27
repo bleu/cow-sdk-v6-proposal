@@ -7,7 +7,7 @@
     "@cowprotocol/app-data": "^2.4.0",
     "@cowprotocol/common": "workspace:^",
     "@cowprotocol/composable": "workspace:^",
-    "@cowprotocol/contracts": "^1.6.0",
+    "@cowprotocol/contracts": "^1.7.0",
     "@cowprotocol/cow-shed": "workspace:^",
     "@cowprotocol/eslint-config": "workspace:^",
     "@cowprotocol/order-book": "workspace:^",
