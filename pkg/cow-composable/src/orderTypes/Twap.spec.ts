@@ -7,6 +7,7 @@ import type { TwapData } from './Twap'
 import type { BigNumber, providers } from 'ethers'
 import { utils, constants } from 'ethers'
 import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 function uint256Helper(value: number): string {
