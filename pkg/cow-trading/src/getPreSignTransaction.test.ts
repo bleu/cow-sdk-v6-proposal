@@ -30,7 +30,7 @@ jest.mock('../common/generated', () => {
   }
 })
 
-import { SupportedChainId } from '@cowprotocol/common/chains'
+import { SupportedChainId } from '@cowprotocol/common'
 import { VoidSigner } from '@ethersproject/abstract-signer'
 import { getPreSignTransaction } from './getPreSignTransaction'
 

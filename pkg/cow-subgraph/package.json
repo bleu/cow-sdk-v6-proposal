@@ -14,14 +14,16 @@
     "test": "jest --passWithNoTests",
     "test:ci": "jest --passWithNoTests --ci --coverage --reporters=default --reporters=jest-junit"
   },
+  "dependencies": {
+    "@cowprotocol/cow-config": "workspace:*"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.10",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
-    "@typescript-eslint/parser": "^7.1.0",
-    "@vercel/style-guide": "^5.2.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-turbo": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-config-turbo": "^2.3.4",
     "eslint-plugin-only-warn": "^1.1.0",
     "graphql": "^16.10.0",
     "graphql-request": "^4.3.0",
@@ -29,6 +31,6 @@
     "jest-environment-node": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^16.0.0",
-    "typescript": "5.5.4"
+    "typescript": "5.7.3"
   }
 }

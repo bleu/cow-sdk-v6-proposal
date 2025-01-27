@@ -3,7 +3,7 @@ import { Wallet } from 'ethers'
 import { CowShedHooks } from './CoWShedHooks'
 import { AddressZero } from '@ethersproject/constants'
 import { ICoWShedCall } from './types'
-import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION } from '../../cow-common/src'
+import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION } from '@cowprotocol/common'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
 import { SigningScheme } from '@cowprotocol/contracts'
 import { formatBytes32String, solidityPack } from 'ethers/lib/utils'
@@ -115,7 +115,7 @@ describe('CowShedHooks', () => {
         encodeFunctionData: mockEncodeFunctionData,
       }
 
-      // @ts-expect-error migration from old sdk
+      // @ts-expect-error
       jest.spyOn(contracts, 'getCoWShedFactoryInterface').mockReturnValue(mockInterface)
 
       const result = cowShed.encodeExecuteHooksForFactory(CALLS_MOCK, mockNonce, mockDeadline, USER_MOCK, mockSignature)

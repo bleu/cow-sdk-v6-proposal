@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cowprotocol/contracts": "^1.6.0",
+    "@cowprotocol/contracts": "1.6.0",
     "@cowprotocol/cow-sdk": "file:../../pkg/cow-sdk",
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",

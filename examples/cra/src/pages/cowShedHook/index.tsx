@@ -6,7 +6,7 @@ import { useWeb3Info } from 'hooks/useWeb3Info'
 import { JsonContent } from '../../components/jsonContent'
 import { ResultContent } from '../../components/resultContent'
 import { formatBytes32String } from 'ethers/lib/utils.js'
-import { SigningScheme } from '@cowprotocol/common/signing'
+import { SigningScheme } from '@cowprotocol/cow-sdk'
 
 const DEADLINE = BigInt(1_000_000)
 
