@@ -12,21 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/hydrogen'
-      
-      - name: Enable Corepack
-        run: |
-          corepack enable
-          corepack prepare pnpm@8.15.6 --activate
-      
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8.15.6
-          run_install: false
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/hydrogen'
+          cache: 'pnpm'
 
       - name: Get pnpm store directory
         shell: bash
@@ -56,6 +51,11 @@ jobs:
         run: |
           mkdir -p test-results
           pnpm run test:ci
+        env:
+          JEST_JUNIT_OUTPUT_DIR: ./test-results
+          JEST_JUNIT_OUTPUT_NAME: jest.results.json
+          JEST_JUNIT_CLASSNAME: "{classname}"
+          JEST_JUNIT_TITLE: "{title}"
       
       - name: Build CRA example
         run: |
