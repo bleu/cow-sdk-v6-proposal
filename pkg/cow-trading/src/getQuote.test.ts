@@ -37,7 +37,7 @@ const quoteResponseMock = {
   expiration: '2024-11-08T09:21:35.442772888Z',
   id: 486289,
   verified: true,
-} as OrderQuoteResponse
+} as OrderQuoteResponse;
 
 const defaultOrderParams: SwapParameters = {
   chainId: SupportedChainId.GNOSIS_CHAIN,

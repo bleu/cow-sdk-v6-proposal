@@ -18,17 +18,22 @@ module.exports = {
   testEnvironment: 'node',
   preset: 'ts-jest',
   transform: {
-    '^.+\\.[jt]sx?$': ['babel-jest', {
-      presets: [
-        ['@babel/preset-env', { targets: { node: 'current' } }],
-        '@babel/preset-typescript'
-      ],
-      plugins: [
-        '@babel/plugin-transform-modules-commonjs',
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-proposal-private-methods',
-        '@babel/plugin-proposal-object-rest-spread'
-      ]
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: {
+        allowJs: true,
+        esModuleInterop: true,
+        module: 'commonjs',
+        moduleResolution: 'node',
+        jsx: 'react',
+        target: 'es2020',
+        resolveJsonModule: true,
+        experimentalDecorators: true,
+        emitDecoratorMetadata: true,
+        paths: {
+          "@cowprotocol/*": ["./pkg/*/src"]
+        }
+      },
+      isolatedModules: true
     }]
   },
   moduleNameMapper: {
