@@ -1,8 +1,13 @@
-import 'src/order-book/__mock__/api'
+import '@cowprotocol/order-book/__mock__/api'
 import { decodeParams, encodeParams, fromStructToOrder, isValidAbi } from './utils'
-import { DurationType, StartTimeValue, TwapData, TwapStruct, transformDataToStruct } from './orderTypes/Twap'
-import { BigNumber, utils } from 'ethers'
-import { GPv2Order } from './generated/ComposableCoW'
+import { DurationType, StartTimeValue } from './orderTypes/Twap'
+import type { TwapData, TwapStruct } from './orderTypes/Twap'
+import { transformDataToStruct } from './orderTypes/Twap'
+import { utils } from 'ethers'
+import type { BigNumber } from 'ethers'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { IConditionalOrder } from './types'
 
 export const TWAP_PARAMS_TEST: TwapData = {
   sellToken: '0x6810e776880C02933D47DB1b9fc05908e5386b96',
@@ -68,7 +73,7 @@ describe('isValidAbi', () => {
 
 describe('fromStructToOrder', () => {
   test('Happy path', () => {
-    const orderData: GPv2Order.DataStruct = {
+    const orderData: Order = {
       sellToken: '0x177127622c4A00F3d409B75571e12cB3c8973d3c',
       buyToken: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d',
       receiver: '0x50736F4707eD0c7bae86bd801d65377BB3739550',

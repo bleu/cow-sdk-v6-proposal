@@ -1,7 +1,11 @@
-import { GPv2Order } from '@cowprotocol/contracts'
+import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
 import { ConditionalOrder } from '../../ConditionalOrder'
-import { IsValidResult, PollParams, PollResultErrors } from '../../types'
+import type { IsValidResult, PollParams, PollResultErrors, IConditionalOrder } from '../../types'
+import { PollResultCode } from '../../types'
 import { encodeParams } from '../../utils'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 export const DEFAULT_ORDER_PARAMS: TestConditionalOrderParams = {
   handler: '0x910d00a310f7Dc5B29FE73458F47f519be547D3d',
@@ -54,10 +58,14 @@ export class TestConditionalOrder extends ConditionalOrder<string, string> {
   }
   protected async handlePollFailedAlreadyPresent(
     _orderUid: string,
-    _order: GPv2Order.DataStruct,
+    _order: Order,
     _params: PollParams
   ): Promise<PollResultErrors | undefined> {
     return undefined
+  }
+
+  protected async handlePollSuccess(_order: Order, _params: PollParams): Promise<string> {
+    return Promise.resolve('0x')
   }
 
   isValid(): IsValidResult {

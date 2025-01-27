@@ -32,17 +32,17 @@ export enum OrderKind {
   BUY = 'buy',
 }
 
-export interface TypedDataDomain {
-  name: string,
-  version: string,
-  chainId: number,
-  verifyingContract: string,
+export interface TypedDataDomain extends Record<string, unknown> {
+  name: string;
+  version: string;
+  chainId: number;
+  verifyingContract: string;
 }
 
 export interface OrderUidParams {
-  orderDigest: string
-  owner: string
-  validTo: number
+  orderDigest: string;
+  owner: string;
+  validTo: number;
 }
 
 export type { TypedDataSigner }
@@ -57,21 +57,21 @@ export interface BaseEventObject extends Result {
   [key: string]: unknown;
 }
 
-export interface TypedEvent<TArgsObject extends BaseEventObject> extends Event {
-  args: TArgsObject
-  decode?(data: string, topics?: Array<string>): TArgsObject
+export interface TypedEvent<TArgsObject extends Result> extends Event {
+  args: TArgsObject;
+  decode?(data: string, topics?: Array<string>): TArgsObject;
 }
 
-export interface TypedEventFilter<TArgsObject extends BaseEventObject> extends EventFilter {
-  address?: string
-  topics?: Array<string | Array<string>>
+export interface TypedEventFilter<TArgsObject extends Result> extends EventFilter {
+  address?: string;
+  topics?: Array<string | Array<string>>;
 }
 
-export interface TypedListener<TArgsObject extends BaseEventObject> {
-  (event: TypedEvent<TArgsObject>): void
+export interface TypedListener<TArgsObject extends Result> {
+  (event: TypedEvent<TArgsObject>): void;
 }
 
-export type OnEvent<TRes> = <TArgsObject extends BaseEventObject>(
+export type OnEvent<TRes> = <TArgsObject extends Result>(
   eventFilter: TypedEventFilter<TArgsObject>,
   listener: TypedListener<TArgsObject>
 ) => TRes;

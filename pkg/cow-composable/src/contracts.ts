@@ -1,6 +1,9 @@
-import { providers } from 'ethers'
-import { COMPOSABLE_COW_CONTRACT_ADDRESS, SupportedChainId } from '@cowprotocol/common'
-import { ComposableCoW, ComposableCoW__factory, ComposableCoWInterface } from '@cowprotocol/contracts'
+import type { providers } from 'ethers'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import type { ComposableCoW, ComposableCoWInterface } from '@cowprotocol/contracts'
+import { ComposableCoW__factory } from '@cowprotocol/contracts'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 let composableCowInterfaceCache: ComposableCoWInterface | undefined
 let composableCowContractCache: ComposableCoW | undefined

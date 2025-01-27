@@ -1,18 +1,22 @@
-import { BigNumber, constants, utils } from 'ethers'
-
-import { ConditionalOrder } from '../../ConditionalOrder'
-import {
+import { constants, utils } from 'ethers'
+import type { BigNumber, providers } from 'ethers'
+import { ConditionalOrder } from '../ConditionalOrder'
+import type {
   ConditionalOrderArguments,
   ConditionalOrderParams,
   ContextFactory,
   OwnerContext,
   IsValidResult,
   PollParams,
-  PollResultCode,
   PollResultErrors,
-} from '../../types'
-import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../../utils'
-import { GPv2Order } from '@cowprotocol/contracts'
+  IConditionalOrder
+} from '../types'
+import { PollResultCode } from '../types'
+import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../utils'
+import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS, TWAP_ADDRESS } from '@cowprotocol/common'
 
 // The type of Conditional Order
 const TWAP_ORDER_TYPE = 'twap'
@@ -26,7 +30,7 @@ export const TWAP_ADDRESS = '0x6cF1e9cA41f7611dEf408122793c358a3d11E5a5'
 export const CURRENT_BLOCK_TIMESTAMP_FACTORY_ADDRESS = '0x52eD56Da04309Aca4c3FECC595298d80C2f16BAc'
 
 export const MAX_UINT32 = BigNumber.from(2).pow(32).sub(1) // 2^32 - 1
-export const MAX_FREQUENCY = BigNumber.from(365 * 24 * 60 * 60) // 1 year
+export const MAX_FREQUENCY = BigNumber.from(365 * 24 * 60 * 60) // 1 year in seconds
 
 // Define the ABI tuple for the TWAPData struct
 const TWAP_STRUCT_ABI = [
@@ -165,7 +169,44 @@ const DEFAULT_DURATION_OF_PART: DurationOfPart = {
  * @author mfw78 <mfw78@rndlabs.xyz>
  */
 export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
-  isSingleOrder = true
+  public readonly isSingleOrder = true;
+
+  protected async handlePollSuccess(order: Order, params: PollParams): Promise<string> {
+    const domain = await OrderSigningUtils.getDomain(params.chainId)
+    const signature = await OrderSigningUtils.signOrder(domain, order, params.provider)
+    return signature
+  }
+
+  protected async handlePollFailedAlreadyPresent(
+    _orderUid: string,
+    _order: Order,
+    params: PollParams
+  ): Promise<PollResultErrors | undefined> {
+    const { blockInfo = await getBlockInfo(params.provider) } = params;
+    const startTime = await this.startTimestamp(params);
+    const endTime = this.endTimestamp(startTime);
+
+    if (blockInfo.blockTimestamp >= endTime) {
+      return {
+        result: PollResultCode.DONT_TRY_AGAIN,
+        reason: 'TWAP_EXPIRED',
+      };
+    }
+
+    return undefined;
+  }
+
+  get leaf(): ConditionalOrderParams {
+    return {
+      handler: this.handler,
+      salt: this.salt,
+      staticInput: this.encodeStaticInput(),
+    }
+  }
+
+  get id(): string {
+    return utils.keccak256(this.serialize())
+  }
 
   /**
    * @see {@link ConditionalOrder.constructor}
@@ -193,8 +234,8 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
   }
 
   /**
-   * Create a TWAP order with sound defaults.
-   * @param data The TWAP order parameters in a more user-friendly format.
+   * Create a TWAP order from ConditionalOrderParams.
+   * @param params The ConditionalOrderParams struct.
    * @returns An instance of the TWAP order.
    */
   static fromParams(params: ConditionalOrderParams): Twap {
@@ -276,7 +317,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
       return startTime.epoch.toNumber()
     }
 
-    const cabinet = await this.cabinet(params)
+    const cabinet = await super.cabinet(params)
     const rawCabinetEpoch = utils.defaultAbiCoder.decode(['uint256'], cabinet)[0] as BigNumber
 
     // Guard against out-of-range cabinet epoch
@@ -381,7 +422,7 @@ export class Twap extends ConditionalOrder<TwapData, TwapStruct> {
    */
   protected async handlePollFailedAlreadyPresent(
     _orderUid: string,
-    _order: GPv2Order.DataStruct,
+    _order: Order,
     params: PollParams
   ): Promise<PollResultErrors | undefined> {
     const { blockInfo = await getBlockInfo(params.provider) } = params

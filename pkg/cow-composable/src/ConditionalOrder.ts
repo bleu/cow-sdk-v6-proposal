@@ -1,11 +1,15 @@
-import { BigNumber, constants, ethers, utils } from 'ethers'
-import { GPv2Order, IConditionalOrder, Order } from '@cowprotocol/contracts'
-import { SupportedChainId } from '@cowprotocol/common'
+import { constants, utils } from 'ethers'
+import type { BigNumber, providers } from 'ethers'
+import type { Order } from '@cowprotocol/contracts'
+import { computeOrderUid as _computeOrderUid } from '@cowprotocol/contracts'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
 import { OrderSigningUtils } from '@cowprotocol/order-signing'
-import { UID } from '@cowprotocol/order-book'
+import type { UID } from '@cowprotocol/order-book'
+import { isAddress, isHexString, hexDataLength } from '@ethersproject/bytes'
 
 import { decodeParams, encodeParams, fromStructToOrder } from './utils'
-import {
+import type {
   ConditionalOrderArguments,
   ConditionalOrderParams,
   ContextFactory,
@@ -13,15 +17,14 @@ import {
   OwnerContext,
   PollParams,
   PollResult,
-  PollResultCode,
   PollResultErrors,
+  IConditionalOrder
 } from './types'
+import { PollResultCode } from './types'
 import { getComposableCow, getComposableCowInterface } from './contracts'
 
 export async function computeOrderUid(chainId: SupportedChainId, owner: string, order: Order): Promise<string> {
-  const { computeOrderUid: _computeOrderUid } = await import('@cowprotocol/contracts')
   const domain = await OrderSigningUtils.getDomain(chainId)
-
   return _computeOrderUid(domain, order, owner)
 }
 
@@ -63,12 +66,12 @@ export abstract class ConditionalOrder<D, S> {
     const { handler, salt = utils.keccak256(utils.randomBytes(32)), data, hasOffChainInput = false } = params
     // Verify input to the constructor
     // 1. Verify that the handler is a valid ethereum address
-    if (!ethers.utils.isAddress(handler)) {
+    if (!isAddress(handler)) {
       throw new Error(`Invalid handler: ${handler}`)
     }
 
     // 2. Verify that the salt is a valid 32-byte string usable with ethers
-    if (!ethers.utils.isHexString(salt) || ethers.utils.hexDataLength(salt) !== 32) {
+    if (!isHexString(salt) || hexDataLength(salt) !== 32) {
       throw new Error(`Invalid salt: ${salt}`)
     }
 
@@ -362,16 +365,30 @@ export abstract class ConditionalOrder<D, S> {
   protected abstract pollValidate(params: PollParams): Promise<PollResultErrors | undefined>
 
   /**
+   * Handle successful polling of an order.
+   * 
+   * @param order The order that was successfully polled
+   * @param params The poll parameters
+   * @returns The signature for the order
+   */
+  protected abstract handlePollSuccess(
+    order: Order,
+    params: PollParams
+  ): Promise<string>
+
+  /**
    * This method lets the concrete conditional order decide what to do if the order yielded in the polling is already present in the Orderbook API.
    *
    * The concrete conditional order will have a chance to schedule the next poll.
    * For example, a TWAP order that has the current part already in the orderbook, can signal that the next poll should be done at the start time of the next part.
    *
-   * @param params
+   * @param orderUid The order UID of the order that was found in the Orderbook API
+   * @param order The order that was found in the Orderbook API
+   * @param params The poll parameters
    */
   protected abstract handlePollFailedAlreadyPresent(
     orderUid: UID,
-    order: GPv2Order.DataStruct,
+    order: Order,
     params: PollParams
   ): Promise<PollResultErrors | undefined>
 

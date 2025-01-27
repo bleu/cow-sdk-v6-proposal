@@ -1,8 +1,21 @@
-import '../../order-book/__mock__/api'
-import { GPv2Order } from '../generated/ComposableCoW'
-import { OwnerContext, PollParams, PollResultCode, PollResultErrors } from '../types'
-import { DurationType, StartTimeValue, Twap, TWAP_ADDRESS, TwapData } from './Twap'
-import { BigNumber, utils, constants, providers } from 'ethers'
+import '@cowprotocol/order-book/__mock__/api'
+import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { OwnerContext, PollParams, PollResultErrors, IConditionalOrder } from '../types'
+import { PollResultCode } from '../types'
+import { DurationType, StartTimeValue, Twap, TWAP_ADDRESS } from './Twap'
+import type { TwapData } from './Twap'
+import type { BigNumber, providers } from 'ethers'
+import { utils, constants } from 'ethers'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
+
+function uint256Helper(value: number): string {
+  return utils.defaultAbiCoder.encode(['uint256'], [value])
+}
+
+function handlePollSuccess(order: Order, _params: PollParams): Promise<string> {
+  return Promise.resolve('0x')
+}
 
 const OWNER = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 export const TWAP_PARAMS_TEST: TwapData = {

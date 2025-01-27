@@ -1,24 +1,20 @@
+import type { TypedDataTypes } from '@cowprotocol/contracts'
+
 export interface ICoWShedOptions {
-  factoryAddress: string
-  proxyCreationCode?: string
-  implementationAddress: string
+  factoryAddress: string;
+  proxyCreationCode?: string;
+  implementationAddress: string;
 }
 
 export interface ICoWShedCall {
-  target: string
-  value: bigint
-  callData: string
-  allowFailure: boolean
-  isDelegateCall: boolean
+  target: string;
+  value: bigint;
+  callData: string;
+  allowFailure: boolean;
+  isDelegateCall: boolean;
 }
 
-export interface ICoWShedOptions {
-  factoryAddress: string
-  proxyCreationCode?: string
-  implementationAddress: string
-}
-
-export const DOMAIN_TYPE = {
+export const DOMAIN_TYPE: TypedDataTypes = {
   EIP712Domain: [
     { type: 'string', name: 'name' },
     { type: 'string', name: 'version' },
@@ -27,7 +23,7 @@ export const DOMAIN_TYPE = {
   ],
 }
 
-export const COW_SHED_712_TYPES = {
+export const COW_SHED_712_TYPES: TypedDataTypes = {
   ExecuteHooks: [
     { type: 'Call[]', name: 'calls' },
     { type: 'bytes32', name: 'nonce' },

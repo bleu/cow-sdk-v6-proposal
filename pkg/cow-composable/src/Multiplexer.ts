@@ -1,10 +1,13 @@
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree'
-import { BigNumber, providers, utils } from 'ethers'
-
-import { SupportedChainId } from '@cowprotocol/common'
-import { ComposableCoW, GPv2Order } from '@cowprotocol/contracts'
-import { ProofLocation, ProofWithParams, ConditionalOrderParams } from './types'
+import { utils } from 'ethers'
+import type { BigNumber, providers } from 'ethers'
+import { COMPOSABLE_COW_CONTRACT_ADDRESS } from '@cowprotocol/common'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
+import type { Order, ComposableCoW } from '@cowprotocol/contracts'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
 import { ConditionalOrder } from './ConditionalOrder'
+import { ProofLocation } from './types'
+import type { ProofWithParams, ConditionalOrderParams, IConditionalOrder } from './types'
 import { getComposableCow } from './contracts'
 
 const CONDITIONAL_ORDER_LEAF_ABI = ['address', 'bytes32', 'bytes']
@@ -341,7 +344,7 @@ export class Multiplexer {
     chain: SupportedChainId,
     provider: providers.Provider,
     offChainInputFn?: (owner: string, params: ConditionalOrderParams) => Promise<string>
-  ): Promise<[GPv2Order.DataStruct, string]> {
+  ): Promise<[Order, string]> {
     const composableCow = getComposableCow(chain, provider)
 
     const offChainInput = offChainInputFn ? await offChainInputFn(owner, p.params) : '0x'

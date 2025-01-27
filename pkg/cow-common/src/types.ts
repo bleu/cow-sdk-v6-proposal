@@ -18,6 +18,10 @@ export type OnEvent<TArgs extends Result> = (
   listener: TypedListener<TArgs>
 ) => BaseContract
 
+export interface BaseEventObject extends Result {
+  [key: string]: unknown;
+}
+
 export type { BaseContract, Event, Result }
 
 // Re-export common ethers types that are used across the codebase

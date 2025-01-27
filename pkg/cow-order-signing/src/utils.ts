@@ -2,19 +2,20 @@ import type {
   Order as OrderFromContract,
   Signature,
   TypedDataDomain,
-  EcdsaSigningScheme as EcdsaSigningSchemeContract,
   Order,
   OrderUidParams,
+  TypedDataVersionedSigner
 } from '@cowprotocol/contracts'
 import {
+  EcdsaSigningScheme as EcdsaSigningSchemeContract,
+  SigningScheme,
   domain as domainGp,
   IntChainIdTypedDataV4Signer,
-  SigningScheme,
   hashOrder,
   packOrderUidParams,
   signOrder as signOrderGp,
   signOrderCancellation as signOrderCancellationGp,
-  signOrderCancellations as signOrderCancellationsGp,
+  signOrderCancellations as signOrderCancellationsGp
 } from '@cowprotocol/contracts'
 import type { Signer } from '@ethersproject/abstract-signer'
 import type { SigningResult, SignOrderParams, SignOrderCancellationParams, UnsignedOrder } from './types'
@@ -36,9 +37,9 @@ const V3_ERROR_MSG_REGEX = /eth_signTypedData_v3 does not exist/i
 const RPC_REQUEST_FAILED_REGEX = /RPC request failed/i
 const METAMASK_STRING_CHAINID_REGEX = /provided chainid .* must match the active chainid/i
 
-const mapSigningSchema: Record<EcdsaSigningScheme, EcdsaSigningSchemeContract> = {
-  [SigningScheme.EIP712]: SigningScheme.EIP712,
-  [SigningScheme.ETHSIGN]: SigningScheme.ETHSIGN,
+const mapSigningSchema: Record<EcdsaSigningScheme, SigningScheme> = {
+  [EcdsaSigningScheme.EIP712]: SigningScheme.EIP712,
+  [EcdsaSigningScheme.ETHSIGN]: SigningScheme.ETHSIGN,
 }
 
 interface ProviderRpcError extends Error {
@@ -61,7 +62,7 @@ async function _signOrder(params: SignOrderParams): Promise<Signature> {
 
   const domain = getDomain(chainId)
 
-  const signature = await signOrderGp(domain, order as unknown as OrderFromContract, signer)
+  const signature = await signOrderGp(domain, order as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
   return {
     signer: await signer.getAddress(),
     signature,
@@ -74,7 +75,7 @@ async function _signOrderCancellation(params: SignOrderCancellationParams): Prom
 
   const domain = getDomain(chainId)
 
-  const signature = await signOrderCancellationGp(domain, orderUid, signer)
+  const signature = await signOrderCancellationGp(orderUid, domain as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
   return {
     signer: await signer.getAddress(),
     signature,
@@ -87,7 +88,7 @@ async function _signOrderCancellations(params: SignOrderCancellationsParams): Pr
 
   const domain = getDomain(chainId)
 
-  const signature = await signOrderCancellationsGp(domain, orderUids, signer)
+  const signature = await signOrderCancellationsGp(orderUids, domain as unknown as Record<string, unknown>, signer as unknown as TypedDataVersionedSigner)
   return {
     signer: await signer.getAddress(),
     signature,
@@ -106,18 +107,18 @@ async function _signPayload(
     signingMethod === 'eth_sign' ? EcdsaSigningScheme.ETHSIGN : EcdsaSigningScheme.EIP712
   let signature: Signature | null = null
 
-  let _signer
+  let _signer: Signer & TypedDataVersionedSigner
   try {
     switch (signingMethod) {
       case 'default':
       case 'v3':
-        _signer = signer as TypedDataSigner
+        _signer = signer as unknown as Signer & TypedDataVersionedSigner
         break
       case 'int_v4':
-        _signer = new IntChainIdTypedDataV4Signer(signer as TypedDataSigner)
+        _signer = signer as unknown as Signer & TypedDataVersionedSigner
         break
       default:
-        _signer = signer
+        _signer = signer as unknown as Signer & TypedDataVersionedSigner
     }
   } catch (e) {
     console.error('Wallet not supported:', e)
@@ -249,7 +250,7 @@ export function getDomain(chainId: SupportedChainId): TypedDataDomain {
     throw new CowError('Unsupported network. Settlement contract is not deployed')
   }
 
-  return domainGp(chainId, settlementContract)
+  return domainGp(chainId, settlementContract) as TypedDataDomain
 }
 
 /**
@@ -264,7 +265,7 @@ export async function generateOrderId(
   params: Pick<OrderUidParams, 'owner'>
 ): Promise<{ orderId: string; orderDigest: string }> {
   const domain = await getDomain(chainId)
-  const orderDigest = hashOrder(order, domain)
+  const orderDigest = hashOrder(order as unknown as Record<string, unknown>, domain)
   // Generate the orderId from owner, orderDigest, and max validTo
   const orderId = packOrderUidParams({
     ...params,

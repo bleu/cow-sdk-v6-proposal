@@ -1,12 +1,11 @@
 import {
-  EcdsaSigningScheme,
+  SigningScheme,
   hashTypedData,
   isTypedDataSigner,
-  SigningScheme,
   TypedDataTypes,
+  TypedDataDomain
 } from '@cowprotocol/contracts'
 import type { Signer } from '@ethersproject/abstract-signer'
-import { TypedDataDomain } from 'ethers'
 import {
   arrayify,
   defaultAbiCoder,
@@ -15,7 +14,8 @@ import {
   solidityKeccak256,
   splitSignature,
 } from 'ethers/lib/utils'
-import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION, SupportedChainId } from '@cowprotocol/common'
+import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION } from '@cowprotocol/common/consts'
+import { SupportedChainId } from '@cowprotocol/common/chains'
 import { getCoWShedFactoryInterface } from './contracts'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
 import { COW_SHED_712_TYPES, ICoWShedCall, ICoWShedOptions } from './types'
@@ -50,7 +50,7 @@ export class CowShedHooks {
     nonce: string,
     deadline: bigint,
     signer: Signer,
-    signingScheme: EcdsaSigningScheme
+    signingScheme: SigningScheme
   ): Promise<string> {
     const user = await signer.getAddress()
     const proxy = this.proxyOf(user)
@@ -93,7 +93,7 @@ export class CowShedHooks {
 
 // code copied from @cow/contract (not exported there)
 async function ecdsaSignTypedData(
-  scheme: EcdsaSigningScheme,
+  scheme: SigningScheme,
   owner: Signer,
   domain: TypedDataDomain,
   types: TypedDataTypes,
@@ -111,8 +111,11 @@ async function ecdsaSignTypedData(
     case SigningScheme.ETHSIGN:
       signature = await owner.signMessage(arrayify(hashTypedData(domain, types, data)))
       break
+    case SigningScheme.PRESIGN:
+    case SigningScheme.EIP1271:
+      throw new Error('Unsupported signing scheme')
     default:
-      throw new Error('invalid signing scheme')
+      throw new Error('Invalid signing scheme')
   }
 
   // Passing the signature through split/join to normalize the `v` byte.

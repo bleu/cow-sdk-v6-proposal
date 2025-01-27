@@ -2,8 +2,7 @@
   "extends": "../../packages/typescript-config/base.json",
   "include": [
     "src/**/*",
-    "src/generated/**/*",
-    "src/generated/models/**/*"
+    "src/generated/**/*"
   ],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "compilerOptions": {

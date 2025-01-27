@@ -1,11 +1,12 @@
 import '@cowprotocol/order-book/__mock__/api'
-import { Multiplexer, Orders } from './Multiplexer'
-import { SupportedChainId } from '@cowprotocol/common'
+import { Multiplexer, type Orders } from './Multiplexer'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
 import { ProofLocation } from './types'
+import type { IConditionalOrder } from './types'
 import { Twap } from './orderTypes/Twap'
 import { TWAP_PARAMS_TEST, generateRandomTWAPData } from './orderTypes/Twap.spec'
 import { getComposableCowInterface } from './contracts'
-import { BigNumber } from 'ethers'
+import type { BigNumber } from 'ethers'
 
 describe('Multiplexer (ComposableCoW)', () => {
   beforeEach(() => {

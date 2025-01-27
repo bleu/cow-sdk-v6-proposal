@@ -1,11 +1,6 @@
 import { BytesLike, ethers } from 'ethers'
 import { TypedDataSigner } from '@ethersproject/abstract-signer'
-
-export type Signature = {
-  signer: string
-  signature: string
-  signingScheme: SigningScheme
-}
+import type { TypedDataDomain } from './types'
 
 export enum SigningScheme {
   EIP712 = 0,
@@ -15,8 +10,14 @@ export enum SigningScheme {
 }
 
 export enum EcdsaSigningScheme {
-  EIP712 = 0,
-  ETHSIGN = 1,
+  EIP712 = SigningScheme.EIP712,
+  ETHSIGN = SigningScheme.ETHSIGN,
+}
+
+export type Signature = {
+  signer: string
+  signature: string
+  signingScheme: SigningScheme
 }
 
 export interface EcdsaSignature {
@@ -34,19 +35,21 @@ export interface TypedDataVersionedSigner extends TypedDataSigner {
   ): Promise<string>
 }
 
+export type TypedDataTypes = Record<string, Array<{ name: string; type: string }>>
+
 export class IntChainIdTypedDataV4Signer {
   constructor(private readonly signer: TypedDataVersionedSigner) {}
 
   async signTypedDataV4<T extends Record<string, unknown>>(
     domain: T,
-    types: Record<string, Array<{ name: string; type: string }>>,
+    types: TypedDataTypes,
     value: Record<string, unknown>
   ): Promise<string> {
     return this.signer._signTypedData(domain, types, value)
   }
 }
 
-export function domain(chainId: number, verifyingContract: string): ethers.TypedDataDomain {
+export function domain(chainId: number, verifyingContract: string): Record<string, unknown> {
   return {
     name: 'Gnosis Protocol',
     version: 'v2',
@@ -55,8 +58,16 @@ export function domain(chainId: number, verifyingContract: string): ethers.Typed
   }
 }
 
-export function hashOrder(order: Record<string, unknown>, domain: ethers.TypedDataDomain): string {
-  return ethers.utils._TypedDataEncoder.hash(
+export function hashTypedData(
+  domain: Record<string, unknown>,
+  types: TypedDataTypes,
+  value: Record<string, unknown>
+): string {
+  return ethers.utils._TypedDataEncoder.hash(domain, types, value)
+}
+
+export function hashOrder(order: Record<string, unknown>, domain: Record<string, unknown>): string {
+  return hashTypedData(
     domain,
     {
       Order: [
@@ -82,9 +93,13 @@ export function packOrderUidParams(params: { orderDigest: string; owner: string;
   return ethers.utils.solidityPack(['bytes32', 'address', 'uint32'], [params.orderDigest, params.owner, params.validTo])
 }
 
+export function isTypedDataSigner(signer: unknown): signer is TypedDataSigner {
+  return typeof (signer as TypedDataSigner)._signTypedData === 'function'
+}
+
 export async function signOrder(
   order: Record<string, unknown>,
-  domain: ethers.TypedDataDomain,
+  domain: Record<string, unknown>,
   signer: TypedDataVersionedSigner
 ): Promise<string> {
   return signer._signTypedData(
@@ -111,7 +126,7 @@ export async function signOrder(
 
 export async function signOrderCancellation(
   orderUid: string,
-  domain: ethers.TypedDataDomain,
+  domain: Record<string, unknown>,
   signer: TypedDataVersionedSigner
 ): Promise<string> {
   return signer._signTypedData(
@@ -125,7 +140,7 @@ export async function signOrderCancellation(
 
 export async function signOrderCancellations(
   orderUids: string[],
-  domain: ethers.TypedDataDomain,
+  domain: Record<string, unknown>,
   signer: TypedDataVersionedSigner
 ): Promise<string> {
   return signer._signTypedData(

@@ -10,19 +10,17 @@
     "declarationMap": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "baseUrl": ".",
     "paths": {
       "@cowprotocol/contracts": ["../cow-contracts/src"],
       "@cowprotocol/contracts/*": ["../cow-contracts/src/*"],
-      "@cowprotocol/contracts/generated": ["../cow-contracts/src/generated"],
-      "@cowprotocol/contracts/generated/*": ["../cow-contracts/src/generated/*"],
       "@cowprotocol/common": ["../cow-common/src"],
-      "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/common/consts": ["../cow-common/src/consts"],
-      "@cowprotocol/common/chains": ["../cow-common/src/chains"],
-      "@cowprotocol/common/types": ["../cow-common/src/types"]
+      "@cowprotocol/common/*": ["../cow-common/src/*"]
     }
   },
   "references": [
+    { "path": "../../packages/typescript-config" },
+    { "path": "../cow-common" },
     { "path": "../cow-contracts" }
   ]
 }

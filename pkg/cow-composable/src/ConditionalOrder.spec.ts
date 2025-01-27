@@ -1,4 +1,4 @@
-import { mockGetOrder } from '../order-book/__mock__/api'
+import { mockGetOrder } from '@cowprotocol/order-book/__mock__/api'
 import {
   DEFAULT_ORDER_PARAMS,
   TestConditionalOrder,
@@ -6,14 +6,14 @@ import {
 } from './orderTypes/test/TestConditionalOrder'
 import { ConditionalOrder } from './ConditionalOrder'
 import { Twap } from './orderTypes/Twap'
-
 import { getComposableCow } from './contracts'
 import { constants } from 'ethers'
-import { OwnerContext, PollParams, PollResultCode, PollResultErrors } from './types'
-import { BuyTokenDestination, OrderKind, SellTokenSource } from '../order-book/generated'
-import { computeOrderUid } from '../utils'
-import { GPv2Order } from '../common/generated/ComposableCoW'
-import { OrderBookApi } from '../order-book'
+import type { OwnerContext, PollParams, PollResultErrors, IConditionalOrder } from './types'
+import { PollResultCode } from './types'
+import type { BuyTokenDestination, OrderKind, SellTokenSource, OrderBookApi } from '@cowprotocol/order-book'
+import { computeOrderUid } from './utils'
+import type { Order } from '@cowprotocol/contracts'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
 
 jest.mock('./contracts')
 
@@ -47,7 +47,7 @@ const TWAP_SERIALIZED = (salt?: string, handler?: string): string => {
 const OWNER = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
 const SINGLE_ORDER = createTestConditionalOrder()
 const MERKLE_ROOT_ORDER = createTestConditionalOrder({ isSingleOrder: false })
-const DISCRETE_ORDER: GPv2Order.DataStruct = {
+const DISCRETE_ORDER: Order = {
   sellToken: '0x6810e776880c02933d47db1b9fc05908e5386b96',
   buyToken: '0x6810e776880c02933d47db1b9fc05908e5386b96',
   receiver: '0x6810e776880c02933d47db1b9fc05908e5386b96',

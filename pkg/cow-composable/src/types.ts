@@ -1,7 +1,20 @@
-import { OrderBookApi } from '@cowprotocol/order-book'
+import type { OrderBookApi, UID } from '@cowprotocol/order-book'
 import { SupportedChainId } from '@cowprotocol/common'
-import { GPv2Order } from '@cowprotocol/contracts'
-import { providers } from 'ethers'
+import type { Order } from '@cowprotocol/contracts'
+import type { providers, BigNumber } from 'ethers'
+
+// Export as const enum to ensure it's available as both type and value
+export const enum PollResultCode {
+  SUCCESS = 'SUCCESS',
+  UNEXPECTED_ERROR = 'UNEXPECTED_ERROR',
+  TRY_NEXT_BLOCK = 'TRY_NEXT_BLOCK',
+  TRY_ON_BLOCK = 'TRY_ON_BLOCK',
+  TRY_AT_EPOCH = 'TRY_AT_EPOCH',
+  DONT_TRY_AGAIN = 'DONT_TRY_AGAIN'
+}
+
+// Remove duplicate enum definition
+export type { PollResultCode as PollResultCodeType }
 
 export interface ConditionalOrderArguments<T> {
   handler: string
@@ -16,7 +29,7 @@ export type ConditionalOrderParams = {
   readonly staticInput: string
 }
 
-export enum ProofLocation {
+export const enum ProofLocation {
   // The location of the proofs is private to the caller.
   PRIVATE = 0,
   // The `data` field of the emitted `Proof` struct contains proofs + conditional order parameters.
@@ -113,17 +126,10 @@ export type PollResultErrors =
   | PollResultUnexpectedError
   | PollResultDontTryAgain
 
-export enum PollResultCode {
-  SUCCESS = 'SUCCESS',
-  UNEXPECTED_ERROR = 'UNEXPECTED_ERROR',
-  TRY_NEXT_BLOCK = 'TRY_NEXT_BLOCK',
-  TRY_ON_BLOCK = 'TRY_ON_BLOCK',
-  TRY_AT_EPOCH = 'TRY_AT_EPOCH',
-  DONT_TRY_AGAIN = 'DONT_TRY_AGAIN',
-}
+// Use the enum defined above
 export interface PollResultSuccess {
   readonly result: PollResultCode.SUCCESS
-  readonly order: GPv2Order.DataStruct
+  readonly order: Order
   readonly signature: string
 }
 

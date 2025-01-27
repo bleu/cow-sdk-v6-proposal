@@ -10,16 +10,16 @@
     "declarationMap": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "baseUrl": ".",
     "paths": {
       "@cowprotocol/config": ["./src"],
       "@cowprotocol/config/*": ["./src/*"],
       "@cowprotocol/common": ["../cow-common/src"],
-      "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/common/consts": ["../cow-common/src/consts"],
-      "@cowprotocol/common/chains": ["../cow-common/src/chains"]
+      "@cowprotocol/common/*": ["../cow-common/src/*"]
     }
   },
   "references": [
+    { "path": "../../packages/typescript-config" },
     { "path": "../cow-common" }
   ]
 }

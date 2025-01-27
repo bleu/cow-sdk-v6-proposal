@@ -1,12 +1,14 @@
-import { utils, providers, BigNumber } from 'ethers'
+import { utils } from 'ethers'
+import type { BigNumber, providers } from 'ethers'
 import {
   COMPOSABLE_COW_CONTRACT_ADDRESS,
-  EXTENSIBLE_FALLBACK_HANDLER_CONTRACT_ADDRESS,
-  SupportedChainId,
+  EXTENSIBLE_FALLBACK_HANDLER_CONTRACT_ADDRESS
 } from '@cowprotocol/common'
+import type { SupportedChainId, TypedEvent, TypedEventFilter, BaseEventObject } from '@cowprotocol/common'
 import { ExtensibleFallbackHandler__factory } from '@cowprotocol/contracts'
-import { BlockInfo, ConditionalOrderParams } from './types'
-import { Order, OrderBalance, OrderKind, GPv2Order } from '@cowprotocol/contracts'
+import type { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { BlockInfo, ConditionalOrderParams } from './types'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 const ERC20_BALANCE_VALUES = ['erc20', '0x5a28e9363bb942b639270062aa6bb295f434bcdfc42c97267bf003f272060dc9']
 const EXTERNAL_BALANCE_VALUES = ['external', '0xabee3b73373acd583a130924aad6dc38cfdc44ba0555ba94ce2ff63980ea0632']
