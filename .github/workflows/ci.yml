@@ -50,9 +50,16 @@ jobs:
           mkdir -p test-results
           pnpm run test:ci
         env:
-          JEST_JUNIT_OUTPUT_DIR: test-results
+          JEST_JUNIT_OUTPUT_DIR: ./test-results
           JEST_JUNIT_OUTPUT_NAME: jest.results.json
           JEST_JUNIT_UNIQUE_OUTPUT_NAME: false
+          
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/jest.results.json
       
       - name: Upload test results
         if: always()

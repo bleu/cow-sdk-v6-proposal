@@ -5,7 +5,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "test": "jest",
-    "test:ci": "jest --ci --coverage --json --outputFile=./test-results/jest.results.json --passWithNoTests",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit --passWithNoTests",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
