@@ -1,6 +1,6 @@
 import { BackoffOptions } from "exponential-backoff";
 import { RateLimiterOpts } from "limiter/dist/esm";
-import { SupportedChainId } from "@cow-common/chains";
+import { SupportedChainId } from "@cowprotocol/common/chains";
 
 /**
  * IPFS configuration.
