@@ -1,4 +1,4 @@
-import { Order } from './__generated__'
+import { Order } from '.'
 
 /**
  * An order with the total fee added.
@@ -23,7 +23,7 @@ export interface QuoteAmountsAndCosts<
   Amounts = {
     sellAmount: AmountType
     buyAmount: AmountType
-  },
+  }
 > {
   isSell: boolean
 

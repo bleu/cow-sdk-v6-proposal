@@ -8,8 +8,8 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsc",
-    "test": "jest --config ../../jest.config.js",
+    "build": "tsc -p tsconfig.build.json --outDir dist/",
+    "tsc": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {

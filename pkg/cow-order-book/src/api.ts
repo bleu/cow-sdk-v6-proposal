@@ -1,4 +1,3 @@
-import 'cross-fetch/polyfill'
 import { RateLimiter } from 'limiter'
 
 import {
@@ -26,7 +25,7 @@ import {
   Trade,
   TransactionHash,
   UID,
-} from './__generated__'
+} from '.'
 import { DEFAULT_BACKOFF_OPTIONS, DEFAULT_LIMITER_OPTIONS, FetchParams, OrderBookApiError, request } from './request'
 import { transformOrder } from './transformOrder'
 import { EnrichedOrder } from './types'

@@ -5,7 +5,6 @@
   "files": [],
   "scripts": {
     "typechain:codegen": "typechain --target ethers-v5 --out-dir ./src/__generated__ '../cow-abi/src/abis/*.json'",
-    "test": "jest --config ../../jest.config.js",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {

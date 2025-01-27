@@ -2,13 +2,13 @@ import { OrderSigningUtils } from '@cowprotocol/order-signing'
 import type { UnsignedOrder } from '@cowprotocol/order-signing'
 import {
   BARN_ETH_FLOW_ADDRESSES,
-  CowEnv,
   ETH_FLOW_ADDRESSES,
   MAX_VALID_TO_EPOCH,
   SupportedChainId,
   WRAPPED_NATIVE_CURRENCIES,
 } from '@cowprotocol/common'
-import type { Order, OrderBalance } from '@cowprotocol/common'
+import { CowEnv } from '@cowprotocol/config'
+import type { Order, OrderBalance } from '@cowprotocol/contracts'
 
 export interface EthFlowOrderExistsCallback {
   (orderId: string, orderDigest: string): Promise<boolean>

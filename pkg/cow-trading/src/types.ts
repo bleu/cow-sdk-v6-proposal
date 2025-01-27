@@ -10,7 +10,8 @@ import type {
   TokenAmount,
 } from '@cowprotocol/order-book'
 import type { Signer } from '@ethersproject/abstract-signer'
-import type { CowEnv, SupportedChainId } from '@cowprotocol/common'
+import type { SupportedChainId } from '@cowprotocol/common'
+import type { CowEnv } from '@cowprotocol/config'
 import type { ExternalProvider } from '@ethersproject/providers'
 import type { UnsignedOrder } from '@cowprotocol/order-signing'
 

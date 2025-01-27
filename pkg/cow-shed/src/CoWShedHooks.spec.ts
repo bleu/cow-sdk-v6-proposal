@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { Wallet } from 'ethers'
 import { CowShedHooks } from './CoWShedHooks'
 import { AddressZero } from '@ethersproject/constants'
@@ -114,6 +115,7 @@ describe('CowShedHooks', () => {
         encodeFunctionData: mockEncodeFunctionData,
       }
 
+      // @ts-expect-error migration from old sdk
       jest.spyOn(contracts, 'getCoWShedFactoryInterface').mockReturnValue(mockInterface)
 
       const result = cowShed.encodeExecuteHooksForFactory(CALLS_MOCK, mockNonce, mockDeadline, USER_MOCK, mockSignature)

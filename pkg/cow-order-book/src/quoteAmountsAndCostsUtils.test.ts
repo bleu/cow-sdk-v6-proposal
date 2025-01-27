@@ -1,4 +1,5 @@
-import { OrderParameters, OrderKind, SigningScheme, BuyTokenDestination, SellTokenSource } from './__generated__'
+import '@testing-library/jest-dom'
+import { OrderParameters, OrderKind, SigningScheme, BuyTokenDestination, SellTokenSource } from '.'
 import { getQuoteAmountsAndCosts } from './quoteAmountsAndCostsUtils'
 
 const otherFields = {
@@ -63,7 +64,7 @@ describe('Calculation of before/after fees amounts', () => {
         })
 
         expect(result.afterNetworkCosts.sellAmount.toString()).toBe(
-          String(BigInt(orderParams.sellAmount) + BigInt(orderParams.feeAmount)),
+          String(BigInt(orderParams.sellAmount) + BigInt(orderParams.feeAmount))
         )
       })
 
@@ -81,7 +82,7 @@ describe('Calculation of before/after fees amounts', () => {
             (+orderParams.sellAmount + +orderParams.feeAmount) * // SellAmountAfterNetworkCosts
             (+orderParams.buyAmount / +orderParams.sellAmount)
           ) // Price
-            .toFixed(),
+            .toFixed()
         )
       })
     })

@@ -1,5 +1,5 @@
 import { ETH_ADDRESS } from '@cowprotocol/common'
-import { Order } from './__generated__'
+import { Order } from '.'
 import { EnrichedOrder } from './types'
 
 /**

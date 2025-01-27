@@ -1,26 +1,20 @@
 {
-  "extends": "../../packages/typescript-config/base.json",
+  "extends": "../../pkg/config-typescript/base.json",
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "baseUrl": "./",
     "paths": {
       "@cowprotocol/subgraph/*": ["./src/*"],
-      "@cowprotocol/common": ["../../pkg/cow-common/src/index.ts"],
-      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
-      "@cowprotocol/config": ["../../pkg/cow-config/src"],
-      "@cowprotocol/config/*": ["../../pkg/cow-config/src/*"]
+      "@cowprotocol/common": ["../cow-common/src/index.ts"],
+      "@cowprotocol/common/*": ["../cow-common/src/*"],
+      "@cowprotocol/config": ["../cow-config/src"],
+      "@cowprotocol/config/*": ["../cow-config/src/*"]
     }
   },
-  "references": [
-    { "path": "../cow-common" },
-    { "path": "../cow-config" }
-  ]
+  "references": [{ "path": "../cow-common" }, { "path": "../cow-config" }]
 }

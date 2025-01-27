@@ -4,7 +4,6 @@
   "private": true,
   "files": [],
   "scripts": {
-    "test": "jest --config ../../jest.config.js",
     "lint": "eslint . --ext .ts,.tsx",
     "typechain:codegen": "typechain --target ethers-v6 --out-dir ./src/__generated__ '../cow-abi/src/abis/*.json'"
   },

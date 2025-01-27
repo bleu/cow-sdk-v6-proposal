@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom'
+
 jest.mock('@cowprotocol/order-signing', () => ({
   OrderSigningUtils: {
     generateOrderId: jest.fn(),

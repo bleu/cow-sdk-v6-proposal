@@ -1,4 +1,5 @@
-import { Order, OrderClass, OrderKind, OrderStatus, SigningScheme } from './__generated__'
+import '@testing-library/jest-dom'
+import { Order, OrderClass, OrderKind, OrderStatus, SigningScheme } from '.'
 import { transformOrder } from './transformOrder'
 
 const ORDER: Order = {

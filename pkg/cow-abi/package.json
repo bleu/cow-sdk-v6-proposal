@@ -12,11 +12,7 @@
     "src/abis/TWAP.json",
     "src/index.ts"
   ],
-  "scripts": {
-    "test": "jest --config ../../jest.config.js",
-    "test:coverage": "jest --config ../../jest.config.js --coverage",
-    "lint": "eslint . --ext .ts,.tsx"
-  },
+  "scripts": {},
   "devDependencies": {
     "@vercel/style-guide": "^5.2.0",
     "eslint-config-turbo": "^2.0.0",

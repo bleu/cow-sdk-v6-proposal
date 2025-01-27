@@ -4,12 +4,20 @@
   "private": true,
   "files": [],
   "scripts": {
-    "test": "jest --config ../../jest.config.js",
-    "test:coverage": "jest --config ../../jest.config.js --coverage",
+    "build": "tsc -b ../cow-sdk-ethers-v5/tsconfig.json tsconfig.build.json",
+    "tsc": "tsc --noEmit",
+    "test": "jest --config jest.config.js",
+    "test:coverage": "jest --config jest.config.js --coverage",
     "lint": "eslint . --ext .ts,.tsx"
   },
-  "devDependencies": {
+  "dependencies": {
     "@cowprotocol/common": "workspace:^",
+    "@cowprotocol/sdk-ethers-v5": "workspace:^",
+    "@cowprotocol/order-book": "workspace:^",
+    "@cowprotocol/cow-ts": "workspace:^",
+    "@cowprotocol/order-signing": "workspace:^"
+  },
+  "devDependencies": {
     "@cowprotocol/contracts": "^1.7.0",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

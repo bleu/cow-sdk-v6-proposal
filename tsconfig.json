@@ -1,7 +1,6 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/typescript-config" },
     { "path": "pkg/cow-abi" },
     { "path": "pkg/cow-common" },
     { "path": "pkg/cow-config" },
@@ -12,6 +11,10 @@
     { "path": "pkg/cow-trading" },
     { "path": "pkg/cow-shed" },
     { "path": "pkg/cow-sdk" },
+    { "path": "pkg/cow-sdk-ethers-v6" },
+    { "path": "pkg/cow-sdk-ethers-v5" },
+    { "path": "pkg/cow-sdk-viem" },
+    { "path": "pkg/cow-sdk-wagmi" },
     { "path": "examples/nodejs" }
   ]
 }

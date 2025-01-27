@@ -1,4 +1,5 @@
-import { EthFlow__factory } from '@cowprotocol/common'
+import '@testing-library/jest-dom'
+import { EthFlow__factory } from '@cowprotocol/sdk-ethers-v5'
 import { VoidSigner } from '@ethersproject/abstract-signer'
 import { AppDataInfo, LimitOrderParameters } from './types'
 import { SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
@@ -17,8 +18,8 @@ jest.mock('cross-fetch', () => {
   }
 })
 
-jest.mock('@cowprotocol/common', () => {
-  const original = jest.requireActual('@cowprotocol/common')
+jest.mock('@cowprotocol/sdk-ethers-v5', () => {
+  const original = jest.requireActual('@cowprotocol/sdk-ethers-v5')
 
   return {
     ...original,

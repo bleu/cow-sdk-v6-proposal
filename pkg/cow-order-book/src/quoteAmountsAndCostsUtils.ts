@@ -1,5 +1,5 @@
 import { QuoteAmountsAndCosts } from './types'
-import { OrderKind, type OrderParameters } from './__generated__'
+import { OrderKind, type OrderParameters } from '.'
 
 interface Params {
   orderParams: OrderParameters
@@ -33,7 +33,7 @@ export function getQuoteAmountsAndCosts(params: Params): QuoteAmountsAndCosts {
    */
   const sellAmountAfterNetworkCosts = getBigNumber(
     sellAmountBeforeNetworkCosts.big + networkCostAmount.big,
-    sellDecimals,
+    sellDecimals
   )
 
   /**

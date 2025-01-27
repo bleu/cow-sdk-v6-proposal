@@ -4,6 +4,8 @@
   "private": true,
   "files": [],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json --outDir dist/",
+    "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
     "lint": "eslint . --ext .ts,.tsx",

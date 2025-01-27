@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 jest.mock('cross-fetch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const fetchMock = require('jest-fetch-mock')

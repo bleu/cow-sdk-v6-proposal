@@ -4,7 +4,6 @@
   "private": true,
   "files": [],
   "scripts": {
-    "test": "jest --config ../../jest.config.js",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {

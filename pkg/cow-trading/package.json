@@ -4,16 +4,21 @@
   "private": true,
   "files": [],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json --outDir dist/",
+    "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@cowprotocol/app-data": "^2.4.0",
+    "@cowprotocol/common": "workspace:^",
+    "@cowprotocol/config": "workspace:^",
     "@cowprotocol/contracts": "^1.7.0",
     "@cowprotocol/order-book": "workspace:^",
-    "@cowprotocol/common": "workspace:^",
-    "@cowprotocol/order-signing": "workspace:^"
+    "@cowprotocol/order-signing": "workspace:^",
+    "@cowprotocol/sdk-ethers-v5": "workspace:^",
+    "cross-fetch": "^3.1.5"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -22,6 +27,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-turbo": "^2.0.0",
     "eslint-plugin-only-warn": "^1.1.0",
+    "jest-fetch-mock": "^3.0.3",
     "ts-jest": "^29.2.5",
     "typescript": "5.1.6"
   }

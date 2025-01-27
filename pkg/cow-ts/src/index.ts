@@ -1,6 +1,6 @@
 import { SupportedChainId } from '@cowprotocol/common'
 import type { Order } from '@cowprotocol/contracts'
-// import { OrderSigningUtils } from './order-signing'
+import { OrderSigningUtils } from '@cowprotocol/order-signing'
 
 export async function computeOrderUid(chainId: SupportedChainId, owner: string, order: Order): Promise<string> {
   const { computeOrderUid: _computeOrderUid } = await import('@cowprotocol/contracts')

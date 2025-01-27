@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { getQuoteWithSigner } from './getQuote'
 
 jest.mock('cross-fetch', () => {
