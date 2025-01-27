@@ -20,6 +20,9 @@ importers:
 
   examples/cra:
     dependencies:
+      '@cowprotocol/contracts':
+        specifier: ^1.6.0
+        version: 1.7.0(ethers@5.7.2)
       '@cowprotocol/cow-sdk':
         specifier: ../../
         version: link:../..
@@ -323,7 +326,7 @@ importers:
         version: link:../cow-composable
       '@cowprotocol/contracts':
         specifier: ^1.6.0
-        version: 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        version: 1.7.0(ethers@5.7.2)
       '@cowprotocol/cow-shed':
         specifier: workspace:^
         version: link:../cow-shed
@@ -10897,13 +10900,13 @@ snapshots:
       json-stringify-deterministic: 1.0.12
       multiformats: 9.9.0
 
-  '@cowprotocol/contracts@1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@cowprotocol/contracts@1.7.0(ethers@5.7.2)':
     dependencies:
       ethers: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 
   '@cowprotocol/cow-sdk@4.1.0(ethers@5.7.2)':
     dependencies:
-      '@cowprotocol/contracts': 1.7.0(ethers@5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@cowprotocol/contracts': 1.7.0(ethers@5.7.2)
       '@ethersproject/abstract-signer': 5.7.0
       '@openzeppelin/merkle-tree': 1.0.7
       cross-fetch: 3.2.0
