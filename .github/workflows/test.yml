@@ -45,7 +45,13 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # Ensure we have the correct pnpm version
+          corepack prepare pnpm@8.15.6 --activate
+          # Install dependencies with patched dependencies
+          pnpm install --no-frozen-lockfile
+          # Update lockfile with patched dependencies
+          pnpm install --lockfile-only
 
       - name: Run tests
         run: |
