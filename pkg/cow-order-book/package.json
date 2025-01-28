@@ -13,7 +13,7 @@
     "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
-    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit --json --outputFile=jest.results.json",
     "lint": "eslint . --ext .ts,.tsx",
     "swagger:codegen": " openapi --input https://raw.githubusercontent.com/cowprotocol/services/v2.291.0/crates/orderbook/openapi.yml --output src/__generated__ --exportServices false --exportCore false"
   },
