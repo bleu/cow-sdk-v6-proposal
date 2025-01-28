@@ -2,11 +2,7 @@
   "$schema": "https://turborepo.org/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build",
-        "@cowprotocol/common#build",
-        "@cowprotocol/sdk-ethers-v5#build"
-      ],
+      "dependsOn": ["^build"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json", "tsconfig.build.json"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.tsbuildinfo"],
       "cache": false,

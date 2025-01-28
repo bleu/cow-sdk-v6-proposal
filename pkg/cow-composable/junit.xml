@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="120" failures="0" errors="0" time="2.338">
+  <testsuite name="encodeParams" errors="0" failures="0" skipped="0" timestamp="2025-01-28T11:58:20" time="1.462" tests="7">
+    <testcase classname="encodeParams encodeParams: Fails if invalid params" name="encodeParams encodeParams: Fails if invalid params" time="0.024">
+    </testcase>
+    <testcase classname="encodeParams encodeParams: Happy path" name="encodeParams encodeParams: Happy path" time="0.002">
+    </testcase>
+    <testcase classname="decodeParams decodeParams: Fails if invalid params" name="decodeParams decodeParams: Fails if invalid params" time="0.001">
+    </testcase>
+    <testcase classname="decodeParams decodeParams: Happy path" name="decodeParams decodeParams: Happy path" time="0.002">
+    </testcase>
+    <testcase classname="isValidAbi isValidAbi: Fails if invalid params" name="isValidAbi isValidAbi: Fails if invalid params" time="0.001">
+    </testcase>
+    <testcase classname="isValidAbi isValidAbi: Happy path" name="isValidAbi isValidAbi: Happy path" time="0.001">
+    </testcase>
+    <testcase classname="fromStructToOrder Happy path" name="fromStructToOrder Happy path" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Constructor" errors="0" failures="0" skipped="0" timestamp="2025-01-28T11:58:20" time="1.619" tests="22">
+    <testcase classname="Constructor Create TestConditionalOrder" name="Constructor Create TestConditionalOrder" time="0.019">
+    </testcase>
+    <testcase classname="Constructor Fail if bad address" name="Constructor Fail if bad address" time="0.001">
+    </testcase>
+    <testcase classname="Constructor Fail if bad salt Fails if salt is not an hex" name="Constructor Fail if bad salt Fails if salt is not an hex" time="0.001">
+    </testcase>
+    <testcase classname="Constructor Fail if bad salt Fails if salt is too short (not 32 bytes)" name="Constructor Fail if bad salt Fails if salt is too short (not 32 bytes)" time="0.001">
+    </testcase>
+    <testcase classname="Constructor Fail if bad salt Fails if salt is too long (not 32 bytes)" name="Constructor Fail if bad salt Fails if salt is too long (not 32 bytes)" time="0.001">
+    </testcase>
+    <testcase classname="Deserialize: Decode static input Fails if handler mismatch" name="Deserialize: Decode static input Fails if handler mismatch" time="0.006">
+    </testcase>
+    <testcase classname="Serialize: Encode static input Serialize: Fails if wrong handler" name="Serialize: Encode static input Serialize: Fails if wrong handler" time="0.008">
+    </testcase>
+    <testcase classname="Compute orderUid Returns correct id" name="Compute orderUid Returns correct id" time="0.001">
+    </testcase>
+    <testcase classname="Compute orderUid Derive OrderId from leaf data" name="Compute orderUid Derive OrderId from leaf data" time="0.001">
+    </testcase>
+    <testcase classname="Cabinet Single orders call the contract with order id as the ctx" name="Cabinet Single orders call the contract with order id as the ctx" time="0.003">
+    </testcase>
+    <testcase classname="Cabinet Merkle Root orders call the contract with the 0x0 as the ctx" name="Cabinet Merkle Root orders call the contract with the 0x0 as the ctx" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [SUCCESS] Happy path" name="Poll Single Orders [SUCCESS] Happy path" time="0.002">
+    </testcase>
+    <testcase classname="Poll Single Orders [DONT_TRY_AGAIN] Not authorized" name="Poll Single Orders [DONT_TRY_AGAIN] Not authorized" time="0.002">
+    </testcase>
+    <testcase classname="Poll Single Orders [DONT_TRY_AGAIN] Invalid Conditional Order: Concrete order validation fails" name="Poll Single Orders [DONT_TRY_AGAIN] Invalid Conditional Order: Concrete order validation fails" time="0.002">
+    </testcase>
+    <testcase classname="Poll Single Orders [UNEXPECTED_ERROR] getTradeableOrderWithSignature throws an error" name="Poll Single Orders [UNEXPECTED_ERROR] getTradeableOrderWithSignature throws an error" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [pollValidate::SUCCESS] Return success when pollValidate returns undefined" name="Poll Single Orders [pollValidate::SUCCESS] Return success when pollValidate returns undefined" time="0.002">
+    </testcase>
+    <testcase classname="Poll Single Orders [pollValidate::DONT_TRY_AGAIN] Don&apos;t try again when pollValidate says so" name="Poll Single Orders [pollValidate::DONT_TRY_AGAIN] Don&apos;t try again when pollValidate says so" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [pollValidate::TRY_AT_EPOCH] Try on an specific epoch when pollValidate says so" name="Poll Single Orders [pollValidate::TRY_AT_EPOCH] Try on an specific epoch when pollValidate says so" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [pollValidate::TRY_NEXT_BLOCK] Try on next block when pollValidate says so" name="Poll Single Orders [pollValidate::TRY_NEXT_BLOCK] Try on next block when pollValidate says so" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [pollValidate::TRY_ON_BLOCK] Try on an specific block when pollValidate says so" name="Poll Single Orders [pollValidate::TRY_ON_BLOCK] Try on an specific block when pollValidate says so" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [pollValidate::UNEXPECTED_ERROR] Return an unexpected error when pollValidate throws" name="Poll Single Orders [pollValidate::UNEXPECTED_ERROR] Return an unexpected error when pollValidate throws" time="0.001">
+    </testcase>
+    <testcase classname="Poll Single Orders [TRY_NEXT_BLOCK] When the order is already in the Orderbook" name="Poll Single Orders [TRY_NEXT_BLOCK] When the order is already in the Orderbook" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Constructor" errors="0" failures="0" skipped="0" timestamp="2025-01-28T11:58:20" time="1.66" tests="38">
+    <testcase classname="Constructor Create new valid TWAP" name="Constructor Create new valid TWAP" time="0.006">
+    </testcase>
+    <testcase classname="Constructor Create Twap with invalid handler" name="Constructor Create Twap with invalid handler" time="0.022">
+    </testcase>
+    <testcase classname="Twap.fromData Creates valid TWAP: Start at mining time" name="Twap.fromData Creates valid TWAP: Start at mining time" time="0.002">
+    </testcase>
+    <testcase classname="Twap.fromData Creates valid TWAP: Start at epoch" name="Twap.fromData Creates valid TWAP: Start at epoch" time="0.001">
+    </testcase>
+    <testcase classname="Id Id is computed correctly" name="Id Id is computed correctly" time="0.004">
+    </testcase>
+    <testcase classname="Id Id doesn&apos;t change for the same params and salt" name="Id Id doesn&apos;t change for the same params and salt" time="0.004">
+    </testcase>
+    <testcase classname="Id Id changes for same params and different salt" name="Id Id changes for same params and different salt" time="0.006">
+    </testcase>
+    <testcase classname="Id Id changes for different params and same salt" name="Id Id changes for different params and same salt" time="0.002">
+    </testcase>
+    <testcase classname="Validate Valid twap" name="Validate Valid twap" time="0.002">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidSameToken" name="Validate Invalid twap: InvalidSameToken" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidToken (sell)" name="Validate Invalid twap: InvalidToken (sell)" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidToken (buy)" name="Validate Invalid twap: InvalidToken (buy)" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidSellAmount" name="Validate Invalid twap: InvalidSellAmount" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidMinBuyAmount" name="Validate Invalid twap: InvalidMinBuyAmount" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidStartTime" name="Validate Invalid twap: InvalidStartTime" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidNumParts" name="Validate Invalid twap: InvalidNumParts" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidFrequency" name="Validate Invalid twap: InvalidFrequency" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidSpan (limit duration)" name="Validate Invalid twap: InvalidSpan (limit duration)" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidData (ABI parse error in appData)" name="Validate Invalid twap: InvalidData (ABI parse error in appData)" time="0.001">
+    </testcase>
+    <testcase classname="Serialize serialize: Serializes correctly" name="Serialize serialize: Serializes correctly" time="0.002">
+    </testcase>
+    <testcase classname="Deserialize Deserializes correctly" name="Deserialize Deserializes correctly" time="0.004">
+    </testcase>
+    <testcase classname="Deserialize Throws if invalid" name="Deserialize Throws if invalid" time="0.003">
+    </testcase>
+    <testcase classname="To String toString: Default" name="To String toString: Default" time="0.002">
+    </testcase>
+    <testcase classname="To String toString: start time at epoch" name="To String toString: start time at epoch" time="0.008">
+    </testcase>
+    <testcase classname="To String toString: limit duration" name="To String toString: limit duration" time="0.01">
+    </testcase>
+    <testcase classname="Poll Validate Open TWAP, passes the validations" name="Poll Validate Open TWAP, passes the validations" time="0.002">
+    </testcase>
+    <testcase classname="Poll Validate [TRY_AT_EPOCH] TWAP has not started" name="Poll Validate [TRY_AT_EPOCH] TWAP has not started" time="0">
+    </testcase>
+    <testcase classname="Poll Validate [TRY_AT_EPOCH] TWAP has expired" name="Poll Validate [TRY_AT_EPOCH] TWAP has expired" time="0.001">
+    </testcase>
+    <testcase classname="Poll Validate [CABINET OVERFLOW] The cabinet stored value is greater than uint32" name="Poll Validate [CABINET OVERFLOW] The cabinet stored value is greater than uint32" time="0.001">
+    </testcase>
+    <testcase classname="Poll Validate If there&apos;s no blockInfo, it will fetch the latest block" name="Poll Validate If there&apos;s no blockInfo, it will fetch the latest block" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the start of part 1/10" name="Current TWAP part is in the Order Book Polling at the start of part 1/10" time="0.001">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the middle of part 1/10" name="Current TWAP part is in the Order Book Polling at the middle of part 1/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the last second of part 1/10" name="Current TWAP part is in the Order Book Polling at the last second of part 1/10" time="0.001">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the start of part 2/10" name="Current TWAP part is in the Order Book Polling at the start of part 2/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the last second of part 9/10" name="Current TWAP part is in the Order Book Polling at the last second of part 9/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the first second of part 10/10" name="Current TWAP part is in the Order Book Polling at the first second of part 10/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap hasn&apos;t started" name="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap hasn&apos;t started" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap has expired" name="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap has expired" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Constructor" errors="0" failures="0" skipped="0" timestamp="2025-01-28T11:58:20" time="1.726" tests="53">
+    <testcase classname="Constructor Create new valid TWAP" name="Constructor Create new valid TWAP" time="0.005">
+    </testcase>
+    <testcase classname="Constructor Create Twap with invalid handler" name="Constructor Create Twap with invalid handler" time="0.018">
+    </testcase>
+    <testcase classname="Twap.fromData Creates valid TWAP: Start at mining time" name="Twap.fromData Creates valid TWAP: Start at mining time" time="0.001">
+    </testcase>
+    <testcase classname="Twap.fromData Creates valid TWAP: Start at epoch" name="Twap.fromData Creates valid TWAP: Start at epoch" time="0.001">
+    </testcase>
+    <testcase classname="Id Id is computed correctly" name="Id Id is computed correctly" time="0.003">
+    </testcase>
+    <testcase classname="Id Id doesn&apos;t change for the same params and salt" name="Id Id doesn&apos;t change for the same params and salt" time="0.004">
+    </testcase>
+    <testcase classname="Id Id changes for same params and different salt" name="Id Id changes for same params and different salt" time="0.007">
+    </testcase>
+    <testcase classname="Id Id changes for different params and same salt" name="Id Id changes for different params and same salt" time="0.002">
+    </testcase>
+    <testcase classname="Validate Valid twap" name="Validate Valid twap" time="0.002">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidSameToken" name="Validate Invalid twap: InvalidSameToken" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidToken (sell)" name="Validate Invalid twap: InvalidToken (sell)" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidToken (buy)" name="Validate Invalid twap: InvalidToken (buy)" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidSellAmount" name="Validate Invalid twap: InvalidSellAmount" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidMinBuyAmount" name="Validate Invalid twap: InvalidMinBuyAmount" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidStartTime" name="Validate Invalid twap: InvalidStartTime" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidNumParts" name="Validate Invalid twap: InvalidNumParts" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidFrequency" name="Validate Invalid twap: InvalidFrequency" time="0.001">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidSpan (limit duration)" name="Validate Invalid twap: InvalidSpan (limit duration)" time="0">
+    </testcase>
+    <testcase classname="Validate Invalid twap: InvalidData (ABI parse error in appData)" name="Validate Invalid twap: InvalidData (ABI parse error in appData)" time="0.002">
+    </testcase>
+    <testcase classname="Serialize serialize: Serializes correctly" name="Serialize serialize: Serializes correctly" time="0.001">
+    </testcase>
+    <testcase classname="Deserialize Deserializes correctly" name="Deserialize Deserializes correctly" time="0.003">
+    </testcase>
+    <testcase classname="Deserialize Throws if invalid" name="Deserialize Throws if invalid" time="0.003">
+    </testcase>
+    <testcase classname="To String toString: Default" name="To String toString: Default" time="0.009">
+    </testcase>
+    <testcase classname="To String toString: start time at epoch" name="To String toString: start time at epoch" time="0.002">
+    </testcase>
+    <testcase classname="To String toString: limit duration" name="To String toString: limit duration" time="0.004">
+    </testcase>
+    <testcase classname="Poll Validate Open TWAP, passes the validations" name="Poll Validate Open TWAP, passes the validations" time="0.001">
+    </testcase>
+    <testcase classname="Poll Validate [TRY_AT_EPOCH] TWAP has not started" name="Poll Validate [TRY_AT_EPOCH] TWAP has not started" time="0.001">
+    </testcase>
+    <testcase classname="Poll Validate [TRY_AT_EPOCH] TWAP has expired" name="Poll Validate [TRY_AT_EPOCH] TWAP has expired" time="0.001">
+    </testcase>
+    <testcase classname="Poll Validate [CABINET OVERFLOW] The cabinet stored value is greater than uint32" name="Poll Validate [CABINET OVERFLOW] The cabinet stored value is greater than uint32" time="0">
+    </testcase>
+    <testcase classname="Poll Validate If there&apos;s no blockInfo, it will fetch the latest block" name="Poll Validate If there&apos;s no blockInfo, it will fetch the latest block" time="0.001">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the start of part 1/10" name="Current TWAP part is in the Order Book Polling at the start of part 1/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the middle of part 1/10" name="Current TWAP part is in the Order Book Polling at the middle of part 1/10" time="0.001">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the last second of part 1/10" name="Current TWAP part is in the Order Book Polling at the last second of part 1/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the start of part 2/10" name="Current TWAP part is in the Order Book Polling at the start of part 2/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the last second of part 9/10" name="Current TWAP part is in the Order Book Polling at the last second of part 9/10" time="0.001">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book Polling at the first second of part 10/10" name="Current TWAP part is in the Order Book Polling at the first second of part 10/10" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap hasn&apos;t started" name="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap hasn&apos;t started" time="0">
+    </testcase>
+    <testcase classname="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap has expired" name="Current TWAP part is in the Order Book [UNEXPECTED_ERROR] Twap has expired" time="0.001">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) constructor: can create a new multiplexer" name="Multiplexer (ComposableCoW) constructor: can create a new multiplexer" time="0">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) constructor: orders cannot have non-zero length" name="Multiplexer (ComposableCoW) constructor: orders cannot have non-zero length" time="0.005">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) constructor: cannot have undefined root for orders" name="Multiplexer (ComposableCoW) constructor: cannot have undefined root for orders" time="0.002">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) constructor: order types must be registered" name="Multiplexer (ComposableCoW) constructor: order types must be registered" time="0.002">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) constructor: orders must have valid root supplied" name="Multiplexer (ComposableCoW) constructor: orders must have valid root supplied" time="0.003">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) crud: can add, remove, update, and get orders" name="Multiplexer (ComposableCoW) crud: can add, remove, update, and get orders" time="0.011">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) Can&apos;t add invalid conditional orders" name="Multiplexer (ComposableCoW) Can&apos;t add invalid conditional orders" time="0.001">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) serde(toJSON): can serialize to JSON" name="Multiplexer (ComposableCoW) serde(toJSON): can serialize to JSON" time="0.003">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) serde(fromJSON): enforce order types are registered" name="Multiplexer (ComposableCoW) serde(fromJSON): enforce order types are registered" time="0.004">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) serde(toJSON/fromJSON): can serialize and deserialize" name="Multiplexer (ComposableCoW) serde(toJSON/fromJSON): can serialize and deserialize" time="0.032">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) serde(dumpProofs/decodeFromJSON): can serialize and deserialize" name="Multiplexer (ComposableCoW) serde(dumpProofs/decodeFromJSON): can serialize and deserialize" time="0.027">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) prepareProofStruct: can prepare a proof struct" name="Multiplexer (ComposableCoW) prepareProofStruct: can prepare a proof struct" time="0.019">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) prepareProofStruct: emits when location set to emitted" name="Multiplexer (ComposableCoW) prepareProofStruct: emits when location set to emitted" time="0.003">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) prepareProofStruct: throws on invalid location" name="Multiplexer (ComposableCoW) prepareProofStruct: throws on invalid location" time="0.002">
+    </testcase>
+    <testcase classname="Multiplexer (ComposableCoW) prepareProofStruct: uploader" name="Multiplexer (ComposableCoW) prepareProofStruct: uploader" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>

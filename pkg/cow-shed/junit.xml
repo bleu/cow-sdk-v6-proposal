@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="13" failures="0" errors="0" time="3.756">
+  <testsuite name="CowShedHooks" errors="0" failures="0" skipped="0" timestamp="2025-01-28T11:58:18" time="3.314" tests="13">
+    <testcase classname="CowShedHooks constuctor should create a new instance of CowShedHooks with custom values" name="CowShedHooks constuctor should create a new instance of CowShedHooks with custom values" time="0.003">
+    </testcase>
+    <testcase classname="CowShedHooks constuctor should create a new instance of CowShedHooks with default values" name="CowShedHooks constuctor should create a new instance of CowShedHooks with default values" time="0">
+    </testcase>
+    <testcase classname="CowShedHooks computeProxyAddress should use the right parameters on the proxy address for custom values" name="CowShedHooks computeProxyAddress should use the right parameters on the proxy address for custom values" time="0.003">
+    </testcase>
+    <testcase classname="CowShedHooks computeProxyAddress should use the right parameters on the proxy address for default values" name="CowShedHooks computeProxyAddress should use the right parameters on the proxy address for default values" time="0.005">
+    </testcase>
+    <testcase classname="CowShedHooks getDomain should return the correct domain" name="CowShedHooks getDomain should return the correct domain" time="0.001">
+    </testcase>
+    <testcase classname="CowShedHooks infoToSign should return the correct info to sign" name="CowShedHooks infoToSign should return the correct info to sign" time="0">
+    </testcase>
+    <testcase classname="CowShedHooks encodeExecuteHooksForFactory should encode execute hooks for factory correctly" name="CowShedHooks encodeExecuteHooksForFactory should encode execute hooks for factory correctly" time="0.001">
+    </testcase>
+    <testcase classname="CowShedHooks signCalls should sign calls correctly with EIP712" name="CowShedHooks signCalls should sign calls correctly with EIP712" time="0.776">
+    </testcase>
+    <testcase classname="CowShedHooks signCalls should sign calls correctly with ETHSIGN" name="CowShedHooks signCalls should sign calls correctly with ETHSIGN" time="0.693">
+    </testcase>
+    <testcase classname="CowShedHooks signCalls should throw error for invalid signing scheme" name="CowShedHooks signCalls should throw error for invalid signing scheme" time="0.698">
+    </testcase>
+    <testcase classname="CowShedHooks signCalls should throw error when signer does not support typed data" name="CowShedHooks signCalls should throw error when signer does not support typed data" time="0.002">
+    </testcase>
+    <testcase classname="CowShedHooks contract interfaces should cache and return CoWShed interface" name="CowShedHooks contract interfaces should cache and return CoWShed interface" time="0.161">
+    </testcase>
+    <testcase classname="CowShedHooks contract interfaces should cache and return CoWShedFactory interface" name="CowShedHooks contract interfaces should cache and return CoWShedFactory interface" time="0.119">
+    </testcase>
+  </testsuite>
+</testsuites>
