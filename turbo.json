@@ -10,7 +10,6 @@
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json", "tsconfig.build.json"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.tsbuildinfo"],
       "cache": false,
-      "topological": true,
       "env": ["NODE_ENV"]
     },
     "lint": {
