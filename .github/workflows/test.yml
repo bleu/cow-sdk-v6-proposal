@@ -53,114 +53,102 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
 
-      - name: Run tests for cow-common
+      - name: Run tests and generate coverage reports
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-common && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
+        run: |
+          mkdir -p coverage-reports
+          
+          for pkg in cow-common cow-config cow-order-book cow-order-signing cow-trading cow-subgraph cow-composable cow-shed; do
+            echo "Running tests for $pkg"
+            cd "pkg/$pkg"
+            pnpm run test:ci -- --passWithNoTests --ci --json --coverage --testLocationInResults --outputFile="../../coverage-reports/$pkg-report.json"
+            cd ../..
+          done
+
+      - name: Generate coverage report for cow-common
         if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-common-report.json
           custom-title: "Coverage Report - cow-common"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-common
 
-      - name: Run tests for cow-config
+      - name: Generate coverage report for cow-config
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-config && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-config-report.json
           custom-title: "Coverage Report - cow-config"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-config
 
-      - name: Run tests for cow-order-book
+      - name: Generate coverage report for cow-order-book
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-order-book && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-order-book-report.json
           custom-title: "Coverage Report - cow-order-book"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-order-book
 
-      - name: Run tests for cow-order-signing
+      - name: Generate coverage report for cow-order-signing
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-order-signing && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-order-signing-report.json
           custom-title: "Coverage Report - cow-order-signing"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-order-signing
 
-      - name: Run tests for cow-trading
+      - name: Generate coverage report for cow-trading
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-trading && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-trading-report.json
           custom-title: "Coverage Report - cow-trading"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-trading
 
-      - name: Run tests for cow-subgraph
+      - name: Generate coverage report for cow-subgraph
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-subgraph && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-subgraph-report.json
           custom-title: "Coverage Report - cow-subgraph"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-subgraph
 
-      - name: Run tests for cow-composable
+      - name: Generate coverage report for cow-composable
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-composable && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-composable-report.json
           custom-title: "Coverage Report - cow-composable"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-composable
 
-      - name: Run tests for cow-shed
+      - name: Generate coverage report for cow-shed
         if: github.event_name == 'pull_request'
-        run: cd pkg/cow-shed && pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: report.json
+          coverage-file: coverage-reports/cow-shed-report.json
           custom-title: "Coverage Report - cow-shed"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-shed
