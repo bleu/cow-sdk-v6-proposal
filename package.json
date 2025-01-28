@@ -6,7 +6,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "test:ci": "nyc --reporter=lcov --reporter=text turbo run test:ci",
+    "test:ci": "turbo run test:ci && nyc report --reporter=lcov --reporter=text",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
