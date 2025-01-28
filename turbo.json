@@ -3,21 +3,22 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json", "tsconfig.build.json"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.tsbuildinfo"]
     },
     "lint": {
+      "dependsOn": ["^build"],
       "outputs": []
     },
     "test": {
-      "dependsOn": [],
+      "dependsOn": ["^build"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
-      "outputs": ["coverage/**", "test-results/**"]
+      "outputs": ["coverage/**", "test-results/**", "junit.xml"]
     },
     "test:ci": {
       "dependsOn": ["^build"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
-      "outputs": ["coverage/**", "test-results/**"]
+      "outputs": ["coverage/**", "test-results/**", "junit.xml"]
     },
     "dev": {
       "cache": false,
