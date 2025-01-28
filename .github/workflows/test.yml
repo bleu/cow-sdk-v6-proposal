@@ -59,6 +59,7 @@ jobs:
           for pkg in cow-common cow-config cow-order-book cow-order-signing cow-trading cow-subgraph cow-composable cow-shed; do
             echo "Running tests for $pkg"
             cd "pkg/$pkg"
+            mkdir -p coverage
             pnpm run test:ci
             cd ../..
           done
@@ -69,7 +70,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-common/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-common"
           annotations: coverage
           output: comment, report-markdown
@@ -83,7 +84,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-config/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-config"
           annotations: coverage
           output: comment, report-markdown
@@ -97,7 +98,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-order-book/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-order-book"
           annotations: coverage
           output: comment, report-markdown
@@ -111,7 +112,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-order-signing/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-order-signing"
           annotations: coverage
           output: comment, report-markdown
@@ -125,7 +126,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-trading/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-trading"
           annotations: coverage
           output: comment, report-markdown
@@ -139,7 +140,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-subgraph/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-subgraph"
           annotations: coverage
           output: comment, report-markdown
@@ -153,7 +154,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-composable/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-composable"
           annotations: coverage
           output: comment, report-markdown
@@ -167,7 +168,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: pkg/cow-shed/coverage/coverage-final.json
+          coverage-file: coverage/coverage-final.json
           custom-title: "Coverage Report - cow-shed"
           annotations: coverage
           output: comment, report-markdown
