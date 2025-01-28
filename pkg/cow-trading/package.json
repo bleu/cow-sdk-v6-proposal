@@ -9,7 +9,7 @@
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "test": "jest",
-    "test:ci": "jest --ci --coverage --coverageDirectory=./coverage --coverageReporters=json-summary --reporters=default --reporters=jest-junit"
+    "test:ci": "jest --ci --coverage --coverageDirectory=./coverage --coverageReporters=json-summary --coverageReporters=json --coverageReporters=lcov --reporters=default --reporters=jest-junit"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
