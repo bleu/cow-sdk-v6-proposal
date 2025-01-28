@@ -53,52 +53,13 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
 
-      - name: Run tests
-        run: |
-          # Create test results directory
-          mkdir -p test-results
-          mkdir -p coverage
-
-          # Run tests for all packages
-          pnpm run test:ci
-
-          # Create directories
-          mkdir -p coverage .nyc_output test-results
-
-          # Copy and merge coverage files
-          find pkg -name "coverage-final.json" -exec cp {} .nyc_output/ \;
-          pnpm exec nyc merge .nyc_output coverage/coverage-final.json
-          pnpm exec nyc report --reporter=lcov --reporter=text --temp-dir=.nyc_output
-
-          # Copy test results from all packages and merge into a single JSON file
-          find pkg -name "jest.results.json" -exec cp {} test-results/ \;
-          echo "[" > jest.results.json
-          find test-results -name "jest.results.json" -exec cat {} \; | sed 's/^}/},/g' | sed '$s/,$//' >> jest.results.json
-          echo "]" >> jest.results.json
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: |
-            jest.results.json
-            test-results/
-            coverage/
-
-      - name: Comment test results
-        uses: mattallty/jest-github-action@v1.0.3
+      - name: Run tests and report coverage
+        uses: ArtiomTr/jest-coverage-report-action@v2
         if: github.event_name == 'pull_request'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          test-command: echo "unit tests already executed"
-          coverage-comment: false
-          changes-only: false
-
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        if: always()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/lcov.info
+          package-manager: pnpm
+          test-script: pnpm run test:ci
+          annotations: coverage
+          output: comment, report-markdown
+          working-directory: .

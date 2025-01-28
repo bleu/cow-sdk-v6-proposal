@@ -13,7 +13,7 @@
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "test": "jest",
-    "test:ci": "jest --ci --coverage --coverageReporters=lcov --reporters=default --reporters=jest-junit"
+    "test:ci": "jest --ci --coverage --coverageReporters=json --reporters=default --reporters=jest-junit --json --outputFile=jest.results.json"
   },
   "dependencies": {
     "@cowprotocol/order-book": "workspace:*",
