@@ -1,8 +1,8 @@
-name: Publish package to NPM
-
+name: Publish Package
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
 
 env:
   NODE_VERSION: lts/hydrogen
@@ -11,12 +11,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
         with:
-          version: 8.15.6
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -24,7 +25,15 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: 'https://registry.npmjs.org'
           scope: '@cowprotocol'
-          cache: 'pnpm'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
+          run_install: false
 
       - name: Get pnpm store directory
         shell: bash
@@ -40,9 +49,15 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # Ensure we have the correct pnpm version
+          corepack prepare pnpm@8.15.6 --activate
+          # Install dependencies with patched dependencies
+          pnpm install --no-frozen-lockfile
+          # Update lockfile with patched dependencies
+          pnpm install --lockfile-only
 
-      - name: Publish
+      - name: Build and Publish
         run: bash workflows/publish.sh
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
