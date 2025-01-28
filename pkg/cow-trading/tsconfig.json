@@ -10,19 +10,19 @@
     "declarationMap": true,
     "strict": true,
     "noImplicitAny": true,
-    "baseUrl": "../../",
+    "baseUrl": ".",
     "paths": {
-      "@cowprotocol/trading/*": ["./pkg/cow-trading/src/*"],
-      "@cowprotocol/common": ["./pkg/cow-common/src"],
-      "@cowprotocol/common/*": ["./pkg/cow-common/src/*"],
-      "@cowprotocol/config": ["./pkg/cow-config/src"],
-      "@cowprotocol/config/*": ["./pkg/cow-config/src/*"],
-      "@cowprotocol/sdk-ethers-v5": ["./pkg/cow-sdk-ethers-v5/src"],
-      "@cowprotocol/sdk-ethers-v5/*": ["./pkg/cow-sdk-ethers-v5/src/*"],
-      "@cowprotocol/order-book": ["./pkg/cow-order-book/src"],
-      "@cowprotocol/order-book/*": ["./pkg/cow-order-book/src/*"],
-      "@cowprotocol/order-signing": ["./pkg/cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["./pkg/cow-order-signing/src/*"]
+      "@cowprotocol/trading/*": ["../../pkg/cow-trading/src/*"],
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
+      "@cowprotocol/config": ["../../pkg/cow-config/src"],
+      "@cowprotocol/config/*": ["../../pkg/cow-config/src/*"],
+      "@cowprotocol/sdk-ethers-v5": ["../../pkg/cow-sdk-ethers-v5/src"],
+      "@cowprotocol/sdk-ethers-v5/*": ["../../pkg/cow-sdk-ethers-v5/src/*"],
+      "@cowprotocol/order-book": ["../../pkg/cow-order-book/src"],
+      "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
+      "@cowprotocol/order-signing": ["../../pkg/cow-order-signing/src"],
+      "@cowprotocol/order-signing/*": ["../../pkg/cow-order-signing/src/*"]
     }
   },
   "references": [

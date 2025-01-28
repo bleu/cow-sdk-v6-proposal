@@ -20,7 +20,7 @@
   "dependencies": {
     "@cowprotocol/contracts": "^1.7.0",
     "exponential-backoff": "^3.1.1",
-    "limiter": "^2.1.0",
+    "limiter": "^3.0.0",
     "@cowprotocol/common": "workspace:^",
     "@cowprotocol/config": "workspace:^"
   },

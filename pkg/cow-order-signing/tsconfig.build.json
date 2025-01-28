@@ -5,19 +5,13 @@
     "outDir": "./dist",
     "types": ["jest", "node"],
     "typeRoots": ["../../node_modules/@types", "node_modules/@types"],
-    "baseUrl": "../../",
+    "baseUrl": ".",
     "paths": {
       "@cowprotocol/*": ["pkg/*/src"]
     }
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/__mocks__/**"
-  ],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "references": [
     { "path": "../cow-common/tsconfig.build.json" },
     { "path": "../cow-config/tsconfig.build.json" },
