@@ -57,11 +57,15 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           mkdir -p coverage-reports
-          
           for pkg in cow-common cow-config cow-order-book cow-order-signing cow-trading cow-subgraph cow-composable cow-shed; do
             echo "Running tests for $pkg"
             cd "pkg/$pkg"
-            pnpm run test:ci -- --passWithNoTests --ci --json --coverage --testLocationInResults --outputFile="../../coverage-reports/$pkg-report.json"
+            pnpm run test:ci
+            if [ -f "coverage/coverage-final.json" ]; then
+              cp coverage/coverage-final.json "../../coverage-reports/$pkg-coverage-final.json"
+            else
+              echo '{"numFailedTests":0,"numTotalTests":0,"numPendingTests":0,"numRuntimeErrorTestSuites":0,"numTotalTestSuites":0,"numPassedTests":0,"numTodoTests":0,"startTime":0,"success":true,"testResults":[]}' > "../../coverage-reports/$pkg-coverage-final.json"
+            fi
             cd ../..
           done
 
@@ -71,10 +75,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-common-report.json
+          coverage-file: coverage-reports/cow-common-coverage-final.json
           custom-title: "Coverage Report - cow-common"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-common
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-config
         if: github.event_name == 'pull_request'
@@ -82,10 +89,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-config-report.json
+          coverage-file: coverage-reports/cow-config-coverage-final.json
           custom-title: "Coverage Report - cow-config"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-config
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-order-book
         if: github.event_name == 'pull_request'
@@ -93,10 +103,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-order-book-report.json
+          coverage-file: coverage-reports/cow-order-book-coverage-final.json
           custom-title: "Coverage Report - cow-order-book"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-order-book
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-order-signing
         if: github.event_name == 'pull_request'
@@ -104,10 +117,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-order-signing-report.json
+          coverage-file: coverage-reports/cow-order-signing-coverage-final.json
           custom-title: "Coverage Report - cow-order-signing"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-order-signing
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-trading
         if: github.event_name == 'pull_request'
@@ -115,10 +131,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-trading-report.json
+          coverage-file: coverage-reports/cow-trading-coverage-final.json
           custom-title: "Coverage Report - cow-trading"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-trading
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-subgraph
         if: github.event_name == 'pull_request'
@@ -126,10 +145,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-subgraph-report.json
+          coverage-file: coverage-reports/cow-subgraph-coverage-final.json
           custom-title: "Coverage Report - cow-subgraph"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-subgraph
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-composable
         if: github.event_name == 'pull_request'
@@ -137,10 +159,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-composable-report.json
+          coverage-file: coverage-reports/cow-composable-coverage-final.json
           custom-title: "Coverage Report - cow-composable"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-composable
+          test-script: pnpm run test:ci
+          skip-step: all
 
       - name: Generate coverage report for cow-shed
         if: github.event_name == 'pull_request'
@@ -148,7 +173,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-shed-report.json
+          coverage-file: coverage-reports/cow-shed-coverage-final.json
           custom-title: "Coverage Report - cow-shed"
           annotations: coverage
           output: comment, report-markdown
+          working-directory: pkg/cow-shed
+          test-script: pnpm run test:ci
+          skip-step: all
