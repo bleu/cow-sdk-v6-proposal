@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "jest --passWithNoTests",
-    "test:ci": "jest --passWithNoTests --ci --coverage --coverageReporters=json-summary,json --reporters=default --reporters=jest-junit",
+    "test:ci": "jest --passWithNoTests --ci --coverage --coverageDirectory=./coverage --coverageReporters=json-summary --coverageReporters=json --reporters=default --reporters=jest-junit",
     "build": "tsc -p tsconfig.build.json --outDir dist/",
     "tsc": "tsc --noEmit",
     "clean": "rm -rf dist",
