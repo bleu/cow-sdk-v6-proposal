@@ -12,6 +12,7 @@ type SubgraphApiBaseUrls = Record<SupportedChainId, string | null>
 
 interface SubgraphApiContext extends Omit<ApiContext, 'baseUrls'> {
   baseUrls?: SubgraphApiBaseUrls
+  chainId: SupportedChainId
 }
 
 type PartialSubgraphApiContext = Partial<SubgraphApiContext>
@@ -109,7 +110,8 @@ export class SubgraphApi {
     contextOverride: PartialSubgraphApiContext = {}
   ): Promise<T> {
     const { chainId, env } = this.getContextWithOverride(contextOverride)
-    const baseUrl = this.getEnvConfigs(env)[chainId]
+    const configs = this.getEnvConfigs(env)
+    const baseUrl = configs[chainId as keyof SubgraphApiBaseUrls]
 
     if (baseUrl === null) {
       throw new Error('Unsupported Network. The subgraph API is not available in the Network ' + chainId)
