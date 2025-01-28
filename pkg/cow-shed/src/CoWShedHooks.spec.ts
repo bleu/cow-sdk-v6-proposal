@@ -133,7 +133,7 @@ describe('CowShedHooks', () => {
   })
 
   describe('signCalls', () => {
-    it('should sign calls correctly', async () => {
+    it('should sign calls correctly with EIP712', async () => {
       const mockSigner = Wallet.createRandom()
 
       const signature = await cowShed.signCalls(CALLS_MOCK, mockNonce, mockDeadline, mockSigner, SigningScheme.EIP712)
@@ -143,6 +143,76 @@ describe('CowShedHooks', () => {
       const v = parseInt(signature.slice(130, 132), 16)
       const reconstructedSignature = solidityPack(['uint', 'uint', 'uint8'], [r, s, v])
       expect(reconstructedSignature).toBe(signature)
+    })
+
+    it('should sign calls correctly with ETHSIGN', async () => {
+      const mockSigner = Wallet.createRandom()
+      const signature = await cowShed.signCalls(CALLS_MOCK, mockNonce, mockDeadline, mockSigner, SigningScheme.ETHSIGN)
+      expect(signature).toBeDefined()
+    })
+
+    it('should throw error for invalid signing scheme', async () => {
+      const mockSigner = Wallet.createRandom()
+      await expect(
+        cowShed.signCalls(CALLS_MOCK, mockNonce, mockDeadline, mockSigner, 999 as SigningScheme)
+      ).rejects.toThrow('invalid signing scheme')
+    })
+
+    it('should throw error when signer does not support typed data', async () => {
+      // Create a mock signer that implements Signer but not TypedDataSigner
+      const mockSigner = {
+        getAddress: jest.fn().mockResolvedValue('0x1234567890123456789012345678901234567890'),
+        signMessage: jest.fn(),
+        // Implement required Signer methods
+        connect: jest.fn(),
+        signTransaction: jest.fn(),
+        provider: null
+        // Explicitly omit _signTypedData to fail isTypedDataSigner check
+      }
+      
+      // Mock console.warn to prevent noise in test output
+      const originalWarn = console.warn
+      console.warn = jest.fn()
+      
+      try {
+        await expect(
+          cowShed.signCalls(CALLS_MOCK, mockNonce, mockDeadline, mockSigner as any, SigningScheme.EIP712)
+        ).rejects.toThrow('signer does not support signing typed data')
+      } finally {
+        console.warn = originalWarn
+      }
+    })
+  })
+
+  describe('contract interfaces', () => {
+    it('should cache and return CoWShed interface', () => {
+      // Reset module cache to ensure clean test
+      jest.resetModules()
+      const { getCoWShedInterface } = require('./contracts')
+      
+      // First call should create the interface
+      const interface1 = getCoWShedInterface()
+      expect(interface1).toBeDefined()
+      expect(interface1.functions).toBeDefined()
+      
+      // Second call should return the cached instance
+      const interface2 = getCoWShedInterface()
+      expect(interface2).toBe(interface1)
+    })
+
+    it('should cache and return CoWShedFactory interface', () => {
+      // Reset module cache to ensure clean test
+      jest.resetModules()
+      const { getCoWShedFactoryInterface } = require('./contracts')
+      
+      // First call should create the interface
+      const interface1 = getCoWShedFactoryInterface()
+      expect(interface1).toBeDefined()
+      expect(interface1.functions).toBeDefined()
+      
+      // Second call should return the cached instance
+      const interface2 = getCoWShedFactoryInterface()
+      expect(interface2).toBe(interface1)
     })
   })
 })

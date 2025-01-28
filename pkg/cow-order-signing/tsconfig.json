@@ -13,7 +13,10 @@
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
       "@cowprotocol/order-book": ["../cow-order-book/src"],
-      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"]
+<<<<<<< Updated upstream
+      "@cowprotocol/order-book/*": ["../cow-order-book/src/*"],
+      "@cowprotocol/contracts": ["../../node_modules/@cowprotocol/contracts/lib/commonjs"],
+      "@cowprotocol/contracts/*": ["../../node_modules/@cowprotocol/contracts/lib/commonjs/*"]
     },
     "types": ["jest", "node"],
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
