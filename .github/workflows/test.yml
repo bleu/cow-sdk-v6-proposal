@@ -64,13 +64,12 @@ jobs:
 
           # Create coverage directory if it doesn't exist
           mkdir -p coverage
-          # Copy all coverage-final.json files to a temp directory
-          mkdir -p .nyc_output
-          find pkg -name "coverage-final.json" -exec cp {} .nyc_output/ \;
+          # Copy all lcov.info files to coverage directory
+          find pkg -name "lcov.info" -exec cp {} coverage/ \;
           # Merge coverage reports
-          pnpm exec nyc merge .nyc_output ./coverage/coverage-final.json
-          # Generate reports
-          pnpm exec nyc report --reporter=lcov --reporter=text --temp-dir=coverage
+          pnpm exec nyc merge coverage coverage/coverage-final.json
+          # Generate final lcov report
+          pnpm exec nyc report --reporter=lcov --reporter=text --temp-directory=coverage
 
           # Copy test results from all packages
           find pkg -name "jest.results.json" -exec cp {} test-results/ \;
