@@ -17,20 +17,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.15.6
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8.15.6
+          run_install: false
 
       - name: Get pnpm store directory
         shell: bash
@@ -47,40 +46,58 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm install --frozen-lockfile || (
-            echo "Frozen lockfile install failed, attempting to generate new lockfile..."
-            pnpm install --no-frozen-lockfile
-          )
+          # Ensure we have the correct pnpm version
+          corepack prepare pnpm@8.15.6 --activate
+          # Install dependencies with patched dependencies
+          pnpm install --no-frozen-lockfile
+          # Update lockfile with patched dependencies
+          pnpm install --lockfile-only
 
-      - name: Create test results directory
-        run: mkdir -p test-results
+      - name: Run tests
+        run: |
+          # Create test results directory
+          mkdir -p test-results
+          mkdir -p coverage
 
-      - name: Run tests with coverage
-        run: pnpm run test:ci
-        if: env.COVERALLS_REPO_TOKEN != ''
+          # Run tests for all packages
+          pnpm run test:ci
 
-      - name: Run tests without coverage
-        run: pnpm run test
-        if: env.COVERALLS_REPO_TOKEN == ''
+          # Create coverage directory if it doesn't exist
+          mkdir -p coverage
+          # Copy all coverage-final.json files to a temp directory
+          mkdir -p .nyc_output
+          find pkg -name "coverage-final.json" -exec cp {} .nyc_output/ \;
+          # Merge coverage reports
+          pnpm exec nyc merge .nyc_output ./coverage/coverage-final.json
+          # Generate reports
+          pnpm exec nyc report --reporter=lcov --reporter=text --temp-dir=coverage
+
+          # Copy test results from all packages
+          find pkg -name "jest.results.json" -exec cp {} test-results/ \;
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: test-results/
+          path: |
+            jest.results.json
+            test-results/
+            coverage/
 
-      - name: Comment in failing tests
+      - name: Comment test results
         uses: mattallty/jest-github-action@v1.0.3
-        if: failure()
+        if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          test-command: 'echo unit tests already executed'
+          test-command: echo "unit tests already executed"
           coverage-comment: false
+          changes-only: false
 
-      - name: Coveralls Report
-        uses: coverallsapp/github-action@1.1.3
-        if: (success() || failure()) && env.COVERALLS_REPO_TOKEN != ''
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        if: always()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/lcov.info
