@@ -49,27 +49,19 @@ jobs:
 
       - name: Run tests
         run: |
+          # Create test results directory
           mkdir -p test-results
-          # Run tests for all packages and collect results
-          pnpm run test:ci --filter="@cowprotocol/*" || true
-          
-          # Ensure test results exist for each package
-          for pkg in pkg/*; do
-            if [ -f "$pkg/package.json" ] && [ -f "$pkg/jest.config.js" ]; then
-              mkdir -p "$pkg/test-results"
-              if [ ! -f "$pkg/jest.results.json" ]; then
-                echo '{"numFailedTestSuites":1,"numFailedTests":1,"numPassedTestSuites":0,"numPassedTests":0,"numPendingTestSuites":0,"numPendingTests":0,"numRuntimeErrorTestSuites":0,"numTodoTests":0,"numTotalTestSuites":1,"numTotalTests":1,"success":false}' > "$pkg/jest.results.json"
-              fi
-              # Copy results to root for aggregation
-              cp "$pkg/jest.results.json" "test-results/$(basename $pkg).jest.results.json" || true
-              [ -d "$pkg/coverage" ] && cp -r "$pkg/coverage" "test-results/$(basename $pkg)-coverage" || true
-            fi
-          done
-          
-          # Aggregate results at root level
-          if [ ! -f jest.results.json ]; then
-            echo '{"numFailedTestSuites":1,"numFailedTests":1,"numPassedTestSuites":0,"numPassedTests":0,"numPendingTestSuites":0,"numPendingTests":0,"numRuntimeErrorTestSuites":0,"numTodoTests":0,"numTotalTestSuites":1,"numTotalTests":1,"success":false}' > jest.results.json
-          fi
+          mkdir -p coverage
+
+          # Run tests for all packages
+          pnpm run test:ci --filter="@cowprotocol/*"
+
+          # Merge coverage reports
+          pnpm exec nyc merge ./pkg/*/coverage ./coverage/coverage-final.json
+          pnpm exec nyc report --reporter=lcov --reporter=text --temp-dir=./coverage
+
+          # Copy test results
+          find pkg -name "jest.results.json" -exec cp {} test-results/ \;
 
       - name: Upload test results
         if: always()
