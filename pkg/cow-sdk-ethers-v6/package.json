@@ -8,7 +8,7 @@
     "typechain:codegen": "typechain --target ethers-v6 --out-dir ./src/__generated__ '../cow-abi/src/abis/*.json'"
   },
   "dependencies": {
-    "@cowprotocol/contracts": "^1.6.0"
+    "@cowprotocol/contracts": "^1.7.0"
   },
   "peerDependencies": {
     "ethers": "^6.13.5"

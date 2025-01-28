@@ -635,8 +635,8 @@ importers:
   pkg/cow-sdk-ethers-v6:
     dependencies:
       '@cowprotocol/contracts':
-        specifier: ^1.6.0
-        version: 1.6.0(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^1.7.0
+        version: 1.7.0(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))
     devDependencies:
       '@typechain/ethers-v6':
         specifier: ^0.5.1
@@ -1731,6 +1731,11 @@ packages:
 
   '@cowprotocol/contracts@1.6.0':
     resolution: {integrity: sha512-+UKhYRzkvnqqviBru5D3btTLYc743n0O5YTG+wpYwGl4fb7VNKBkFHe28C5Mf1DF/kOfmqfu+0IAvX9Vuq5Dqw==}
+    peerDependencies:
+      ethers: ^5.4.0
+
+  '@cowprotocol/contracts@1.7.0':
+    resolution: {integrity: sha512-tog/0igLaWZv6kK30+aFJ267+yNyMINx6qDHaJQFKZs051XUXnzNFlZgCEfICwDz/821XYjZxOnNbe449tgD5w==}
     peerDependencies:
       ethers: ^5.4.0
 
@@ -11608,6 +11613,10 @@ snapshots:
       ethers: 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 
   '@cowprotocol/contracts@1.6.0(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+    dependencies:
+      ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+
+  '@cowprotocol/contracts@1.7.0(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 

@@ -27,5 +27,4 @@
     { "path": "../cow-order-signing" },
     { "path": "../cow-sdk-ethers-v5" }
   ]
-
 }
