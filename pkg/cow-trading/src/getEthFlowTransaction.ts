@@ -12,7 +12,7 @@ import {
 
 import { CowEnv } from '@cowprotocol/config'
 import { GAS_LIMIT_DEFAULT } from './consts'
-import type { EthFlowOrder } from '@cowprotocol/sdk-ethers-v5/__generated__/EthFlow'
+import type { EthFlowOrder } from '@cowprotocol/sdk-ethers-v5'
 import { calculateGasMargin } from './utils'
 
 export async function getEthFlowTransaction(
