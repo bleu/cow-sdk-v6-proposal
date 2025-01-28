@@ -59,7 +59,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          test-script: pnpm run test:ci
+          test-script: pnpm run test:ci -- --ci --json --coverage --testLocationInResults --outputFile=report.json
           annotations: coverage
           output: comment, report-markdown
           working-directory: .
