@@ -8,6 +8,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "types": ["jest", "node"],
+    "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
     "paths": {
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],

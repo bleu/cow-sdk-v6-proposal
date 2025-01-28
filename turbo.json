@@ -2,22 +2,29 @@
   "$schema": "https://turborepo.org/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build",
+        "@cowprotocol/common#build",
+        "@cowprotocol/sdk-ethers-v5#build"
+      ],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json", "tsconfig.build.json"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.tsbuildinfo"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.tsbuildinfo"],
+      "cache": false,
+      "topological": true,
+      "env": ["NODE_ENV"]
     },
     "lint": {
       "dependsOn": ["^build"],
       "outputs": []
     },
     "test": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
+      "dependsOn": ["^build", "build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "jest.config.js", "jest.setup.ts"],
       "outputs": ["coverage/**", "test-results/**", "junit.xml"]
     },
     "test:ci": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
+      "dependsOn": ["^build", "build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "jest.config.js", "jest.setup.ts"],
       "outputs": ["coverage/**", "test-results/**", "junit.xml"]
     },
     "dev": {
