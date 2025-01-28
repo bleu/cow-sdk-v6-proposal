@@ -56,16 +56,10 @@ jobs:
       - name: Run tests and generate coverage reports
         if: github.event_name == 'pull_request'
         run: |
-          mkdir -p coverage-reports
           for pkg in cow-common cow-config cow-order-book cow-order-signing cow-trading cow-subgraph cow-composable cow-shed; do
             echo "Running tests for $pkg"
             cd "pkg/$pkg"
             pnpm run test:ci
-            if [ -f "coverage/coverage-final.json" ]; then
-              cp coverage/coverage-final.json "../../coverage-reports/$pkg-coverage-final.json"
-            else
-              echo '{"numFailedTests":0,"numTotalTests":0,"numPendingTests":0,"numRuntimeErrorTestSuites":0,"numTotalTestSuites":0,"numPassedTests":0,"numTodoTests":0,"startTime":0,"success":true,"testResults":[]}' > "../../coverage-reports/$pkg-coverage-final.json"
-            fi
             cd ../..
           done
 
@@ -75,7 +69,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-common-coverage-final.json
+          coverage-file: pkg/cow-common/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-common"
           annotations: coverage
           output: comment, report-markdown
@@ -89,7 +83,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-config-coverage-final.json
+          coverage-file: pkg/cow-config/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-config"
           annotations: coverage
           output: comment, report-markdown
@@ -103,7 +97,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-order-book-coverage-final.json
+          coverage-file: pkg/cow-order-book/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-order-book"
           annotations: coverage
           output: comment, report-markdown
@@ -117,7 +111,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-order-signing-coverage-final.json
+          coverage-file: pkg/cow-order-signing/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-order-signing"
           annotations: coverage
           output: comment, report-markdown
@@ -131,7 +125,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-trading-coverage-final.json
+          coverage-file: pkg/cow-trading/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-trading"
           annotations: coverage
           output: comment, report-markdown
@@ -145,7 +139,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-subgraph-coverage-final.json
+          coverage-file: pkg/cow-subgraph/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-subgraph"
           annotations: coverage
           output: comment, report-markdown
@@ -159,7 +153,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-composable-coverage-final.json
+          coverage-file: pkg/cow-composable/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-composable"
           annotations: coverage
           output: comment, report-markdown
@@ -173,7 +167,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage-reports/cow-shed-coverage-final.json
+          coverage-file: pkg/cow-shed/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-shed"
           annotations: coverage
           output: comment, report-markdown
