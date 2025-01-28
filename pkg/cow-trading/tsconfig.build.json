@@ -5,6 +5,20 @@
     "outDir": "./dist",
     "types": ["jest", "node"],
     "typeRoots": ["../../node_modules/@types", "node_modules/@types"]
+    ,    "paths": {
+      "@cowprotocol/trading/*": ["../../pkg/cow-trading/src/*"],
+      "@cowprotocol/common": ["../../pkg/cow-common/src"],
+      "@cowprotocol/common/*": ["../../pkg/cow-common/src/*"],
+      "@cowprotocol/config": ["../../pkg/cow-config/src"],
+      "@cowprotocol/config/*": ["../../pkg/cow-config/src/*"],
+      "@cowprotocol/sdk-ethers-v5": ["../../pkg/cow-sdk-ethers-v5/src"],
+      "@cowprotocol/sdk-ethers-v5/*": ["../../pkg/cow-sdk-ethers-v5/src/*"],
+      "@cowprotocol/order-book": ["../../pkg/cow-order-book/src"],
+      "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
+      "@cowprotocol/order-signing": ["../../pkg/cow-order-signing/src"],
+      "@cowprotocol/order-signing/*": ["../../pkg/cow-order-signing/src/*"]
+    }
+
   },
   "include": ["src/**/*"],
   "exclude": [

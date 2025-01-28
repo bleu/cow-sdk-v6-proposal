@@ -21,6 +21,11 @@ module.exports = {
     '^@cowprotocol/config/(.*)$': '<rootDir>/../../pkg/cow-config/src/$1',
     '^@cowprotocol/order-book$': '<rootDir>/../../pkg/cow-order-book/src/index.ts',
     '^@cowprotocol/order-book/(.*)$': '<rootDir>/../../pkg/cow-order-book/src/$1',
+    // Published packages fallback - these will use the node_modules versions
+    '^@cowprotocol/app-data$': '<rootDir>/node_modules/@cowprotocol/app-data/dist/index.js',
+    '^@cowprotocol/app-data/(.*)$': '<rootDir>/node_modules/@cowprotocol/app-data/dist/$1',
+    '^@cowprotocol/contracts$': '<rootDir>/node_modules/@cowprotocol/contracts/dist/index.js',
+    '^@cowprotocol/contracts/(.*)$': '<rootDir>/node_modules/@cowprotocol/contracts/dist/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[tj]sx?$',
@@ -38,4 +43,5 @@ module.exports = {
       isolatedModules: true,
     },
   },
+  moduleDirectories: ['node_modules', '../../node_modules'],
 }

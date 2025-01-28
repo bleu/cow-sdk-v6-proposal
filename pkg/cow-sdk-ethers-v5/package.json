@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "files": [
-    "dist/**",
-    "src/__generated__/**"
+    "dist/**"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
