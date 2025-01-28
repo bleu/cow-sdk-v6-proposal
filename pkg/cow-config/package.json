@@ -16,6 +16,7 @@
     "test:ci": "jest --passWithNoTests --ci --coverage --reporters=default --reporters=jest-junit"
   },
   "devDependencies": {
+    "@types/node": "^22.10.10",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",

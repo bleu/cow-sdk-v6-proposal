@@ -14,6 +14,8 @@
   ],
   "scripts": {},
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
     "eslint-config-turbo": "^2.3.4",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-only-warn": "^1.1.0",

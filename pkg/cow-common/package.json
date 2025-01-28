@@ -27,9 +27,5 @@
     "jest-environment-node": "^29.7.0",
     "tslib": "^2.8.1",
     "typescript": "5.7.3"
-  },
-  "dependencies": {
-    "exponential-backoff": "^3.1.1",
-    "limiter": "^3.0.0"
   }
 }

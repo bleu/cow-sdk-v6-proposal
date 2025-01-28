@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import '../../cow-order-book/src/__mock__/api'
+import '@cowprotocol/order-book/__mock__/api'
 import { Multiplexer, Orders } from './Multiplexer'
 import { SupportedChainId } from '@cowprotocol/common'
 import { ProofLocation } from './types'
@@ -283,7 +283,7 @@ describe('Multiplexer (ComposableCoW)', () => {
     } catch (e) {
       // @ts-expect-error migration from old sdk
       expect(e.message).toMatch(
-        'Error preparing proof struct: Error: Error uploading to decentralized storage 5: Error: bad'
+        'Error preparing proof struct: Error: Error uploading to decentralized storage 5: Error: bad',
       )
     }
   })

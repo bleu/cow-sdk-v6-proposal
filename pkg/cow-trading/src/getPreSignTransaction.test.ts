@@ -11,8 +11,8 @@ jest.mock('cross-fetch', () => {
     default: fetchMock,
   }
 })
-jest.mock('../common/generated', () => {
-  const original = jest.requireActual('../common/generated')
+jest.mock('@cowprotocol/sdk-ethers-v5', () => {
+  const original = jest.requireActual('@cowprotocol/sdk-ethers-v5')
 
   return {
     ...original,

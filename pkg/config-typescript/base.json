@@ -23,7 +23,6 @@
     "noImplicitReturns": true,
     "preserveWatchOutput": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
     "strictNullChecks": true,
     "jsx": "react",
     "allowJs": true,

@@ -4,6 +4,8 @@
   "private": true,
   "files": [],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json --outDir dist/",
+    "tsc": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "typechain:codegen": "typechain --target ethers-v6 --out-dir ./src/__generated__ '../cow-abi/src/abis/*.json'"
   },
@@ -14,6 +16,8 @@
     "ethers": "^6.13.5"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
     "ethers": "^6.13.5",
     "@typechain/ethers-v6": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^8.22.0",

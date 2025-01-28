@@ -1,6 +1,6 @@
 {
   "extends": "../../pkg/config-typescript/base.json",
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "./dist",

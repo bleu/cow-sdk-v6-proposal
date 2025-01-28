@@ -4,6 +4,9 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
     "types": ["jest", "node"],
     "typeRoots": ["../../node_modules/@types", "node_modules/@types"],
     "paths": {
@@ -22,11 +25,11 @@
     }
   },
   "references": [
-    { "path": "../cow-common" },
-    { "path": "../cow-composable" },
-    { "path": "../cow-trading" },
-    { "path": "../cow-order-book" },
-    { "path": "../cow-order-signing" },
-    { "path": "../cow-sdk-ethers-v5" }
+    { "path": "../cow-common/tsconfig.build.json" },
+    { "path": "../cow-order-book/tsconfig.build.json" },
+    { "path": "../cow-order-signing/tsconfig.build.json" },
+    { "path": "../cow-composable/tsconfig.build.json" },
+    { "path": "../cow-shed/tsconfig.build.json" },
+    { "path": "../cow-trading/tsconfig.build.json" }
   ]
 }

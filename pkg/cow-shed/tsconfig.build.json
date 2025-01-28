@@ -19,7 +19,7 @@
       "@cowprotocol/order-signing/*": ["../../pkg/cow-order-signing/src/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/**"],
   "references": [
     { "path": "../cow-common/tsconfig.build.json" },

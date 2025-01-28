@@ -4,6 +4,8 @@
   "private": true,
   "files": [],
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
     "eslint-config-turbo": "^2.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",

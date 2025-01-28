@@ -19,7 +19,8 @@
     "@cowprotocol/order-book": "workspace:*",
     "@cowprotocol/contracts": "1.7.0",
     "ethers": "^5.4.0",
-    "@ethersproject/abstract-signer": "*"
+    "@ethersproject/abstract-signer": "*",
+    "@ethersproject/hash": "*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

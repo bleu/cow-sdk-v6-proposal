@@ -64,7 +64,6 @@ async function _signOrder(params: SignOrderParams): Promise<Signature> {
   const { chainId, signer, order, signingScheme } = params
 
   const domain = getDomain(chainId)
-  // @ts-expect-error
   return signOrderGp(domain, order as unknown as OrderFromContract, signer, mapSigningSchema[signingScheme])
 }
 
@@ -72,7 +71,6 @@ async function _signOrderCancellation(params: SignOrderCancellationParams): Prom
   const { chainId, signer, signingScheme, orderUid } = params
 
   const domain = getDomain(chainId)
-  // @ts-expect-error
   return signOrderCancellationGp(domain, orderUid, signer, mapSigningSchema[signingScheme])
 }
 
@@ -80,7 +78,6 @@ async function _signOrderCancellations(params: SignOrderCancellationsParams): Pr
   const { chainId, signer, signingScheme, orderUids } = params
 
   const domain = getDomain(chainId)
-  // @ts-expect-error
   return signOrderCancellationsGp(domain, orderUids, signer, mapSigningSchema[signingScheme])
 }
 
@@ -100,11 +97,9 @@ async function _signPayload(
     switch (signingMethod) {
       case 'default':
       case 'v3':
-        // @ts-expect-error
         _signer = new TypedDataVersionedSigner(signer)
         break
       case 'int_v4':
-        // @ts-expect-error
         _signer = new IntChainIdTypedDataV4Signer(signer)
         break
       default:

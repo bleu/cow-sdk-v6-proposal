@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import '../../cow-order-book/src/__mock__/api'
+import '@cowprotocol/order-book/__mock__/api'
 import { decodeParams, encodeParams, fromStructToOrder, isValidAbi } from './utils'
 import { DurationType, StartTimeValue, TwapData, TwapStruct, transformDataToStruct } from './orderTypes/Twap'
 import { BigNumber, utils } from 'ethers'

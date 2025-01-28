@@ -16,7 +16,7 @@ import { OrderBookApi } from './api'
 import { BuyTokenDestination, EcdsaSigningScheme, OrderKind, SellTokenSource, SigningScheme } from '.'
 
 import { AUCTION } from './mock'
-import { ETH_ADDRESS, CowError, SupportedChainId } from '../../cow-common/src'
+import { ETH_ADDRESS, CowError, SupportedChainId } from '@cowprotocol/common'
 
 enableFetchMocks()
 
@@ -153,7 +153,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/orders/${ORDER_RESPONSE.uid}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(order?.uid).toEqual(ORDER_RESPONSE.uid)
   })
@@ -172,7 +172,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/mainnet/api/v1/orders/${ORDER_RESPONSE.uid}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(order?.class).toEqual('limit')
   })
@@ -196,13 +196,13 @@ describe('CoW Api', () => {
           status: 404,
           statusText: 'Not Found',
         }),
-      })
+      }),
     )
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.cow.fi/xdai/api/v1/orders/notValidOrderId',
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
   })
 
@@ -217,7 +217,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.cow.fi/xdai/api/v1/account/0x00000000005ef87f8ca7014309ece7260bbcdaeb/orders?offset=0&limit=5',
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(orders.length).toEqual(5)
   })
@@ -246,12 +246,12 @@ describe('CoW Api', () => {
           status: 404,
           statusText: 'Not Found',
         }),
-      })
+      }),
     )
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.cow.fi/xdai/api/v1/account/invalidOwner/orders?offset=0&limit=5',
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
   })
 
@@ -263,7 +263,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/transactions/${txHash}/orders`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(txOrders.length).toEqual(5)
   })
@@ -288,12 +288,12 @@ describe('CoW Api', () => {
           status: 404,
           statusText: 'Not Found',
         }),
-      })
+      }),
     )
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.cow.fi/xdai/api/v1/transactions/invalidTxHash/orders',
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
   })
 
@@ -306,7 +306,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/trades?owner=${TRADE_RESPONSE.owner}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(trades.length).toEqual(5)
   })
@@ -321,7 +321,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/trades?orderUid=${TRADE_RESPONSE.orderUid}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(trades.length).toEqual(5)
   })
@@ -331,7 +331,7 @@ describe('CoW Api', () => {
       orderBookApi.getTrades({
         owner: TRADE_RESPONSE.owner,
         orderUid: TRADE_RESPONSE.orderUid,
-      })
+      }),
     ).rejects.toThrowError(CowError)
   })
 
@@ -357,12 +357,12 @@ describe('CoW Api', () => {
           status: 404,
           statusText: 'Not Found',
         }),
-      })
+      }),
     )
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.cow.fi/xdai/api/v1/trades?owner=invalidOwner',
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
   })
 
@@ -379,7 +379,7 @@ describe('CoW Api', () => {
         ...RAW_FETCH_RESPONSE_PARAMETERS,
         body: JSON.stringify(body),
         method: 'DELETE',
-      })
+      }),
     )
   })
 
@@ -405,7 +405,7 @@ describe('CoW Api', () => {
           status: 404,
           statusText: 'Not Found',
         }),
-      })
+      }),
     )
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
@@ -414,7 +414,7 @@ describe('CoW Api', () => {
         ...RAW_FETCH_RESPONSE_PARAMETERS,
         body: JSON.stringify(body),
         method: 'DELETE',
-      })
+      }),
     )
   })
 
@@ -445,7 +445,7 @@ describe('CoW Api', () => {
           signingScheme: 'eip712',
         }),
         method: 'POST',
-      })
+      }),
     )
     expect(orderId).toEqual('validOrderId')
   })
@@ -473,7 +473,7 @@ describe('CoW Api', () => {
         response: expect.objectContaining({
           status: 400,
         }),
-      })
+      }),
     )
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
@@ -487,7 +487,7 @@ describe('CoW Api', () => {
           signingScheme: 'eip712',
         }),
         method: 'POST',
-      })
+      }),
     )
   })
 
@@ -502,7 +502,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       'https://api.cow.fi/xdai/api/v1/account/0x00000000005ef87f8ca7014309ece7260bbcdaeb/orders?offset=0&limit=5',
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(orders.length).toEqual(5)
   })
@@ -516,7 +516,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/trades?owner=${TRADE_RESPONSE.owner}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(trades.length).toEqual(5)
   })
@@ -595,7 +595,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/orders/${ORDER_RESPONSE.uid}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(order?.class).toEqual('limit')
   })
@@ -618,11 +618,11 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/orders/${ORDER_RESPONSE.uid}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(fetchMock).toHaveBeenCalledWith(
       `https://barn.api.cow.fi/xdai/api/v1/orders/${ORDER_RESPONSE.uid}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
   })
 
@@ -644,7 +644,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/users/${address}/total_surplus`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(surplus).toEqual(totalSurplus)
   })
@@ -667,7 +667,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/app_data/${appDataHash}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(appData).toEqual(appDataBody)
   })
@@ -693,7 +693,7 @@ describe('CoW Api', () => {
       expect.objectContaining({
         body: JSON.stringify(appDataBody),
         method: 'PUT',
-      })
+      }),
     )
     expect(appDataHashResult).toEqual(appDataHash)
   })
@@ -713,7 +713,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/solver_competition/${auctionId}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(competition).toEqual(AUCTION)
   })
@@ -733,7 +733,7 @@ describe('CoW Api', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock).toHaveBeenCalledWith(
       `https://api.cow.fi/xdai/api/v1/solver_competition/by_tx_hash/${txHash}`,
-      FETCH_RESPONSE_PARAMETERS
+      FETCH_RESPONSE_PARAMETERS,
     )
     expect(competition).toEqual(AUCTION)
   })

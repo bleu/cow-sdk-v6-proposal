@@ -1,6 +1,6 @@
 {
   "extends": "../../pkg/config-typescript/base.json",
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"],
   "types": ["node", "jest"],
   "compilerOptions": {
@@ -10,7 +10,6 @@
     "declaration": true,
     "declarationMap": true,
     "paths": {
-      "@cowprotocol/order-book/*": ["./src/*"],
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
       "@cowprotocol/cow-config": ["../cow-config/src"],
