@@ -1,6 +1,6 @@
 export * from '@cowprotocol/common'
 export * from '@cowprotocol/order-book'
-export * from '@cowprotocol/subgraph'
+// export * from '@cowprotocol/subgraph'
 export * from '@cowprotocol/order-signing'
 export * from '@cowprotocol/composable'
 export * from '@cowprotocol/cow-shed'

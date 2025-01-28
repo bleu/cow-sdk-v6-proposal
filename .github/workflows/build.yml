@@ -1,46 +1,42 @@
 name: Build
-
-# Run on pushes to main or PRs
-on:
-  # Pull request hook without any config. Launches for every pull request
-  pull_request:
-  # Launches for pushes to main or dev
-  push:
-    branches:
-      - main
-  # Launches build when release is published
-  release:
-    types: [published]
+on: [push, pull_request]
 
 env:
   NODE_VERSION: lts/hydrogen
 
 jobs:
   build:
-    name: Build Package
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
-      - name: Remove broken apt repos [Ubuntu]
-        if: ${{ matrix.os }} == 'ubuntu-latest'
+
+      - name: Remove MS sources # Required for ubuntu-latest
+        if: matrix.os == 'ubuntu-latest'
         run: |
           for apt_file in `grep -lr microsoft /etc/apt/sources.list.d/`; do sudo rm $apt_file; done
-      - uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.15.6
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
+          run_install: false
 
       - name: Get pnpm store directory
         shell: bash
@@ -56,7 +52,13 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # Ensure we have the correct pnpm version
+          corepack prepare pnpm@8.15.6 --activate
+          # Install dependencies with patched dependencies
+          pnpm install --no-frozen-lockfile
+          # Update lockfile with patched dependencies
+          pnpm install --lockfile-only
 
-      - name: Build app
-        run: pnpm run build
+      - name: Build packages
+        run: pnpm build --filter "@cowprotocol/*"
