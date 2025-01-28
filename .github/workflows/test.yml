@@ -56,11 +56,84 @@ jobs:
       - name: Run tests and generate coverage reports
         if: github.event_name == 'pull_request'
         run: |
-          # Only run tests for cow-order-signing which has actual tests
-          cd pkg/cow-order-signing
-          mkdir -p coverage
-          pnpm run test:ci
-          cd ../..
+          # Run tests for all packages with tests
+          for pkg in cow-composable cow-order-book cow-trading cow-subgraph cow-shed cow-order-signing; do
+            echo "Running tests for $pkg"
+            cd pkg/$pkg
+            mkdir -p coverage
+            pnpm run test:ci
+            cd ../..
+          done
+
+      - name: Generate coverage report for cow-composable
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-composable
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-composable"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-order-book
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-order-book
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-order-book"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-trading
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-trading
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-trading"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-subgraph
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-subgraph
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-subgraph"
+          annotations: coverage
+          output: comment, report-markdown
+
+      - name: Generate coverage report for cow-shed
+        if: github.event_name == 'pull_request'
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
+        continue-on-error: true
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: pnpm
+          working-directory: pkg/cow-shed
+          test-script: pnpm run test:ci
+          skip-step: install
+          custom-title: "Coverage Report - cow-shed"
+          annotations: coverage
+          output: comment, report-markdown
 
       - name: Generate coverage report for cow-order-signing
         if: github.event_name == 'pull_request'
