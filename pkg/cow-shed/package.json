@@ -8,6 +8,8 @@
     "dist/**"
   ],
   "scripts": {
+    "typechain:codegen": "typechain --target ethers-v5 --out-dir ./src/__generated__ '../../pkg/cow-abi/src/abis/CoWShed*.json'",
+    "prebuild": "pnpm typechain:codegen",
     "build": "tsc -p tsconfig.build.json --outDir dist/",
     "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",

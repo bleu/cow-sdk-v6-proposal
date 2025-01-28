@@ -9,6 +9,18 @@
     },
     "test": {
       "dependsOn": ["build"],
+      "outputs": ["coverage/**", "test-results/**"],
+      "cache": true
+    },
+    "test:ci": {
+      "dependsOn": ["build"],
+      "outputs": ["coverage/**", "test-results/**", "jest.results.json"],
+      "cache": true,
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "**/*.spec.ts", "**/*.test.ts", "jest.config.js", "jest.setup.js"],
+      "outputMode": "new-only"
+    },
+    "test:coverage": {
+      "dependsOn": ["build"],
       "outputs": ["coverage/**"],
       "cache": true
     },

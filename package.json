@@ -5,38 +5,10 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "jest",
-    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
-    "test:coverage": "jest --coverage",
+    "test": "turbo run test",
+    "test:ci": "turbo run test:ci --filter=\"@cowprotocol/*\" -- --ci --json --outputFile=jest.results.json --coverage --reporters=default --reporters=jest-junit",
+    "test:coverage": "turbo run test:coverage",
     "tsc": "turbo run tsc"
-  },
-  "jest": {
-    "automock": false,
-    "resetMocks": false,
-    "setupFiles": [
-      "./setupTests.js"
-    ],
-    "collectCoverageFrom": [
-      "pkg/**/src/**/*.{ts,tsx}"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "modulePaths": [
-      "<rootDir>/"
-    ],
-    "transform": {
-      "^.+\\.(t|j)sx?$": "@swc/jest"
-    },
-    "testEnvironment": "node",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "./tsconfig.json"
-      }
-    },
-    "moduleNameMapper": {
-      "^@cowprotocol/(.*)$": "<rootDir>/pkg/$1/src"
-    }
   },
   "devDependencies": {
     "@cowprotocol/app-data": "^2.4.0",
