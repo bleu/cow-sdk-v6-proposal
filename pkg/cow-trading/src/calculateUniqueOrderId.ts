@@ -7,7 +7,7 @@ import {
   SupportedChainId,
   WRAPPED_NATIVE_CURRENCIES,
 } from '@cowprotocol/common'
-import { CowEnv } from '@cowprotocol/config'
+import { CowEnv } from '@cowprotocol/cow-config'
 import type { Order, OrderBalance } from '@cowprotocol/contracts'
 
 export interface EthFlowOrderExistsCallback {
@@ -18,7 +18,7 @@ export async function calculateUniqueOrderId(
   chainId: SupportedChainId,
   order: UnsignedOrder,
   checkEthFlowOrderExists?: EthFlowOrderExistsCallback,
-  env?: CowEnv
+  env?: CowEnv,
 ): Promise<string> {
   const { orderDigest, orderId } = await OrderSigningUtils.generateOrderId(
     chainId,
@@ -31,7 +31,7 @@ export async function calculateUniqueOrderId(
     } as Order,
     {
       owner: (env === 'staging' ? BARN_ETH_FLOW_ADDRESSES : ETH_FLOW_ADDRESSES)[chainId],
-    }
+    },
   )
 
   if (checkEthFlowOrderExists && (await checkEthFlowOrderExists(orderId, orderDigest))) {

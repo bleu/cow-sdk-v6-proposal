@@ -1,4 +1,4 @@
-import { SupportedChainId, OrderKind, postSwapOrder, postLimitOrder } from '../../../src'
+import { SupportedChainId, OrderKind, postSwapOrder, postLimitOrder } from '@cowprotocol/cow-sdk'
 
 const privateKey = 'xxx'
 

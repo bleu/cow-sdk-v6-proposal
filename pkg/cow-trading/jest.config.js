@@ -16,8 +16,8 @@ module.exports = {
   moduleNameMapper: {
     '^@cowprotocol/common$': '<rootDir>/../cow-common/src/index.ts',
     '^@cowprotocol/common/(.*)$': '<rootDir>/../cow-common/src/$1',
-    '^@cowprotocol/config$': '<rootDir>/../cow-config/src/index.ts',
-    '^@cowprotocol/config/(.*)$': '<rootDir>/../cow-config/src/$1',
+    '^@cowprotocol/cow-config$': '<rootDir>/../cow-config/src/index.ts',
+    '^@cowprotocol/cow-config/(.*)$': '<rootDir>/../cow-config/src/$1',
     '^@cowprotocol/order-book$': '<rootDir>/../cow-order-book/src/index.ts',
     '^@cowprotocol/order-book/(.*)$': '<rootDir>/../cow-order-book/src/$1',
     '^@cowprotocol/order-signing$': '<rootDir>/../cow-order-signing/src/index.ts',

@@ -10,7 +10,7 @@ import {
   WRAPPED_NATIVE_CURRENCIES,
 } from '@cowprotocol/common'
 
-import { CowEnv } from '@cowprotocol/config'
+import { CowEnv } from '@cowprotocol/cow-config'
 import { GAS_LIMIT_DEFAULT } from './consts'
 import type { EthFlowOrder } from '@cowprotocol/sdk-ethers-v5'
 import { calculateGasMargin } from './utils'
@@ -20,7 +20,7 @@ export async function getEthFlowTransaction(
   appDataKeccak256: string,
   _params: LimitTradeParametersFromQuote,
   networkCostsAmount = '0',
-  checkEthFlowOrderExists?: EthFlowOrderExistsCallback
+  checkEthFlowOrderExists?: EthFlowOrderExistsCallback,
 ): Promise<{ orderId: string; transaction: TransactionParams }> {
   const chainId = (await signer.getChainId()) as SupportedChainId
   const from = await signer.getAddress()

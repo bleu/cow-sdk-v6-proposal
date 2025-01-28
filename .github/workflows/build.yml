@@ -1,5 +1,9 @@
 name: Build
-on: [push, pull_request]
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    types: [opened, synchronize]
 
 env:
   NODE_VERSION: lts/hydrogen
@@ -33,9 +37,9 @@ jobs:
         run: corepack enable
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 8.15.6
+          version: 9.15.4
           run_install: false
 
       - name: Get pnpm store directory
@@ -53,12 +57,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Ensure we have the correct pnpm version
-          corepack prepare pnpm@8.15.6 --activate
-          # Install dependencies with patched dependencies
-          pnpm install --no-frozen-lockfile
-          # Update lockfile with patched dependencies
-          pnpm install --lockfile-only
+          pnpm install --frozen-lockfile
 
       - name: Build packages
         run: pnpm build --filter "@cowprotocol/*"

@@ -32,7 +32,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8.15.6
+          version: 9.15.4
           run_install: false
 
       - name: Get pnpm store directory
@@ -50,12 +50,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Ensure we have the correct pnpm version
-          corepack prepare pnpm@8.15.6 --activate
-          # Install dependencies with patched dependencies
-          pnpm install --no-frozen-lockfile
-          # Update lockfile with patched dependencies
-          pnpm install --lockfile-only
+          pnpm install --frozen-lockfile
 
       - name: Build and Publish
         run: bash workflows/publish.sh
