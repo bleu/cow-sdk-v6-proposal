@@ -16,8 +16,7 @@
       "dependsOn": ["build"],
       "outputs": ["coverage/**", "test-results/**", "jest.results.json"],
       "cache": true,
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "**/*.spec.ts", "**/*.test.ts", "jest.config.js", "jest.setup.js"],
-      "outputMode": "new-only"
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "**/*.spec.ts", "**/*.test.ts", "jest.config.js", "jest.setup.js"]
     },
     "test:coverage": {
       "dependsOn": ["build"],
