@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "jest --passWithNoTests",
-    "test:ci": "nyc jest --passWithNoTests --ci --coverage --reporters=default --reporters=jest-junit",
+    "test:ci": "jest --passWithNoTests --ci --coverage --reporters=default --reporters=jest-junit",
     "build": "tsc -p tsconfig.build.json --outDir dist/",
     "tsc": "tsc --noEmit",
     "clean": "rm -rf dist",
