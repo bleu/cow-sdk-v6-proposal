@@ -12,7 +12,7 @@
     "tsc": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "jest --config jest.config.js",
-    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit"
+    "test:ci": "jest --ci --coverage --passWithNoTests --reporters=default --reporters=jest-junit --json --outputFile=jest.results.json"
   },
   "dependencies": {
     "@cowprotocol/common": "workspace:^",

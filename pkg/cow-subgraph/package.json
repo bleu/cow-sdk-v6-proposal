@@ -8,7 +8,7 @@
     "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
-    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
+    "test:ci": "jest --ci --coverage --passWithNoTests --reporters=default --reporters=jest-junit --json --outputFile=jest.results.json",
     "lint": "eslint . --ext .ts,.tsx",
     "graphql:codegen": "graphql-codegen --config graphql-codegen.yml"
   },
