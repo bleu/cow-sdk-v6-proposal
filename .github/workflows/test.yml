@@ -68,10 +68,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          coverage-file: coverage/coverage-final.json
+          coverage-file: ./pkg/cow-order-signing/coverage/coverage-final.json
           custom-title: "Coverage Report - cow-order-signing"
           annotations: coverage
           output: comment, report-markdown
-          working-directory: pkg/cow-order-signing
-          test-script: pnpm run test:ci
-          skip-step: all
+          working-directory: .
+          test-script: cd pkg/cow-order-signing && pnpm run test:ci
+          skip-step: install
