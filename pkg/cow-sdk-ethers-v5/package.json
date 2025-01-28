@@ -2,10 +2,14 @@
   "name": "@cowprotocol/sdk-ethers-v5",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "files": ["dist/**", "src/__generated__/**"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "typechain:codegen": "typechain --target ethers-v5 --out-dir ./src/__generated__ '../cow-abi/src/abis/*.json'",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "build": "tsc -p tsconfig.build.json --outDir dist/",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@cowprotocol/contracts": "^1.7.0"

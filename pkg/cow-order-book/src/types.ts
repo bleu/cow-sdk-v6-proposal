@@ -1,4 +1,4 @@
-import { Order } from '.'
+import { Order } from './__generated__'
 
 /**
  * An order with the total fee added.

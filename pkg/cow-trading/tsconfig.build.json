@@ -1,10 +1,24 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "types": ["jest", "node"],
+    "typeRoots": ["../../node_modules/@types", "node_modules/@types"]
+  },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/__mocks__/**"
+  ],
+  "references": [
+    { "path": "../cow-common/tsconfig.build.json" },
+    { "path": "../cow-composable/tsconfig.build.json" },
+    { "path": "../cow-order-book/tsconfig.build.json" },
+    { "path": "../cow-order-signing/tsconfig.build.json" },
+    { "path": "../cow-sdk-ethers-v5/tsconfig.build.json" }
   ]
 }

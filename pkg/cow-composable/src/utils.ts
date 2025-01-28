@@ -1,4 +1,6 @@
-import { utils, providers, BigNumber } from 'ethers'
+import { utils, providers } from 'ethers'
+import { BigNumber } from '@ethersproject/bignumber'
+import { BytesLike } from '@ethersproject/bytes'
 import {
   COMPOSABLE_COW_CONTRACT_ADDRESS,
   EXTENSIBLE_FALLBACK_HANDLER_CONTRACT_ADDRESS,
@@ -6,8 +8,8 @@ import {
 } from '@cowprotocol/common'
 import { ExtensibleFallbackHandler__factory } from '@cowprotocol/sdk-ethers-v5'
 import { BlockInfo, ConditionalOrderParams } from './types'
-import { Order, OrderBalance, OrderKind } from '@cowprotocol/contracts'
-import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import { OrderBalance, OrderKind } from '@cowprotocol/contracts'
+import type { GPv2Order } from '@cowprotocol/sdk-ethers-v5'
 
 const ERC20_BALANCE_VALUES = ['erc20', '0x5a28e9363bb942b639270062aa6bb295f434bcdfc42c97267bf003f272060dc9']
 const EXTERNAL_BALANCE_VALUES = ['external', '0xabee3b73373acd583a130924aad6dc38cfdc44ba0555ba94ce2ff63980ea0632']
@@ -132,7 +134,20 @@ function kindToString(kind: string) {
   }
 }
 
-export function fromStructToOrder(order: GPv2Order.DataStruct): Order {
+export function fromStructToOrder(order: GPv2Order.DataStruct): {
+  sellToken: string
+  sellAmount: BigNumber
+  buyToken: string
+  buyAmount: BigNumber
+  buyTokenBalance: OrderBalance
+  sellTokenBalance: OrderBalance
+  feeAmount: BigNumber
+  kind: OrderKind
+  receiver: string
+  validTo: number
+  partiallyFillable: boolean
+  appData: BytesLike
+} {
   const {
     sellToken,
     sellAmount,
@@ -150,10 +165,10 @@ export function fromStructToOrder(order: GPv2Order.DataStruct): Order {
 
   return {
     sellToken,
-    sellAmount,
+    sellAmount: BigNumber.from(sellAmount),
     buyToken,
-    buyAmount,
-    feeAmount,
+    buyAmount: BigNumber.from(buyAmount),
+    feeAmount: BigNumber.from(feeAmount),
     receiver,
     partiallyFillable,
     appData,

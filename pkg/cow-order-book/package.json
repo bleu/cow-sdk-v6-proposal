@@ -2,12 +2,18 @@
   "name": "@cowprotocol/order-book",
   "version": "0.0.0",
   "private": true,
-  "files": [],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**",
+    "src/__generated__/**"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json --outDir dist/",
     "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
     "lint": "eslint . --ext .ts,.tsx",
     "swagger:codegen": " openapi --input https://raw.githubusercontent.com/cowprotocol/services/v2.291.0/crates/orderbook/openapi.yml --output src/__generated__ --exportServices false --exportCore false"
   },
@@ -30,6 +36,7 @@
     "@types/jest": "^29.5.14",
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "jest-junit": "^16.0.0"
   }
 }

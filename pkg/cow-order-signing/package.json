@@ -12,6 +12,7 @@
     "tsc": "tsc --noEmit",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
@@ -37,6 +38,7 @@
     "@types/jest": "^29.5.14",
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "jest-junit": "^16.0.0"
   }
 }

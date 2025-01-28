@@ -25,7 +25,7 @@ import {
   Trade,
   TransactionHash,
   UID,
-} from '.'
+} from './__generated__'
 import { DEFAULT_BACKOFF_OPTIONS, DEFAULT_LIMITER_OPTIONS, FetchParams, OrderBookApiError, request } from './request'
 import { transformOrder } from './transformOrder'
 import { EnrichedOrder } from './types'

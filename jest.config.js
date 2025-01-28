@@ -12,5 +12,17 @@ module.exports = {
   moduleNameMapper: {
     '^@cowprotocol/(.*)$': '<rootDir>/pkg/$1/src',
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.config.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: 'test-results',
+      outputName: 'jest.results.xml',
+      reportTestSuiteErrors: true,
+      addFileAttribute: true
+    }]
+  ],
+  collectCoverage: true,
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  coverageDirectory: 'coverage'
 }

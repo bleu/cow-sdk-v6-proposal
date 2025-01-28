@@ -12,7 +12,7 @@ import {
   PollResultErrors,
 } from '../types'
 import { encodeParams, formatEpoch, getBlockInfo, isValidAbi } from '../utils'
-import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import type { GPv2Order } from '@cowprotocol/sdk-ethers-v5'
 
 // The type of Conditional Order
 const TWAP_ORDER_TYPE = 'twap'

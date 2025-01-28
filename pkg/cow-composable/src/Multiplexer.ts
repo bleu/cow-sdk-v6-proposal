@@ -4,7 +4,7 @@ import { BigNumber, providers, utils } from 'ethers'
 import { SupportedChainId } from '@cowprotocol/common'
 
 import { ComposableCoW } from '@cowprotocol/sdk-ethers-v5'
-import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import type { GPv2Order } from '@cowprotocol/sdk-ethers-v5'
 import { ProofLocation, ProofWithParams, ConditionalOrderParams } from './types'
 import { ConditionalOrder } from './ConditionalOrder'
 import { getComposableCow } from './contracts'

@@ -1,5 +1,5 @@
 import { BigNumber, constants, ethers, utils } from 'ethers'
-import { GPv2Order, IConditionalOrder } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import type { GPv2Order, IConditionalOrder } from '@cowprotocol/sdk-ethers-v5'
 
 import { decodeParams, encodeParams, fromStructToOrder } from './utils'
 import {

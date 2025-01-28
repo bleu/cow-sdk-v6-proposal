@@ -1,7 +1,7 @@
 import { OrderBookApi } from '@cowprotocol/order-book'
 import { SupportedChainId } from '@cowprotocol/common'
 
-import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import type { GPv2Order } from '@cowprotocol/sdk-ethers-v5'
 import { providers } from 'ethers'
 
 export interface ConditionalOrderArguments<T> {

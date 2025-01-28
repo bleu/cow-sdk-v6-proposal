@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import '../../../cow-order-book/src/__mock__/api'
-import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
+import type { GPv2Order } from '@cowprotocol/sdk-ethers-v5'
 import { OwnerContext, PollParams, PollResultCode, PollResultErrors } from '../types'
 import { DurationType, StartTimeValue, Twap, TWAP_ADDRESS, TwapData } from './Twap'
 import { BigNumber, utils, constants, providers } from 'ethers'
