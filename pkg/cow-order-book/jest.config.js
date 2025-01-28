@@ -19,11 +19,6 @@ module.exports = {
     '^@cowprotocol/common/(.*)$': '<rootDir>/../../pkg/cow-common/src/$1',
     '^@cowprotocol/config$': '<rootDir>/../../pkg/cow-config/src/index.ts',
     '^@cowprotocol/config/(.*)$': '<rootDir>/../../pkg/cow-config/src/$1',
-    // Published packages fallback - these will use the node_modules versions
-    '^@cowprotocol/app-data$': '<rootDir>/../../node_modules/@cowprotocol/app-data/dist/index.js',
-    '^@cowprotocol/app-data/(.*)$': '<rootDir>/../../node_modules/@cowprotocol/app-data/dist/$1',
-    '^@cowprotocol/contracts$': '<rootDir>/../../node_modules/@cowprotocol/contracts/dist/index.js',
-    '^@cowprotocol/contracts/(.*)$': '<rootDir>/../../node_modules/@cowprotocol/contracts/dist/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[tj]sx?$',

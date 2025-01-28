@@ -16,12 +16,13 @@
   },
   "dependencies": {
     "@cowprotocol/order-book": "workspace:*",
-    "@cowprotocol/contracts": "1.6.0",
+    "@cowprotocol/contracts": "1.7.0",
+    "ethers": "^5.4.0",
     "@ethersproject/abstract-signer": "*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.12.0",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
     "eslint-config-prettier": "^10.0.1",

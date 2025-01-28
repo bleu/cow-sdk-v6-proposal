@@ -3,21 +3,24 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "tsconfig.json", "tsconfig.build.json"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.tsbuildinfo"],
+      "cache": false,
+      "env": ["NODE_ENV"]
     },
     "lint": {
+      "dependsOn": ["^build"],
       "outputs": []
     },
     "test": {
-      "dependsOn": [],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
-      "outputs": ["coverage/**", "test-results/**"]
+      "dependsOn": ["^build", "build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "jest.config.js", "jest.setup.ts"],
+      "outputs": ["coverage/**", "test-results/**", "junit.xml"]
     },
     "test:ci": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
-      "outputs": ["coverage/**", "test-results/**"]
+      "dependsOn": ["^build", "build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "jest.config.js", "jest.setup.ts"],
+      "outputs": ["coverage/**", "test-results/**", "junit.xml"]
     },
     "dev": {
       "cache": false,

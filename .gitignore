@@ -52,3 +52,4 @@ docs/typedoc/
 **/src/*.js.map
 **/src/*.d.ts.map
 **/src/*.d.ts
+*/tsconfig.tsbuildinfo

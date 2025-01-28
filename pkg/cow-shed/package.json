@@ -21,13 +21,25 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-config-turbo": "^2.3.4",
     "eslint-plugin-only-warn": "^1.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jest-junit": "^16.0.0",
+    "@testing-library/jest-dom": "^6.4.2",
     "typescript": "5.7.3"
   },
   "dependencies": {
+    "@cowprotocol/common": "workspace:*",
     "@cowprotocol/contracts": "1.6.0",
     "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/constants": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "ethers": "^5.7.2",
-    "@cowprotocol/sdk-ethers-v5": "workspace:^"
+    "@cowprotocol/sdk-ethers-v5": "workspace:^",
+    "@types/jest": "^29.5.14",
+    "jest-environment-node": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "@testing-library/jest-dom": "^6.4.2"
   }
 }
