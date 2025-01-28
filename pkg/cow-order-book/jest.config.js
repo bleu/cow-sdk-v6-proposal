@@ -41,6 +41,4 @@ module.exports = {
       isolatedModules: true,
     },
   },
-  // Add this to ensure node_modules can be resolved correctly
-  moduleDirectories: ['node_modules', '../../node_modules'],
 }

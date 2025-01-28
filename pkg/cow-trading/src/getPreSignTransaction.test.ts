@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom'
 const GAS = '0x1e848' // 125000
 
 jest.mock('cross-fetch', () => {
@@ -12,9 +11,8 @@ jest.mock('cross-fetch', () => {
     default: fetchMock,
   }
 })
-
-jest.mock('@cowprotocol/sdk-ethers-v5', () => {
-  const original = jest.requireActual('@cowprotocol/sdk-ethers-v5')
+jest.mock('../common/generated', () => {
+  const original = jest.requireActual('../common/generated')
 
   return {
     ...original,

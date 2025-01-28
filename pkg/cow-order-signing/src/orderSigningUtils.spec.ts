@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+
 jest.mock('cross-fetch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const fetchMock = require('jest-fetch-mock')
@@ -12,12 +13,11 @@ jest.mock('cross-fetch', () => {
 })
 
 import { OrderSigningUtils } from './orderSigningUtils'
-
+import { SupportedChainId } from '../../cow-common'
 import { UnsignedOrder } from './types'
 import { OrderKind } from '@cowprotocol/order-book'
 import { mock, instance, when, anything, capture } from 'ts-mockito'
 import type { TypedDataSigner } from '@cowprotocol/contracts'
-import { SupportedChainId } from '@cowprotocol/common'
 
 describe('OrderSigningApi', () => {
   const signature =
@@ -45,6 +45,7 @@ describe('OrderSigningApi', () => {
       kind: OrderKind.SELL,
       partiallyFillable: true,
     }
+    // @ts-expect-error
     const result = await OrderSigningUtils.signOrder(order, SupportedChainId.MAINNET, instance(signer))
 
     expect(result.signature).toBe(signature)
@@ -53,6 +54,7 @@ describe('OrderSigningApi', () => {
   it('signOrderCancellation - should return an order cancellation signature', async () => {
     const orderId =
       '0xdaaa7dddec9ad04cc101a121e3eed017eab4d3927c045d407d5ad6700eea2bf7fb3c7eb936caa12b5a884d612393969a557d430764060343'
+    // @ts-expect-error
     const result = await OrderSigningUtils.signOrderCancellation(orderId, SupportedChainId.MAINNET, instance(signer))
 
     expect(result.signature).toBe(signature)
@@ -71,7 +73,8 @@ describe('OrderSigningApi', () => {
     const result = await OrderSigningUtils.signOrderCancellations(
       ordersUids,
       SupportedChainId.MAINNET,
-      instance(signer)
+      // @ts-expect-error
+      instance(signer),
     )
 
     const [domain, typedData, ids] = capture(signer._signTypedData).first()

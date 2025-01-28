@@ -32,11 +32,11 @@ export async function getDomainVerifier(
   safe: string,
   domain: string,
   chainId: SupportedChainId,
-  provider: providers.Provider
+  provider: providers.Provider,
 ): Promise<string> {
   const contract = ExtensibleFallbackHandler__factory.connect(
     EXTENSIBLE_FALLBACK_HANDLER_CONTRACT_ADDRESS[chainId],
-    provider
+    provider,
   )
   return await contract.callStatic.domainVerifiers(safe, domain)
 }

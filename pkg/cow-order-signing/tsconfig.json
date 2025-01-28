@@ -14,7 +14,10 @@
       "@cowprotocol/common/*": ["../cow-common/src/*"],
       "@cowprotocol/order-book": ["../cow-order-book/src"],
       "@cowprotocol/order-book/*": ["../cow-order-book/src/*"]
-    }
+    },
+    "types": ["jest", "node"],
+    "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
+    "skipLibCheck": true
   },
   "references": [{ "path": "../cow-common" }, { "path": "../cow-order-book" }]
 }

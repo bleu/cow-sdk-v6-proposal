@@ -20,7 +20,7 @@ jest.mock('./contracts')
 
 jest.mock('@cowprotocol/cow-ts')
 
-const mockGetComposableCow = getComposableCow as jest.MockedFunction<typeof getComposableCow>
+const mockGetComposableCow = getComposableCow as jest.MockedFunction<typeof getComposableCow>;
 const mockComputeOrderUid = computeOrderUid as jest.MockedFunction<typeof computeOrderUid>
 
 const TWAP_SERIALIZED = (salt?: string, handler?: string): string => {

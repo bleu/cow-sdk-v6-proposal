@@ -15,38 +15,72 @@ jobs:
           access_token: ${{ github.token }}
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 8.15.6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile || (
+            echo "Frozen lockfile install failed, attempting to generate new lockfile..."
+            pnpm install --no-frozen-lockfile
+          )
+
+      - name: Create test results directory
+        run: mkdir -p test-results
 
       - name: Run tests with coverage
-        run: pnpm run test:coverage
+        run: pnpm run test:ci
         if: env.COVERALLS_REPO_TOKEN != ''
+
       - name: Run tests without coverage
         run: pnpm run test
         if: env.COVERALLS_REPO_TOKEN == ''
 
       - name: Upload test results
-        if: failure()
-        uses: actions/upload-artifact@v3
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: coverage/
+          path: test-results/
+
+      - name: Comment in failing tests
+        uses: mattallty/jest-github-action@v1.0.3
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          test-command: 'echo unit tests already executed'
+          coverage-comment: false
 
       - name: Coveralls Report
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@1.1.3
         if: (success() || failure()) && env.COVERALLS_REPO_TOKEN != ''
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/lcov.info

@@ -1,17 +1,13 @@
 {
-  "extends": "../../pkg/config-typescript/base.json",
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"],
+  "extends": "../config-typescript/base.json",
+  "include": ["./src"],
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
     "paths": {
-      "@cowprotocol/common": ["./src"],
       "@cowprotocol/common/*": ["./src/*"]
     }
   },
-  "references": []
+  "exclude": ["dist", "build", "node_modules"]
 }

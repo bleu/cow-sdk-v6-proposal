@@ -38,4 +38,5 @@ module.exports = {
       isolatedModules: true,
     },
   },
+  moduleDirectories: ['node_modules', '../../node_modules'],
 }
