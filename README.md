@@ -1,14 +1,10 @@
-# Turborepo starter with Rollup
+# CoW Protocol SDK
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+A comprehensive SDK for interacting with the CoW Protocol, providing a modular and flexible architecture for different web3 provider implementations.
 
-## Using this example
+## Project Structure
 
-Run the following command:
-
-```sh
-npx create-turbo@latest -e with-rollup
-```
+The SDK is organized as a monorepo containing the following key packages:
 
 ## What's inside?
 
