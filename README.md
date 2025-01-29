@@ -1,83 +1,116 @@
-# Turborepo starter with Rollup
+# CoW Protocol SDK
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+A comprehensive SDK for interacting with the CoW Protocol, providing a modular and flexible architecture for different web3 provider implementations.
 
-## Using this example
+## Project Structure
 
-Run the following command:
+The SDK is organized as a monorepo containing the following key packages:
 
-```sh
-npx create-turbo@latest -e with-rollup
+### Core Packages
+- `cow-sdk`: The main SDK package providing core functionality
+- `cow-order-book`: Order book API implementation
+- `cow-subgraph`: Subgraph API for accessing on-chain data
+- `cow-trading`: Trading functionality implementation
+- `cow-common`: Shared utilities and types
+
+### Web3 Provider Implementations
+- `cow-sdk-ethers-v5`: Implementation for ethers.js v5
+- `cow-sdk-ethers-v6`: Implementation for ethers.js v6
+- `cow-sdk-viem`: Implementation using viem
+- `cow-sdk-wagmi`: Implementation for wagmi hooks
+
+### Support Packages
+- `cow-abi`: Contract ABIs
+- `cow-config`: Configuration utilities
+- `cow-composable`: Composable order utilities
+- `cow-order-signing`: Order signing utilities
+- `config-typescript`, `config-eslint`: Shared configurations
+
+## Architecture
+
+The SDK is built around three main APIs:
+
+1. **Order Book API**: Manages orders lifecycle (creation, querying, cancellation)
+2. **Subgraph API**: Provides access to indexed on-chain data
+3. **Metadata API**: Handles order metadata encoding/decoding
+
+### Key Features
+- Provider-agnostic core functionality
+- Modular architecture allowing flexible web3 provider integration
+- Comprehensive order management system
+- Type-safe implementations
+
+## Component Interactions
+
+```mermaid
+flowchart LR
+    SDK[cow-sdk]
+    OrderBookApi[Order Book API]
+    SubgraphApi[Subgraph API]
+    MetadataApi[Metadata API]
+
+    SDK --> OrderBookApi
+    SDK --> SubgraphApi
+    SDK --> MetadataApi
 ```
 
-## What's inside?
+The SDK provides a unified interface while maintaining clear separation between:
+- Core protocol interactions
+- Web3 provider implementations
+- Support utilities
 
-This Turborepo includes the following packages/apps:
+## Development
 
-### Apps and Packages
-
-- `web`: a [Next.js](https://nextjs.org) app
-- `@cowprotocol/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@cowprotocol/otocol/typescript-config`: `tsconfig.json`s used throughout the monorepo
-- `@cowprotocol/otocol/ui`: a React component library used by the `web` application, compiled with Rollup
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm run build
+### Building
+```bash
+pnpm install
+pnpm build
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm run dev
+### Development Mode
+```bash
+pnpm dev
 ```
 
-### Remote Caching
+## Architecture Decisions
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+1. **Provider Agnostic Core**: The core SDK functionality is separated from web3 provider implementations, allowing for:
+   - Easy integration of new providers
+   - Maintenance of provider-specific optimizations
+   - Reduced dependency conflicts
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+2. **Monorepo Structure**: Using Turborepo for:
+   - Consistent development experience
+   - Efficient build caching
+   - Clear package boundaries
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+3. **Type Safety**: Comprehensive TypeScript implementation across all packages
 
-```
-cd my-turborepo
+### Current Implementation vs. Future Goals
+
+While the architecture is designed to be provider-agnostic, some aspects are still in transition:
+- Currently, only `cow-sdk-ethers-v5` has a direct dependency on ethers.js
+- Future implementations will further isolate provider dependencies
+- The goal is to maintain clean boundaries between core functionality and provider-specific code
+
+## Remote Caching
+
+The project uses Turborepo's Remote Caching feature for improved build performance across teams and CI/CD pipelines. To enable Remote Caching:
+
+1. Authenticate with Vercel:
+```bash
 npx turbo login
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
+2. Link your Turborepo to Remote Cache:
+```bash
 npx turbo link
 ```
 
 ## Useful Links
 
-Learn more about the power of Turborepo:
-
+Learn more about Turborepo features:
 - [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
 - [Caching](https://turborepo.org/docs/core-concepts/caching)
 - [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
 - [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
