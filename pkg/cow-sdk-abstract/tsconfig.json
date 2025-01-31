@@ -1,0 +1,20 @@
+{
+  "extends": "../../pkg/config-typescript/base.json",
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "paths": {
+      "@cowprotocol/abi": ["../cow-abi/src"],
+      "@cowprotocol/abi/*": ["../cow-abi/src/*"],
+      "@cowprotocol/common": ["../cow-common/src"],
+      "@cowprotocol/common/*": ["../cow-common/src/*"],
+
+    }
+  },
+  "references": [{ "path": "../cow-abi" }, { "path": "../cow-common" }]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@cowprotocol/sdk-abstract",
+  "version": "0.0.0",
+  "private": true,
+  "main": "tist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json --outDir dist/",
+    "tsc": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@cowprotocol/abi": "workspace:^",
+    "@cowprotocol/common": "workspace:^"
+  },
+  "devDependencies": {
+    "typescript": "5.7.3"
+  }
+}
