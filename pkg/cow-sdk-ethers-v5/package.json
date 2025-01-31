@@ -18,7 +18,10 @@
     "ethers": "^5.7.2",
     "@ethersproject/abstract-signer": "*",
     "@ethersproject/abi": "*",
-    "@ethersproject/providers": "*"
+    "@ethersproject/providers": "*",
+    "@cowprotocol/sdk-abstract": "workspace:*",
+    "@cowprotocol/order-book": "workspace:*",
+    "@cowprotocol/abi": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
