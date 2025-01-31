@@ -1,7 +1,9 @@
+import { Address, BytesString } from '@cowprotocol/sdk-abstract'
+
 export interface ICoWShedOptions {
-  factoryAddress: string
-  proxyCreationCode?: string
-  implementationAddress: string
+  factoryAddress: Address
+  proxyCreationCode?: BytesString
+  implementationAddress: Address
 }
 
 export interface ICoWShedCall {
@@ -10,12 +12,6 @@ export interface ICoWShedCall {
   callData: string
   allowFailure: boolean
   isDelegateCall: boolean
-}
-
-export interface ICoWShedOptions {
-  factoryAddress: string
-  proxyCreationCode?: string
-  implementationAddress: string
 }
 
 export const DOMAIN_TYPE = {

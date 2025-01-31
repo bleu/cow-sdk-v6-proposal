@@ -16,15 +16,15 @@
       "@cowprotocol/cow-config/*": ["../cow-config/src/*"],
       "@cowprotocol/sdk-ethers-v5": ["../cow-sdk-ethers-v5/src"],
       "@cowprotocol/sdk-ethers-v5/*": ["../cow-sdk-ethers-v5/src/*"],
-      "@cowprotocol/order-signing": ["../cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"]
+      "@cowprotocol/signing": ["../cow-signing/src"],
+      "@cowprotocol/signing/*": ["../cow-signing/src/*"]
     }
   },
   "references": [
     { "path": "../cow-common" },
     { "path": "../cow-config" },
     { "path": "../cow-order-book" },
-    { "path": "../cow-order-signing" },
+    { "path": "../cow-signing" },
     { "path": "../cow-sdk-ethers-v5" }
   ]
 }

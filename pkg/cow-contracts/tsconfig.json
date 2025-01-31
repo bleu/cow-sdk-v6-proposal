@@ -1,6 +1,6 @@
 {
   "extends": "../../pkg/config-typescript/base.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../cow-common/src/types.ts", "../cow-common/src/order.ts"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "outDir": "./dist",
@@ -8,15 +8,10 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-      "paths": {
+    "paths": {
       "@cowprotocol/sdk-abstract": ["../cow-sdk-abstract/src"],
       "@cowprotocol/sdk-abstract/*": ["../cow-sdk-abstract/src/*"],
-      "@cowprotocol/common": ["../cow-common/src"],
-      "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/abi": ["../cow-abi/src"],
-      "@cowprotocol/abi/*": ["../cow-abi/src/*"],
-
     }
   },
-  "references": [{ "path": "../cow-sdk-abstract", }, { "path": "../cow-common" }, { "path": "../cow-abi" }]
+  "references": [{ "path": "../cow-sdk-abstract" }]
 }

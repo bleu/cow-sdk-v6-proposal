@@ -10,11 +10,14 @@ export const COW_SHED_IMPLEMENTATION = '0x2CFFA8cf11B90C9F437567b86352169dF4009F
 const VAULT_RELAYER = '0xC92E8bdf79f0507f65a392b0ab4667716BFE0110'
 const SETTLEMENT_CONTRACT = '0x9008D19f58AAbD9eD0D60971565AA8510560ab41'
 
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+export const ZERO_BYTES32 = '0x0000000000000000000000000000000000000000000000000000000000000000'
+
 /**
  * The list of supported chains.
  */
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = Object.values(SupportedChainId).filter(
-  (chainId) => typeof chainId === 'number'
+  (chainId) => typeof chainId === 'number',
 ) as SupportedChainId[]
 
 export function mapSupportedNetworks<T>(value: (chainId: SupportedChainId) => T): Record<SupportedChainId, T>
@@ -25,7 +28,7 @@ export function mapSupportedNetworks<T>(value: T | ((chainId: SupportedChainId) 
       ...acc,
       [chainId]: typeof value === 'function' ? (value as (chainId: SupportedChainId) => T)(chainId) : value,
     }),
-    {}
+    {},
   )
 }
 

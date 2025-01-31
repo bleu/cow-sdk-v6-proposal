@@ -16,8 +16,8 @@
       "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
       "@cowprotocol/cow-ts": ["../../pkg/cow-ts/src"],
       "@cowprotocol/cow-ts/*": ["../../pkg/cow-ts/src/*"],
-      "@cowprotocol/order-signing": ["../../pkg/cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["../../pkg/cow-order-signing/src/*"]
+      "@cowprotocol/signing": ["../../pkg/cow-signing/src"],
+      "@cowprotocol/signing/*": ["../../pkg/cow-signing/src/*"]
     }
   },
   "include": ["src/**/*.ts"],
@@ -26,7 +26,7 @@
     { "path": "../cow-common/tsconfig.build.json" },
     { "path": "../cow-ts/tsconfig.build.json" },
     { "path": "../cow-order-book/tsconfig.build.json" },
-    { "path": "../cow-order-signing/tsconfig.build.json" },
+    { "path": "../cow-signing/tsconfig.build.json" },
     { "path": "../cow-sdk-ethers-v5/tsconfig.build.json" }
   ]
 }

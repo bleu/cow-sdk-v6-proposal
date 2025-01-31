@@ -1,5 +1,5 @@
-import { OrderSigningUtils } from '@cowprotocol/order-signing'
-import type { UnsignedOrder } from '@cowprotocol/order-signing'
+import { OrderSigningUtils } from '@cowprotocol/signing'
+import type { UnsignedOrder } from '@cowprotocol/signing'
 import {
   BARN_ETH_FLOW_ADDRESSES,
   ETH_FLOW_ADDRESSES,

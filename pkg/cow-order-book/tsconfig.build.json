@@ -16,8 +16,8 @@
       "@cowprotocol/sdk-ethers-v5/*": ["../../pkg/cow-sdk-ethers-v5/src/*"],
       "@cowprotocol/order-book": ["../../pkg/cow-order-book/src"],
       "@cowprotocol/order-book/*": ["../../pkg/cow-order-book/src/*"],
-      "@cowprotocol/order-signing": ["../../pkg/cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["../../pkg/cow-order-signing/src/*"]
+      "@cowprotocol/signing": ["../../pkg/cow-signing/src"],
+      "@cowprotocol/signing/*": ["../../pkg/cow-signing/src/*"]
     }
   },
   "references": [{ "path": "../cow-common/tsconfig.build.json" }, { "path": "../cow-config/tsconfig.build.json" }]

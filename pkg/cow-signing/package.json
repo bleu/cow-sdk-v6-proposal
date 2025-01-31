@@ -1,5 +1,5 @@
 {
-  "name": "@cowprotocol/order-signing",
+  "name": "@cowprotocol/signing",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
@@ -16,11 +16,8 @@
     "test:ci": "jest --passWithNoTests --ci --coverage --coverageDirectory=./coverage --coverageReporters=json-summary --reporters=default --reporters=jest-junit"
   },
   "dependencies": {
-    "@cowprotocol/order-book": "workspace:*",
-    "@cowprotocol/contracts": "1.7.0",
-    "ethers": "^5.4.0",
-    "@ethersproject/abstract-signer": "*",
-    "@ethersproject/hash": "*"
+    "@cowprotocol/contracts": "workspace:*",
+    "@cowprotocol/sdk-abstract": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

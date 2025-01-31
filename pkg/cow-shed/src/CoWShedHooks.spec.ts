@@ -1,13 +1,14 @@
 import '@testing-library/jest-dom'
 import { Wallet } from 'ethers'
 import { CowShedHooks } from './CoWShedHooks'
-import { AddressZero } from '@ethersproject/constants'
 import { ICoWShedCall } from './types'
-import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION } from '@cowprotocol/common'
+import { COW_SHED_FACTORY, COW_SHED_IMPLEMENTATION, ZERO_ADDRESS } from '@cowprotocol/common'
 import { COW_SHED_PROXY_INIT_CODE } from './proxyInitCode'
-import { SigningScheme } from '@cowprotocol/contracts'
+// import { SigningScheme } from '@cowprotocol/contracts'
 import { formatBytes32String, solidityPack } from 'ethers/lib/utils'
 import * as contracts from './contracts'
+import { SigningScheme } from '@cowprotocol/signing'
+import { EthersV5Adapter, EthersV5Signer } from '@cowprotocol/sdk-ethers-v5'
 
 // information from mint and dai example of cow-shed repository
 // https://github.com/cowdao-grants/cow-shed/blob/main/examples/mintDaiAndSwap.ts
@@ -21,7 +22,7 @@ const PROXY_MOCK = '0xB34c56557a1ec3617572C6cDd814A1a9F9A20A51'
 
 const CALLS_MOCK: ICoWShedCall[] = [
   {
-    target: AddressZero,
+    target: ZERO_ADDRESS,
     value: BigInt(0),
     callData: '0xabcdef',
     allowFailure: false,
@@ -72,12 +73,12 @@ describe('CowShedHooks', () => {
 
   describe('getDomain', () => {
     it('should return the correct domain', () => {
-      const domain = cowShed.getDomain(AddressZero)
+      const domain = cowShed.getDomain(ZERO_ADDRESS)
       expect(domain).toEqual({
         name: 'COWShed',
         version: '1.0.0',
         chainId: 1,
-        verifyingContract: AddressZero,
+        verifyingContract: ZERO_ADDRESS,
       })
     })
   })
@@ -115,7 +116,7 @@ describe('CowShedHooks', () => {
         encodeFunctionData: mockEncodeFunctionData,
       }
 
-      // @ts-expect-error
+      // @ts-ignore
       jest.spyOn(contracts, 'getCoWShedFactoryInterface').mockReturnValue(mockInterface)
 
       const result = cowShed.encodeExecuteHooksForFactory(CALLS_MOCK, mockNonce, mockDeadline, USER_MOCK, mockSignature)
@@ -134,7 +135,9 @@ describe('CowShedHooks', () => {
 
   describe('signCalls', () => {
     it('should sign calls correctly', async () => {
-      const mockSigner = Wallet.createRandom()
+      const mockWallet = Wallet.createRandom()
+
+      const mockSigner = new EthersV5Signer(mockWallet)
 
       const signature = await cowShed.signCalls(CALLS_MOCK, mockNonce, mockDeadline, mockSigner, SigningScheme.EIP712)
       expect(signature).toBeDefined()

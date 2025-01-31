@@ -9,11 +9,12 @@
     "declaration": true,
     "declarationMap": true,
     "paths": {
+      "@cowprotocol/abi": ["../cow-abi/src"],
+      "@cowprotocol/abi/*": ["../cow-abi/src/*"],
       "@cowprotocol/common": ["../cow-common/src"],
       "@cowprotocol/common/*": ["../cow-common/src/*"],
-      "@cowprotocol/order-signing": ["../cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"]
+
     }
   },
-  "references": [{ "path": "../cow-common" }, { "path": "../cow-order-signing" }]
+  "references": [{ "path": "../cow-abi" }, { "path": "../cow-common" }]
 }

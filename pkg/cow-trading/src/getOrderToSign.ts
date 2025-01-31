@@ -4,7 +4,7 @@ import {
   type OrderParameters,
   SellTokenSource,
 } from '@cowprotocol/order-book'
-import { UnsignedOrder } from '@cowprotocol/order-signing'
+import { UnsignedOrder } from '@cowprotocol/signing'
 import { LimitTradeParameters } from './types'
 import { DEFAULT_QUOTE_VALIDITY } from './consts'
 
@@ -16,7 +16,7 @@ interface OrderToSignParams {
 export function getOrderToSign(
   { from, networkCostsAmount = '0' }: OrderToSignParams,
   limitOrderParams: LimitTradeParameters,
-  appDataKeccak256: string
+  appDataKeccak256: string,
 ): UnsignedOrder {
   const {
     sellAmount,

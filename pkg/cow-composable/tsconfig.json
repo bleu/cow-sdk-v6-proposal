@@ -14,8 +14,8 @@
       "@cowprotocol/cow-config/*": ["../cow-config/src/*"],
       "@cowprotocol/sdk-ethers-v5": ["../cow-sdk-ethers-v5/src"],
       "@cowprotocol/sdk-ethers-v5/*": ["../cow-sdk-ethers-v5/src/*"],
-      "@cowprotocol/order-signing": ["../cow-order-signing/src"],
-      "@cowprotocol/order-signing/*": ["../cow-order-signing/src/*"],
+      "@cowprotocol/signing": ["../cow-signing/src"],
+      "@cowprotocol/signing/*": ["../cow-signing/src/*"],
       "@cowprotocol/order-book": ["../cow-order-book/src"],
       "@cowprotocol/order-book/*": ["../cow-order-book/src/*"]
     }
@@ -24,7 +24,6 @@
     { "path": "../cow-common" },
     { "path": "../cow-order-book" },
     { "path": "../cow-sdk-ethers-v5" },
-    { "path": "../cow-ts" },
-    { "path": "../cow-order-signing" }
+    { "path": "../cow-signing" }
   ]
 }

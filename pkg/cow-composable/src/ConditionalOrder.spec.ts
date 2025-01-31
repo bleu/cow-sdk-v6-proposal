@@ -12,7 +12,6 @@ import { getComposableCow } from './contracts'
 import { constants } from 'ethers'
 import { OwnerContext, PollParams, PollResultCode, PollResultErrors } from './types'
 import { BuyTokenDestination, OrderKind, SellTokenSource } from '@cowprotocol/order-book'
-import { computeOrderUid } from '@cowprotocol/cow-ts'
 import { GPv2Order } from '@cowprotocol/sdk-ethers-v5/__generated__/ComposableCoW'
 import { OrderBookApi } from '@cowprotocol/order-book'
 

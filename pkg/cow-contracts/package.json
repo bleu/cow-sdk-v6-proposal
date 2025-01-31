@@ -1,5 +1,5 @@
 {
-  "name": "@cowprotocol/cow-ts",
+  "name": "@cowprotocol/contracts",
   "version": "0.0.0",
   "private": true,
   "main": "tist/index.js",
@@ -14,11 +14,7 @@
   },
   "dependencies": {
     "@cowprotocol/common": "workspace:^",
-    "@cowprotocol/order-signing": "workspace:^",
-    "@cowprotocol/contracts": "1.6.0",
-    "@ethersproject/bytes": "^5.7.0",
-    "@ethersproject/abi": "^5.7.0",
-    "@ethersproject/abstract-signer": "^5.7.0",
+    "@cowprotocol/sdk-abstract": "workspace:^",
     "ethers": "^5.7.2"
   },
   "devDependencies": {
