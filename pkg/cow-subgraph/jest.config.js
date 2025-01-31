@@ -13,7 +13,7 @@ module.exports = {
     ],
   },
   moduleNameMapper: {
-    '^@cowprotocol/order-signing/(.*)$': '<rootDir>/src/$1',
+    '^@cowprotocol/signing/(.*)$': '<rootDir>/src/$1',
     '^@cowprotocol/common$': '<rootDir>/../../pkg/cow-common/src/index.ts',
     '^@cowprotocol/common/(.*)$': '<rootDir>/../../pkg/cow-common/src/$1',
     '^@cowprotocol/cow-config$': '<rootDir>/../../pkg/cow-config/src/index.ts',

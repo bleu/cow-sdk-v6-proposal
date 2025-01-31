@@ -34,7 +34,7 @@
     "@cowprotocol/common": "workspace:*",
     "@cowprotocol/cow-config": "workspace:*",
     "@cowprotocol/order-book": "workspace:*",
-    "@cowprotocol/order-signing": "workspace:*",
+    "@cowprotocol/signing": "workspace:*",
     "@cowprotocol/sdk-ethers-v5": "workspace:*"
   }
 }

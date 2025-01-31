@@ -13,7 +13,7 @@ import type { Signer } from '@ethersproject/abstract-signer'
 import type { SupportedChainId } from '@cowprotocol/common'
 import type { CowEnv } from '@cowprotocol/cow-config'
 import type { ExternalProvider } from '@ethersproject/providers'
-import type { UnsignedOrder } from '@cowprotocol/order-signing'
+import type { UnsignedOrder } from '@cowprotocol/signing'
 
 export type PrivateKey = string // 64 characters
 export type AccountAddress = `0x${string}` // 42 characters

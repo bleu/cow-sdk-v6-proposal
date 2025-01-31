@@ -57,7 +57,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           # Run tests for all packages with tests
-          for pkg in cow-composable cow-order-book cow-trading cow-subgraph cow-shed cow-order-signing; do
+          for pkg in cow-composable cow-order-book cow-trading cow-subgraph cow-shed cow-signing; do
             echo "Running tests for $pkg"
             cd pkg/$pkg
             mkdir -p coverage
@@ -135,16 +135,16 @@ jobs:
           annotations: coverage
           output: comment, report-markdown
 
-      - name: Generate coverage report for cow-order-signing
+      - name: Generate coverage report for cow-signing
         if: github.event_name == 'pull_request'
         uses: ArtiomTr/jest-coverage-report-action@v2.3.1
         continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: pnpm
-          working-directory: pkg/cow-order-signing
+          working-directory: pkg/cow-signing
           test-script: pnpm run test:ci
           skip-step: install
-          custom-title: "Coverage Report - cow-order-signing"
+          custom-title: "Coverage Report - cow-signing"
           annotations: coverage
           output: comment, report-markdown

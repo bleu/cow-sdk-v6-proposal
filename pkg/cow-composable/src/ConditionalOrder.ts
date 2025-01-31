@@ -15,7 +15,6 @@ import {
 } from './types'
 import { getComposableCow, getComposableCowInterface } from './contracts'
 import { UID } from '@cowprotocol/order-book'
-import { computeOrderUid } from '@cowprotocol/cow-ts'
 
 /**
  * An abstract base class from which all conditional orders should inherit.
@@ -280,7 +279,7 @@ export abstract class ConditionalOrder<D, S> {
         owner,
         this.leaf,
         this.offChainInput,
-        []
+        [],
       )
 
       const orderUid = await computeOrderUid(chainId, owner, fromStructToOrder(order))
@@ -364,7 +363,7 @@ export abstract class ConditionalOrder<D, S> {
   protected abstract handlePollFailedAlreadyPresent(
     orderUid: UID,
     order: GPv2Order.DataStruct,
-    params: PollParams
+    params: PollParams,
   ): Promise<PollResultErrors | undefined>
 
   /**
@@ -401,7 +400,7 @@ export abstract class ConditionalOrder<D, S> {
     s: string,
     handler: string,
     orderDataTypes: string[],
-    callback: (d: any, salt: string) => T
+    callback: (d: any, salt: string) => T,
   ): T {
     try {
       // First, decode the `IConditionalOrder.Params` struct

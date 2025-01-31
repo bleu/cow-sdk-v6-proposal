@@ -1,6 +1,6 @@
 import { ORDER_TYPE_FIELDS } from '@cowprotocol/contracts'
 import { ORDER_PRIMARY_TYPE, OrderTypedData } from './types'
-import { OrderSigningUtils, UnsignedOrder } from '@cowprotocol/order-signing'
+import { OrderSigningUtils, UnsignedOrder } from '@cowprotocol/signing'
 import { SupportedChainId } from '@cowprotocol/common'
 
 const EIP712DomainTypes = [
@@ -12,7 +12,7 @@ const EIP712DomainTypes = [
 
 export async function getOrderTypedData(
   chainId: SupportedChainId,
-  orderToSign: UnsignedOrder
+  orderToSign: UnsignedOrder,
 ): Promise<OrderTypedData> {
   const domain = (await OrderSigningUtils.getDomain(chainId)) as OrderTypedData['domain']
 

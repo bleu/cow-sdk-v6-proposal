@@ -22,7 +22,7 @@
     "@cowprotocol/cow-shed": "workspace:^",
     "@cowprotocol/eslint-config": "workspace:^",
     "@cowprotocol/order-book": "workspace:^",
-    "@cowprotocol/order-signing": "workspace:^",
+    "@cowprotocol/signing": "workspace:^",
     "@cowprotocol/subgraph": "workspace:^",
     "@cowprotocol/trading": "workspace:^",
     "@cowprotocol/typescript-config": "workspace:^",

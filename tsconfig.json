@@ -5,7 +5,7 @@
     { "path": "pkg/cow-common" },
     { "path": "pkg/cow-config" },
     { "path": "pkg/cow-order-book" },
-    { "path": "pkg/cow-order-signing" },
+    { "path": "pkg/cow-signing" },
     { "path": "pkg/cow-subgraph" },
     { "path": "pkg/cow-composable" },
     { "path": "pkg/cow-trading" },

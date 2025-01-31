@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 
-jest.mock('@cowprotocol/order-signing', () => ({
+jest.mock('@cowprotocol/signing', () => ({
   OrderSigningUtils: {
     generateOrderId: jest.fn(),
   },
@@ -8,7 +8,7 @@ jest.mock('@cowprotocol/order-signing', () => ({
 
 import { calculateUniqueOrderId } from './calculateUniqueOrderId'
 import { MAX_VALID_TO_EPOCH, SupportedChainId, WRAPPED_NATIVE_CURRENCIES } from '@cowprotocol/common'
-import { OrderSigningUtils as OrderSigningUtilsMock, UnsignedOrder } from '@cowprotocol/order-signing'
+import { OrderSigningUtils as OrderSigningUtilsMock, UnsignedOrder } from '@cowprotocol/signing'
 import { BuyTokenDestination, OrderKind, SellTokenSource } from '@cowprotocol/order-book'
 
 const orderMock: UnsignedOrder = {
@@ -78,7 +78,7 @@ describe('calculateUniqueOrderId', () => {
               alreadyCalled = true
 
               return true
-            })()
+            })(),
           )
         })
         await calculateUniqueOrderId(SupportedChainId.MAINNET, orderMock, checkEthFlowOrderExists)
